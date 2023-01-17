@@ -4252,9 +4252,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sf2023@workspace:.":
+"sf23@workspace:.":
   version: 0.0.0-use.local
-  resolution: "sf2023@workspace:."
+  resolution: "sf23@workspace:."
   dependencies:
     "@emotion/react": ^11.10.5
     "@emotion/styled": ^11.10.5

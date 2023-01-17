@@ -1,7 +1,7 @@
 import { createTheme } from "@mui/material";
 
 const theme = createTheme({
-  palette: { mode: "dark", background: { default: "#000", paper: "#111" } },
+  palette: { mode: "dark", background: { default: "#E5E7E8", paper: "#111" } },
   components: {
     MuiCssBaseline: {
       styleOverrides: {

@@ -38,7 +38,7 @@ export const Letter = (props: { children: ReactNode }) => {
         bevelSize={0.05}
       >
         {children}
-        <meshStandardMaterial />
+        <meshStandardMaterial color={"black"} />
       </Text3D>
     </Box>
   );
