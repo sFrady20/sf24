@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 import { IUniform } from "three";
-import { SpringProps, SpringValue } from "react-spring";
+import { SpringProps, SpringValue } from "@react-spring/web";
 
 const AppContext = createContext<{
   uniforms: { [key: string]: IUniform<any> };

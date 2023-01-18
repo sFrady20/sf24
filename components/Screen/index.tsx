@@ -8,7 +8,7 @@ import { Scene, PerspectiveCamera, Object3D } from "three";
 import { useApp } from "pages/_app";
 import frag from "shaders/screen.frag.glsl";
 import Slice from "components/Slice";
-import { animated } from "react-spring";
+import { animated } from "@react-spring/web";
 import { usePresence } from "components/AnimatePresence";
 
 const AnimatedSlice = animated(Slice);

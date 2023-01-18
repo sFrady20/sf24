@@ -9,7 +9,7 @@ import { GetServerSidePropsContext } from "next";
 import { createRouter } from "next-connect";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { animated } from "react-spring";
+import { animated } from "@react-spring/web";
 import frag from "shaders/screen.frag.glsl";
 
 const projectList = [

@@ -10,8 +10,10 @@ import Screen from "components/Screen";
 import AnimatePresence from "components/AnimatePresence";
 import fgfrag from "shaders/foreground.frag.glsl";
 import bgfrag from "shaders/background.frag.glsl";
+import canvasTestFrag from "shaders/canvasTest.frag.glsl";
 import { Box, Flex } from "@react-three/flex";
 import "large-small-dynamic-viewport-units-polyfill";
+import CanvasFilter from "components/CanvasFilter";
 
 const seed = Math.random() * 1000;
 
@@ -145,18 +147,15 @@ export default function App(props: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Canvas
-        dpr={[1, 1]}
-        camera={{ fov: 75, position: [0, 0, 3] }}
+      <CanvasFilter
         style={{
+          backgroundImage:
+            "url(https://thumbs.dreamstime.com/z/autumn-fall-nature-scene-autumnal-park-beautiful-77869343.jpg)",
           height: "calc(var(--1svh) * 100)",
           width: "calc(var(--1svw) * 100)",
         }}
-      >
-        <ContextBridge>
-          <ThreeApp {...props} />
-        </ContextBridge>
-      </Canvas>
+        scene={<Screen distance={1} frag={canvasTestFrag} />}
+      />
     </ThemeProvider>
   );
 }
