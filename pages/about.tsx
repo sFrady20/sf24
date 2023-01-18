@@ -1,4 +1,4 @@
-import { Button, Container } from "@mui/material";
+import { Box, Button, Container } from "@mui/material";
 import withGlobal from "middleware/withGlobal";
 import { GetServerSidePropsContext } from "next";
 import { createRouter } from "next-connect";
@@ -12,7 +12,10 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) =>
 
 const Home = (props: {}) => {
   return (
-    <div style={{ background: "#DDD" }}>
+    <Box
+      component={"div"}
+      sx={{ width: "100%", height: "100vh", background: "#637" }}
+    >
       <Container>
         <p>
           I am a creative full-stack developer with over 9 years of experience,
@@ -26,7 +29,7 @@ const Home = (props: {}) => {
           <Button>Test</Button>
         </Link>
       </Container>
-    </div>
+    </Box>
   );
 };
 

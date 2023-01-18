@@ -2,6 +2,7 @@ import withGlobal from "middleware/withGlobal";
 import { GetServerSidePropsContext } from "next";
 import { createRouter } from "next-connect";
 import {
+  Box,
   Button,
   Card,
   CardContent,
@@ -51,7 +52,10 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) =>
 
 const Home = (props: {}) => {
   return (
-    <>
+    <Box
+      component={"div"}
+      sx={{ width: "100%", height: "100vh", background: "#308" }}
+    >
       <Container>
         <Card>
           <CardHeader>HAEYYY</CardHeader>
@@ -63,7 +67,7 @@ const Home = (props: {}) => {
           </CardContent>
         </Card>
       </Container>
-    </>
+    </Box>
   );
 };
 

@@ -6,16 +6,34 @@ import {
   ReactNode,
   useState,
   useRef,
+  useCallback,
+  useEffect,
 } from "react";
+import { throttle } from "lodash";
 
 function CanvasRenderer(props: {
   canvas: HTMLCanvasElement | null;
   svgImg: SVGFEImageElement | null;
 }) {
   const { svgImg, canvas } = props;
-  useFrame(() => {
-    svgImg?.setAttribute("href", canvas?.toDataURL() || "");
-  });
+
+  const render = useCallback((href: string | undefined) => {
+    if (!href) return;
+    svgImg?.setAttribute("href", href || "");
+    requestAnimationFrame(animation);
+  }, []);
+
+  const animation = useCallback(
+    throttle(() => render(canvas?.toDataURL("image/webp", 0.1)), 1000 / 60, {
+      trailing: true,
+    }),
+    []
+  );
+
+  useEffect(() => {
+    requestAnimationFrame(animation);
+  }, []);
+
   return null;
 }
 

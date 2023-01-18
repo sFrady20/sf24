@@ -117,7 +117,7 @@ export default function App(props: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AnimatePresence
+      {/* <AnimatePresence
         enterSpringProps={{
           config: {
             duration: 1000,
@@ -130,7 +130,7 @@ export default function App(props: AppProps) {
         }}
       >
         <Page key={generateKey(router.asPath)} {...props} />
-      </AnimatePresence>
+      </AnimatePresence> */}
     </ThemeProvider>
   );
 }
