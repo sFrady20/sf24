@@ -2,18 +2,20 @@ import { createContext, ReactNode, useContext, useRef } from "react";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import type { AppProps } from "next/app";
 import theme from "theme";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 import { IUniform, Mesh } from "three";
 import { Text3D, useContextBridge } from "@react-three/drei";
-import { ThemeContext } from "@emotion/react";
 import Screen from "components/Screen";
-import AnimatePresence from "components/AnimatePresence";
-import fgfrag from "shaders/foreground.frag.glsl";
-import bgfrag from "shaders/background.frag.glsl";
-import canvasTestFrag from "shaders/canvasTest.frag.glsl";
-import { Box, Flex } from "@react-three/flex";
+import AnimatePresence, {
+  PresenceContext,
+  usePresence,
+} from "components/AnimatePresence";
+import screenFrag from "shaders/screen.frag.glsl";
+import { Box } from "@react-three/flex";
 import "large-small-dynamic-viewport-units-polyfill";
 import CanvasFilter from "components/CanvasFilter";
+import { ThemeContext } from "@emotion/react";
+import { animated, to } from "@react-spring/web";
 
 const seed = Math.random() * 1000;
 
@@ -46,41 +48,7 @@ export const Letter = (props: { children: ReactNode }) => {
   );
 };
 
-const Foreground = () => {
-  const { size } = useThree();
-
-  return (
-    <Screen frag={fgfrag} distance={0}>
-      <directionalLight intensity={1} position={[-1, 1, 1]} />
-      <Flex
-        size={[size.width, size.height, 0]}
-        position={[-size.width / 2, size.height / 2, 0]}
-        padding={32}
-        alignItems={"center"}
-        justifyContent={"center"}
-      >
-        <Box alignItems={"center"}>
-          <Box flexDirection="row" marginBottom={16}>
-            <Letter>S</Letter>
-            <Box width={32}>{() => <></>}</Box>
-            <Letter>F</Letter>
-          </Box>
-          <Box flexDirection="row" marginTop={16}>
-            <Letter>2</Letter>
-            <Box width={32}>{() => <></>}</Box>
-            <Letter>3</Letter>
-          </Box>
-        </Box>
-      </Flex>
-    </Screen>
-  );
-};
-
-const Background = () => {
-  return <Screen frag={bgfrag} distance={1} />;
-};
-
-const ThreeApp = ({ Component, pageProps, router }: AppProps) => {
+const ShaderScene = () => {
   const uniforms = useRef({
     seed: { value: seed },
     time: { value: 0 },
@@ -98,64 +66,71 @@ const ThreeApp = ({ Component, pageProps, router }: AppProps) => {
 
   return (
     <AppContext.Provider value={{ uniforms }}>
-      <AnimatePresence
-        enterSpringProps={{
-          delay: 1000,
-          config: {
-            tension: 10,
-            damping: 100,
-          },
-        }}
-        exitSpringProps={{
-          config: {
-            tension: 10,
-            damping: 100,
-          },
-        }}
-      >
-        <Foreground key={"foreground"} />
-      </AnimatePresence>
-      <AnimatePresence
-        enterSpringProps={(Component as any).enterSpringProps}
-        exitSpringProps={(Component as any).exitSpringProps}
-      >
-        <Component key={router.asPath} {...pageProps} />
-      </AnimatePresence>
-      <AnimatePresence
-        enterSpringProps={{
-          config: {
-            tension: 2,
-            damping: 120,
-          },
-        }}
-        exitSpringProps={{
-          config: {
-            tension: 2,
-            damping: 120,
-          },
-        }}
-      >
-        <Background key={"background"} />
-      </AnimatePresence>
+      <Screen distance={1} frag={screenFrag} />
     </AppContext.Provider>
   );
 };
 
+const AnimatedCanvasFilter = animated(CanvasFilter);
+const Page = (props: AppProps) => {
+  const { Component, pageProps } = props;
+  const ContextBridge = useContextBridge(ThemeContext, PresenceContext);
+
+  const presence = usePresence();
+
+  return (
+    <AnimatedCanvasFilter
+      style={{
+        height: "calc(var(--1svh) * 100)",
+        width: "100vw",
+        position: "absolute",
+        left: 0,
+        top: 0,
+        zIndex: presence.spring.enter.to((x) => (x < 1 ? 0 : 1)),
+        pointerEvents: presence.spring.exit.to((x) =>
+          x === 0 ? "all" : "none"
+        ),
+      }}
+      scene={
+        <ContextBridge>
+          <ShaderScene />
+        </ContextBridge>
+      }
+    >
+      <Component {...pageProps} />
+    </AnimatedCanvasFilter>
+  );
+};
+
+let prevPath = "";
+let id = "";
+function generateKey(path: string) {
+  if (path != prevPath) id = (Math.random() + 1).toString(32).substring(7);
+  const key = `${path}-${id}`;
+  prevPath = path;
+  return key;
+}
+
 export default function App(props: AppProps) {
-  const ContextBridge = useContextBridge(ThemeContext);
+  const { router } = props;
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <CanvasFilter
-        style={{
-          backgroundImage:
-            "url(https://thumbs.dreamstime.com/z/autumn-fall-nature-scene-autumnal-park-beautiful-77869343.jpg)",
-          height: "calc(var(--1svh) * 100)",
-          width: "calc(var(--1svw) * 100)",
+      <AnimatePresence
+        enterSpringProps={{
+          config: {
+            duration: 1000,
+          },
         }}
-        scene={<Screen distance={1} frag={canvasTestFrag} />}
-      />
+        exitSpringProps={{
+          config: {
+            duration: 1000,
+          },
+        }}
+      >
+        <Page key={generateKey(router.asPath)} {...props} />
+      </AnimatePresence>
     </ThemeProvider>
   );
 }

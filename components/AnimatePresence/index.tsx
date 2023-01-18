@@ -16,7 +16,7 @@ const AppContext = createContext<{
 });
 export const useApp = () => useContext(AppContext);
 
-const PresenceContext = createContext<{
+export const PresenceContext = createContext<{
   uniforms: { enter: IUniform<any>; exit: IUniform<any> };
   spring: { enter: SpringValue; exit: SpringValue };
 }>({
@@ -29,8 +29,14 @@ const AnimatePresence = (props: {
   children?: ReactNode;
   enterSpringProps?: SpringProps<number>;
   exitSpringProps?: SpringProps<number>;
+  reuseEntries?: boolean;
 }) => {
-  const { children, enterSpringProps, exitSpringProps } = props;
+  const {
+    children,
+    enterSpringProps,
+    exitSpringProps,
+    reuseEntries = false,
+  } = props;
 
   const [state, setState] = useState<{
     [key: string]: {
@@ -51,12 +57,13 @@ const AnimatePresence = (props: {
         if (!key) return;
 
         let entry = state[key];
-        if (entry) {
+        if (entry && reuseEntries) {
           //update existing
           const entry = state[key];
           entry.child = child;
         } else {
-          console.log("ADDING", key);
+          if (process.env.NODE_ENV === "development")
+            console.log("ADDING", key);
           //add non-existent children
           const uniforms = {
             enter: { value: 0 },
@@ -104,6 +111,8 @@ const AnimatePresence = (props: {
           onRest: (...args) => {
             (exitSpringProps?.onRest as any)?.(...args);
             if (args[0].cancelled) return;
+            if (process.env.NODE_ENV === "development")
+              console.log("REMOVING", key);
             setState(({ ...state }) => {
               delete state[key];
               return state;
@@ -114,7 +123,7 @@ const AnimatePresence = (props: {
 
       return state;
     });
-  }, [children, setState]);
+  }, [children, setState, reuseEntries]);
 
   return (
     <>

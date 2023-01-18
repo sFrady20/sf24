@@ -4,54 +4,50 @@ import {
   DetailedHTMLProps,
   HTMLAttributes,
   ReactNode,
-  useMemo,
   useState,
+  useRef,
 } from "react";
-import { proxy } from "valtio";
-import { useSnapshot } from "valtio/react";
-
-type ImageProxy = {
-  image: string | undefined;
-};
 
 function CanvasRenderer(props: {
   canvas: HTMLCanvasElement | null;
-  store: ImageProxy;
+  svgImg: SVGFEImageElement | null;
 }) {
-  const { store, canvas } = props;
+  const { svgImg, canvas } = props;
   useFrame(() => {
-    store.image = canvas?.toDataURL();
+    svgImg?.setAttribute("href", canvas?.toDataURL() || "");
   });
   return null;
 }
 
-const hidingStyles: CSSProperties = {
+const hidingStyles = (scale: number): CSSProperties => ({
   opacity: 0,
   position: "absolute",
   left: 0,
   top: 0,
-  width: "100%",
-  height: "100%",
+  width: `${scale * 100}%`,
+  height: `${scale * 100}%`,
   pointerEvents: "none",
-};
+});
 
 function CanvasFilter(
-  props: { scene?: ReactNode; children?: ReactNode } & DetailedHTMLProps<
-    HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  >
+  props: {
+    scene?: ReactNode;
+    filter?: ReactNode;
+    children?: ReactNode;
+  } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 ) {
-  const { scene, children, style, ...rest } = props;
+  const { scene, children, filter, style, ...rest } = props;
+
+  const id = useRef((Math.random() + 1).toString(36).substring(7)).current;
 
   const [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null);
-  const store = useMemo(() => proxy<ImageProxy>({ image: undefined }), []);
-  const snap = useSnapshot(store);
+  const [svgImg, setSvgImg] = useState<SVGFEImageElement | null>(null);
 
   return (
     <div
       {...rest}
       style={{
-        filter: "url(#blur)",
+        filter: `url(#${id})`,
         position: "relative",
         ...style,
       }}
@@ -62,28 +58,36 @@ function CanvasFilter(
         camera={{ fov: 75, position: [0, 0, 3] }}
         gl={{ preserveDrawingBuffer: true, alpha: true }}
         style={{
-          ...hidingStyles,
+          ...hidingStyles(0.2),
         }}
       >
-        <CanvasRenderer canvas={canvas} store={store} />
+        <CanvasRenderer canvas={canvas} svgImg={svgImg} />
         {scene}
       </Canvas>
       <svg
         style={{
-          ...hidingStyles,
+          ...hidingStyles(0.2),
         }}
       >
         <defs>
-          <filter id={"blur"} colorInterpolationFilters={"sRGB"}>
-            <feImage xlinkHref={snap.image} result={"SNAP"} />
-            <feComposite
-              in={"SourceGraphic"}
-              in2={"SNAP"}
-              operator="arithmetic"
-              k1="0"
-              k2="0"
-              k3="1"
-              k4="0"
+          <filter id={id} colorInterpolationFilters={"sRGB"}>
+            {filter}
+            <feImage ref={setSvgImg} result={"canvas"} />
+            <feColorMatrix
+              in="canvas"
+              type="matrix"
+              values="0 0 0 0 0
+                      0 0 0 0 0
+                      0 0 0 0 0
+                      0 0 1 0 0"
+              result={"b"}
+            />
+            <feComposite in={"SourceGraphic"} in2={"b"} operator="out" />
+            <feDisplacementMap
+              in2="canvas"
+              scale="50"
+              xChannelSelector="R"
+              yChannelSelector="G"
             />
           </filter>
         </defs>

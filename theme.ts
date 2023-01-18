@@ -1,7 +1,7 @@
 import { createTheme } from "@mui/material";
 
 const theme = createTheme({
-  palette: { background: { default: "#E5E7E8", paper: "#111" } },
+  palette: {},
   components: {
     MuiCssBaseline: {
       styleOverrides: {
