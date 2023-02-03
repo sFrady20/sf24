@@ -1,14 +1,8 @@
 import { Box, Button, Container } from "@mui/material";
-import withGlobal from "middleware/withGlobal";
-import { GetServerSidePropsContext } from "next";
-import { createRouter } from "next-connect";
 import Link from "next/link";
+import { makeServerSideProps } from "util/makeServerSideProps";
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) =>
-  await createRouter()
-    .use(withGlobal())
-    .use(() => ({}))
-    .run(ctx.req, ctx.res);
+export const getServerSideProps = makeServerSideProps();
 
 const Home = (props: {}) => {
   return (
@@ -18,12 +12,9 @@ const Home = (props: {}) => {
     >
       <Container>
         <p>
-          I am a creative full-stack developer with over 9 years of experience,
-          based in Fairfax, Virginia. I specialize in building elegant solutions
-          for clients from all over the world and I'm constantly crafting new
-          features with a focus on simplicity and scalability. I'm available to
-          chat about your next app, website, or game idea, just shoot me an
-          email. Let's build something great together.
+          I am a creative full-stack developer with over 9 years of experiencE.
+          I specialize in building elegant solutions and I'm constantly crafting
+          new features with a focus on simplicity and scalability.
         </p>
         <Link href={"/"}>
           <Button>Test</Button>
