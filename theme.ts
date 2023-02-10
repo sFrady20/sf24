@@ -10,6 +10,7 @@ const theme = createTheme({
       styleOverrides: {
         body: {
           minHeight: "calc(var(--1svh) * 100)",
+          overflowX: "hidden",
 
           ["a, a:visited, a:hover, a:active"]: {
             color: "inherit",

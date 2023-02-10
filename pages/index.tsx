@@ -41,6 +41,33 @@ const projectList = [
 
 export const getServerSideProps = makeServerSideProps();
 
+0.0;
+const ProjectBlock = () => {
+  return (
+    <Box
+      component={"li"}
+      sx={{
+        background: "#313131",
+        height: "100%",
+        paddingRight: "30%",
+        borderRadius: 3,
+        display: "block",
+        padding: 5,
+        backgroundImage: "radial-gradient(#455E59, #313131)",
+      }}
+    >
+      <video
+        autoPlay
+        muted
+        loop
+        style={{ height: "100%", borderRadius: 12, overflow: "hidden" }}
+      >
+        <source src="/videos/abundant.webm" type="video/webm" />
+      </video>
+    </Box>
+  );
+};
+
 const Home = (props: {}) => {
   return (
     <SvgFilter sx={{ height: "calc(var(--1svh) * 100)" }}>
@@ -62,13 +89,13 @@ const Home = (props: {}) => {
       <Typography
         component={"div"}
         sx={{
-          fontSize: 20,
+          fontSize: 14.5,
           textAlign: "justify",
           width: 530,
           maxWidth: "80%",
           position: "absolute",
           left: "50%",
-          top: "14%",
+          top: "15%",
           transform: "translate(-50%, -50%)",
         }}
       >
@@ -76,13 +103,32 @@ const Home = (props: {}) => {
         specialize in building elegant solutions and I'm constantly crafting new
         features with a focus on simplicity and scalability.
       </Typography>
+
+      <Stack
+        direction={"row"}
+        component={"ul"}
+        spacing={4}
+        sx={{
+          position: "absolute",
+          bottom: "15vh",
+          left: 0,
+          right: 0,
+          height: "40vh",
+        }}
+      >
+        <ProjectBlock />
+        <ProjectBlock />
+        <ProjectBlock />
+        <ProjectBlock />
+      </Stack>
+
       <Stack
         direction={"row"}
         justifyContent={"space-between"}
         sx={{ position: "absolute", bottom: "5vh", left: "5vw", width: "88vw" }}
       >
         <Avatar />
-        <Stack direction={"row"} spacing={8}>
+        <Stack direction={"row"} spacing={6}>
           <Box component={"div"}>
             <Link href={"https://github.com/sFrady20"} target="_blank">
               <GithubIcon height={20} />
@@ -94,7 +140,9 @@ const Home = (props: {}) => {
             </Link>
           </Box>
           <Box component={"div"}>
-            <EmailIcon height={20} />
+            <Link href={"mailto:@sfrady20@gmail.com"} target="_blank">
+              <EmailIcon height={20} />
+            </Link>
           </Box>
         </Stack>
         <Typography>RESUME</Typography>
