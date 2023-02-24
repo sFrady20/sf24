@@ -1,19 +1,19 @@
 import {
   Avatar,
   Box,
+  Button,
+  ButtonGroup,
   Chip,
   Container,
+  IconButton,
   Stack,
   Typography,
   useTheme,
 } from "@mui/material";
 import { makeServerSideProps } from "util/makeServerSideProps";
-import GithubIcon from "icons/github.svg";
-import TwitterIcon from "icons/twitter.svg";
-import EmailIcon from "icons/email.svg";
 import Link from "next/link";
 import { CursorContext, CursorTarget } from "components/Cursor";
-import { AnimatedBox, AnimatedImage, AnimatedStack } from "util/animated";
+import { AnimatedBox, AnimatedImage } from "util/animated";
 import {
   Fragment,
   ReactNode,
@@ -23,74 +23,131 @@ import {
   useState,
 } from "react";
 import { SpringProps, SpringValue, to } from "@react-spring/web";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import GithubIcon from "@mui/icons-material/Github";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import EmailIcon from "@mui/icons-material/Email";
+import DownloadIcon from "@mui/icons-material/Download";
+import { useApp } from "./_app";
 
 const projectList = [
   {
     name: "Wanderseat",
     languages: ["typescript", "css"],
     frameworks: ["react", "nextjs", "prisma", "mui"],
+    score: 9,
   },
   {
     name: "Abundant",
     languages: ["typescript", "css"],
     frameworks: ["react", "nextjs", "prisma", "mui", "tailwind"],
+    score: 8,
   },
-  { name: "Home Run Derby", languages: ["c#"], frameworks: ["unity"] },
+  {
+    name: "Home Run Derby",
+    languages: ["c#"],
+    frameworks: ["unity"],
+    score: 8.5,
+  },
   {
     name: "Moneybot",
     languages: ["javascript", "scss"],
-    frameworks: ["nodejs", "electron"],
+    frameworks: ["nodejs", "react", "electron"],
+    score: 4.5,
   },
-  { name: "MASC", languages: ["javascript", "scss"], frameworks: ["electron"] },
-  { name: "Area 51 Defense Squad", languages: ["c#"], frameworks: ["unity"] },
-  { name: "Casino Bandito", languages: ["c#"], frameworks: ["unity"] },
-  { name: "Verizon Juggle", languages: ["c#"], frameworks: ["unity"] },
+  {
+    name: "MASC",
+    languages: ["javascript", "scss"],
+    frameworks: ["electron"],
+    score: 5,
+  },
+  {
+    name: "Area 51 Defense Squad",
+    languages: ["c#"],
+    frameworks: ["unity"],
+    score: 7,
+  },
+  {
+    name: "Casino Bandito",
+    languages: ["c#"],
+    frameworks: ["unity"],
+    score: 5.5,
+  },
+  {
+    name: "Verizon Juggle",
+    languages: ["c#"],
+    frameworks: ["unity"],
+    score: 7,
+  },
   {
     name: "Phonetopia",
     languages: ["javascript", "scss"],
     frameworks: ["nodejs", "react", "electron"],
+    score: 5,
   },
-  { name: "Influence", languages: ["java"], frameworks: ["processing"] },
+  {
+    name: "Influence",
+    languages: ["java"],
+    frameworks: ["processing"],
+    score: 6,
+  },
   {
     name: "Block Party",
     languages: ["actionscript"],
     frameworks: ["flash"],
+    score: 6,
   },
-  { name: "Walt Kart", languages: ["c#"], frameworks: ["unity"] },
+  { name: "Walt Kart", languages: ["c#"], frameworks: ["unity"], score: 7 },
   {
     name: "QuarterVerse",
     languages: ["javascript", "scss"],
     frameworks: ["react"],
+    score: 8,
   },
   {
     name: "Civic Education Kiosk",
     languages: ["javascript", "scss"],
     frameworks: ["react", "electron"],
+    score: 4,
   },
   {
     name: "Centurylink Vikings",
     languages: ["javascript", "scss"],
     frameworks: ["electron"],
+    score: 5,
   },
   {
     name: "Drexls",
     languages: ["brightscript", "java", "php"],
     frameworks: ["roku", "android"],
+    score: 7.5,
   },
-  { name: "Dispatch", languages: ["actionscript"], frameworks: ["flash"] },
-  { name: "Mycota", languages: ["c#"], frameworks: ["unity"] },
+  {
+    name: "Dispatch",
+    languages: ["actionscript"],
+    frameworks: ["flash"],
+    score: 6,
+  },
+  { name: "Mycota", languages: ["c#"], frameworks: ["unity"], score: 5.5 },
   {
     name: "Pit Crew",
     languages: ["typescript", "scss"],
     frameworks: ["react"],
+    score: 5.5,
   },
   {
-    name: "Christmas Pageant",
-    languages: ["typescript", "scss"],
-    frameworks: ["react"],
+    name: "MimicMe",
+    languages: ["javascript"],
+    frameworks: ["react-native"],
+    score: 4.5,
   },
-  { name: "MimicMe", languages: ["javascript"], frameworks: ["react-native"] },
-  { name: "Metal After Man", languages: ["c#"], frameworks: ["unity"] },
+  {
+    name: "Metal After Man",
+    languages: ["c#"],
+    frameworks: ["unity"],
+    score: 5.5,
+  },
 ];
 
 export const getServerSideProps = makeServerSideProps();
@@ -176,10 +233,8 @@ function Project(props: { project: typeof projectList[number] }) {
   return (
     <CursorTarget effect={undefined}>
       {({ hover, isHovered }) => (
-        <AnimatedStack
-          direction={"row"}
-          alignItems={"center"}
-          style={{ paddingLeft: hover.to([0, 1], ["0px", "20px"]) }}
+        <AnimatedBox
+          className={"grid grid-cols-12"}
           sx={{
             borderBottomWidth: 1,
             borderBottomColor: "divider",
@@ -187,18 +242,20 @@ function Project(props: { project: typeof projectList[number] }) {
             position: "relative",
             cursor: "pointer",
           }}
+          style={{ paddingLeft: hover.to([0, 1], ["0px", "20px"]) }}
         >
-          <Box component={"div"}>{project.name}</Box>
-          <Box component={"div"}>
-            {project.languages.map((x) => (
+          <Typography component={"div"} className={"col-span-2"}>
+            {project.name}
+          </Typography>
+          <Box component={"ul"} className={"col-span-5"}>
+            {project.frameworks.map((x) => (
               <Chip key={x} size={"small"} label={x} />
             ))}
-          </Box>
-          <Box component={"div"}>
-            {project.frameworks.map((x) => (
+            {project.languages.map((x) => (
               <Chip key={x} size={"small"} variant={"outlined"} label={x} />
             ))}
           </Box>
+          <Box component={"ul"} className={"col-span-3"}></Box>
           <AnimatedBox
             sx={{
               position: "absolute",
@@ -249,13 +306,15 @@ function Project(props: { project: typeof projectList[number] }) {
               </AnimatedBox>
             )}
           </AnimatePresence>
-        </AnimatedStack>
+        </AnimatedBox>
       )}
     </CursorTarget>
   );
 }
 
 const Home = (props: {}) => {
+  const { themePreset, setThemePreset } = useApp();
+
   return (
     <>
       <Stack
@@ -269,29 +328,67 @@ const Home = (props: {}) => {
           left: "5vw",
           width: "88vw",
           borderRadius: 4,
-          padding: 2,
+          paddingX: 2,
+          paddingY: 1,
           zIndex: 100,
         }}
       >
         <Avatar />
-        <Stack direction={"row"} spacing={6}>
+        <Stack direction={"row"} alignItems={"center"} spacing={4}>
           <Box component={"div"}>
             <Link href={"https://github.com/sFrady20"} target="_blank">
-              <GithubIcon height={20} />
+              <IconButton sx={{ color: "inherit" }}>
+                <GithubIcon />
+              </IconButton>
             </Link>
           </Box>
           <Box component={"div"}>
             <Link href={"https://twitter.com/slowjamsteve"} target="_blank">
-              <TwitterIcon height={20} />
+              <IconButton sx={{ color: "inherit" }}>
+                <TwitterIcon />
+              </IconButton>
             </Link>
           </Box>
           <Box component={"div"}>
             <Link href={"mailto:@sfrady20@gmail.com"} target="_blank">
-              <EmailIcon height={20} />
+              <IconButton sx={{ color: "inherit" }}>
+                <EmailIcon />
+              </IconButton>
             </Link>
           </Box>
+          <Box component={"div"}>
+            <Button
+              startIcon={<DownloadIcon />}
+              color={"inherit"}
+              sx={{ color: "inherit", borderRadius: 10, textTransform: "none" }}
+            >
+              Resume
+            </Button>
+          </Box>
         </Stack>
-        <Typography>RESUME</Typography>
+        <Stack direction={"row"} alignItems={"center"} spacing={2}>
+          <ButtonGroup>
+            <Button variant={"text"} color={"inherit"}>
+              SF23
+            </Button>
+            <Button
+              variant={"text"}
+              color={"inherit"}
+              onClick={() =>
+                setThemePreset({
+                  ...themePreset,
+                  mode: themePreset.mode === "dark" ? "light" : "dark",
+                })
+              }
+            >
+              {themePreset.mode === "dark" ? (
+                <DarkModeIcon />
+              ) : (
+                <LightModeIcon />
+              )}
+            </Button>
+          </ButtonGroup>
+        </Stack>
       </Stack>
 
       <Typography
@@ -326,9 +423,13 @@ const Home = (props: {}) => {
 
       <Container>
         <Stack>
-          {projectList.map((project, i) => (
-            <Project key={i} project={project} />
-          ))}
+          {projectList
+            .sort((a, b) =>
+              a.score > b.score ? -1 : a.score < b.score ? 1 : 0
+            )
+            .map((project, i) => (
+              <Project key={i} project={project} />
+            ))}
         </Stack>
       </Container>
     </>

@@ -1,11 +1,11 @@
-import { createTheme } from "@mui/material";
+import { ThemeOptions } from "@mui/material";
 
-const theme = createTheme({
-  palette: {
-    mode: "dark",
-  },
+export const defaultTheme: ThemeOptions = {
   typography: {
     fontFamily: "Optician",
+  },
+  shape: {
+    borderRadius: 12,
   },
   components: {
     MuiCssBaseline: {
@@ -16,6 +16,9 @@ const theme = createTheme({
 
           ["a, a:visited, a:hover, a:active"]: {
             color: "inherit",
+          },
+          ["ul"]: {
+            margin: 0,
           },
 
           ["& > #__next"]: {
@@ -29,6 +32,4 @@ const theme = createTheme({
       },
     },
   },
-});
-
-export default theme;
+};
