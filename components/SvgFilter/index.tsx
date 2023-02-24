@@ -68,8 +68,8 @@ const SvgFilter = (props: { children?: ReactNode } & BoxProps) => {
         />
       </svg>
       <Box
-        component={"div"}
         {...rest}
+        component={"div"}
         sx={{
           filter: `url(#${id("root")})`,
           ...rest.sx,
