@@ -1,9 +1,16 @@
-const { resolve } = require("path");
 const WindiCSS = require("windicss-webpack-plugin");
 
 const config = {
   swcMinify: false,
   pageExtensions: ["ts", "tsx", "js", "jsx"],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+      },
+    ],
+  },
   webpack: (config, {}) => {
     config.plugins.push(new WindiCSS());
 

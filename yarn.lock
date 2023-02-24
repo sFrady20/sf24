@@ -3363,6 +3363,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jotai@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "jotai@npm:2.0.2"
+  peerDependencies:
+    react: ">=17.0.0"
+  peerDependenciesMeta:
+    react:
+      optional: true
+  checksum: f107d2b8e3b0853cf3fb3978e3a8b0d5b4925957d1901d038ddf534de7f1967d6bfd81b1ef69442fc3d8047176933bf3d9c9b5830d8a01b02ee1daae6d412ef3
+  languageName: node
+  linkType: hard
+
 "js-tokens@npm:^3.0.0 || ^4.0.0, js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -4234,6 +4246,7 @@ __metadata:
     glsl-noise: ^0.0.0
     glslify-loader: ^2.0.0
     immer: ^9.0.16
+    jotai: ^2.0.2
     large-small-dynamic-viewport-units-polyfill: ^0.0.4
     lodash: ^4.17.21
     luxon: ^3.1.0

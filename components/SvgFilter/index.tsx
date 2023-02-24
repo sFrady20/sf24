@@ -1,6 +1,6 @@
 import { Box, type BoxProps } from "@mui/material";
-import { useSpringValue, animated } from "@react-spring/web";
-import { ReactNode, useCallback, useEffect, useMemo, useRef } from "react";
+import { useSpringValue, SpringValue, animated } from "@react-spring/web";
+import { ReactNode, useCallback, useMemo } from "react";
 
 const SvgFilter = (props: { children?: ReactNode } & BoxProps) => {
   const { children, ...rest } = props;
@@ -8,7 +8,7 @@ const SvgFilter = (props: { children?: ReactNode } & BoxProps) => {
   const seed = useMemo(() => Math.random().toString(32).substring(7), []);
   const id = useCallback((part: string) => `${part}-${seed}`, [seed]);
 
-  const spring = useSpringValue(0, {
+  const spring: SpringValue<number> = useSpringValue(0, {
     to: 1,
     onChange: (x) => {},
     onRest: (result) => void spring.start(1 - result.value),
