@@ -338,7 +338,7 @@ const Home = (props: {}) => {
           <Box component={"div"}>
             <Link href={"https://github.com/sFrady20"} target="_blank">
               <IconButton sx={{ color: "inherit" }}>
-                <GithubIcon />
+                <GitHubIcon />
               </IconButton>
             </Link>
           </Box>
