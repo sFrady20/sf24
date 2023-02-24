@@ -7,7 +7,7 @@ import EmailIcon from "icons/email.svg";
 import Link from "next/link";
 
 const projectList = [
-  "Abundant",
+  { name: "Abundant" },
   "Home Run Derby",
   "Moneybot",
   "Wanderseat",
@@ -95,7 +95,7 @@ const Home = (props: {}) => {
           maxWidth: "80%",
           position: "absolute",
           left: "50%",
-          top: "15%",
+          bottom: "15%",
           transform: "translate(-50%, -50%)",
         }}
       >
@@ -104,7 +104,7 @@ const Home = (props: {}) => {
         features with a focus on simplicity and scalability.
       </Typography>
 
-      <Stack
+      {/* <Stack
         direction={"row"}
         component={"ul"}
         spacing={4}
@@ -120,12 +120,12 @@ const Home = (props: {}) => {
         <ProjectBlock />
         <ProjectBlock />
         <ProjectBlock />
-      </Stack>
+      </Stack> */}
 
       <Stack
         direction={"row"}
         justifyContent={"space-between"}
-        sx={{ position: "absolute", bottom: "5vh", left: "5vw", width: "88vw" }}
+        sx={{ position: "absolute", top: "5vh", left: "5vw", width: "88vw" }}
       >
         <Avatar />
         <Stack direction={"row"} spacing={6}>
