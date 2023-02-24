@@ -25,7 +25,7 @@ import {
 import { SpringProps, SpringValue, to } from "@react-spring/web";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-import GithubIcon from "@mui/icons-material/Github";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import EmailIcon from "@mui/icons-material/Email";
 import DownloadIcon from "@mui/icons-material/Download";
