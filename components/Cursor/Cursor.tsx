@@ -1,32 +1,42 @@
-import { animated } from "@react-spring/web";
 import { useContext } from "react";
-import { Box, BoxProps, useTheme } from "@mui/material";
+import { BoxProps } from "@mui/material";
 import { CursorContext } from "./Provider";
 import { AnimatedBox } from "util/animated";
+import { useSpring } from "@react-spring/web";
 
 export function Cursor(props: {} & BoxProps) {
   const { sx } = props;
 
-  const { spring } = useContext(CursorContext);
+  const cursor = useContext(CursorContext);
+
+  const { size } = useSpring({
+    size: cursor.effect?.type === "grow" ? cursor.effect.size : 10,
+  });
 
   return (
     <AnimatedBox
-      className={
-        "transform -translate-x-1/2 -translate-y-1/2 fixed pointer-events-none mix-blend-difference"
-      }
+      className={"mix-blend-difference"}
       sx={{
         zIndex: 1000,
         backgroundColor: "common.white",
         color: "common.black",
         borderRadius: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        transform: "translate(-50%, -50%)",
+        position: "fixed",
+        pointerEvents: "none",
         ...sx,
       }}
       style={{
-        left: spring.x,
-        top: spring.y,
-        width: spring.scale.to((x) => x * 10),
-        height: spring.scale.to((x) => x * 10),
+        left: cursor.x,
+        top: cursor.y,
+        width: size,
+        height: size,
       }}
-    />
+    >
+      {cursor.effect?.type === "grow" ? cursor.effect.content : null}
+    </AnimatedBox>
   );
 }

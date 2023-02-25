@@ -6,6 +6,8 @@ import { CursorContext } from "./Provider";
 export type CursorTargetEffect =
   | {
       type: "grow";
+      size: number;
+      content?: ReactNode;
     }
   | {
       type: "outline";

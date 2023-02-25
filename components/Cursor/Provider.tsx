@@ -3,27 +3,24 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 import { CursorTargetEffect } from "./Target";
 
 export const CursorContext = createContext<{
-  spring: {
-    x: SpringValue<number>;
-    y: SpringValue<number>;
-    scale: SpringValue<number>;
-  };
-  currentTargetEffect: CursorTargetEffect | null;
+  x: SpringValue<number>;
+  y: SpringValue<number>;
+  effect: CursorTargetEffect | null;
   handleTargetEnter: (effect: CursorTargetEffect) => void;
   handleTargetExit: (effect: CursorTargetEffect) => void;
 }>({
-  spring: {} as any,
-  currentTargetEffect: null,
+  x: {} as any,
+  y: {} as any,
+  effect: null,
   handleTargetEnter() {},
   handleTargetExit() {},
 });
 
 export function CursorProvider(props: { children: ReactNode }) {
   const { children } = props;
-  const [spring, springRef] = useSpring(() => ({
+  const [{ x, y }, springRef] = useSpring(() => ({
     x: 0,
     y: 0,
-    scale: 1,
     config: {
       tension: 400,
     },
@@ -39,19 +36,19 @@ export function CursorProvider(props: { children: ReactNode }) {
     };
   }, []);
 
-  const [currentTargetEffect, setCurrentTargetEffect] =
-    useState<CursorTargetEffect | null>(null);
+  const [effect, setEffect] = useState<CursorTargetEffect | null>(null);
 
   return (
     <CursorContext.Provider
       value={{
-        spring,
-        currentTargetEffect,
+        x,
+        y,
+        effect,
         handleTargetEnter(effect) {
-          setCurrentTargetEffect(effect);
+          setEffect(effect);
         },
         handleTargetExit() {
-          setCurrentTargetEffect(null);
+          setEffect(null);
         },
       }}
     >

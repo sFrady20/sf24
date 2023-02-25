@@ -35,14 +35,18 @@ const projectList = [
   {
     name: "Wanderseat",
     languages: ["typescript", "css"],
-    frameworks: ["react", "nextjs", "prisma", "mui"],
+    frameworks: ["react", "nextjs", "prisma", "mui", "tailwind"],
     score: 9,
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim blandit mi, in dignissim arcu tristique sit amet. Etiam euismod tellus massa, quis vestibulum elit lacinia vitae.",
   },
   {
     name: "Abundant",
     languages: ["typescript", "css"],
     frameworks: ["react", "nextjs", "prisma", "mui", "tailwind"],
     score: 8,
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim blandit mi, in dignissim arcu tristique sit amet. Etiam euismod tellus massa, quis vestibulum elit lacinia vitae.",
   },
   {
     name: "Home Run Derby",
@@ -53,13 +57,13 @@ const projectList = [
   {
     name: "Moneybot",
     languages: ["javascript", "scss"],
-    frameworks: ["nodejs", "react", "electron"],
+    frameworks: ["react", "nodejs", "electron"],
     score: 4.5,
   },
   {
     name: "MASC",
     languages: ["javascript", "scss"],
-    frameworks: ["electron"],
+    frameworks: ["react", "ffmpeg", "electron"],
     score: 5,
   },
   {
@@ -83,7 +87,7 @@ const projectList = [
   {
     name: "Phonetopia",
     languages: ["javascript", "scss"],
-    frameworks: ["nodejs", "react", "electron"],
+    frameworks: ["react", "nodejs", "electron"],
     score: 5,
   },
   {
@@ -101,13 +105,13 @@ const projectList = [
   { name: "Walt Kart", languages: ["c#"], frameworks: ["unity"], score: 7 },
   {
     name: "QuarterVerse",
-    languages: ["javascript", "scss"],
+    languages: ["typescript", "scss"],
     frameworks: ["react"],
     score: 8,
   },
   {
     name: "Civic Education Kiosk",
-    languages: ["javascript", "scss"],
+    languages: ["typescript", "scss"],
     frameworks: ["react", "electron"],
     score: 4,
   },
@@ -147,6 +151,12 @@ const projectList = [
     languages: ["c#"],
     frameworks: ["unity"],
     score: 5.5,
+  },
+  {
+    name: "Easy mesh gradient",
+    languages: ["typescript"],
+    frameworks: ["vite"],
+    score: 7,
   },
 ];
 
@@ -231,7 +241,7 @@ function Project(props: { project: typeof projectList[number] }) {
   const cursor = useContext(CursorContext);
 
   return (
-    <CursorTarget effect={undefined}>
+    <CursorTarget effect={{ type: "grow", size: 32, content: <>+</> }}>
       {({ hover, isHovered }) => (
         <AnimatedBox
           className={"grid grid-cols-12"}
@@ -285,7 +295,7 @@ function Project(props: { project: typeof projectList[number] }) {
                 style={{
                   opacity: to([enter, exit], (enter, exit) => enter - exit),
                   transform: to(
-                    [cursor.spring.x, cursor.spring.y, hover],
+                    [cursor.x, cursor.y, hover],
                     (x, y, hover) => `translate(${-50 + x / 10}%, ${-50}%)`
                   ),
                 }}
@@ -333,7 +343,7 @@ const Home = (props: {}) => {
           zIndex: 100,
         }}
       >
-        <Avatar />
+        <Avatar src={"/portrait-trans.png"} sx={{ width: 32, height: 32 }} />
         <Stack direction={"row"} alignItems={"center"} spacing={4}>
           <Box component={"div"}>
             <Link href={"https://github.com/sFrady20"} target="_blank">
