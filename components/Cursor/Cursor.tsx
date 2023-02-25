@@ -13,6 +13,8 @@ export function Cursor(props: {} & BoxProps) {
     size: cursor.effect?.type === "grow" ? cursor.effect.size : 10,
   });
 
+  const Content = cursor.effect?.type === "grow" ? cursor.effect.content : null;
+
   return (
     <AnimatedBox
       className={"mix-blend-difference"}
@@ -36,7 +38,7 @@ export function Cursor(props: {} & BoxProps) {
         height: size,
       }}
     >
-      {cursor.effect?.type === "grow" ? cursor.effect.content : null}
+      {Content && <Content />}
     </AnimatedBox>
   );
 }

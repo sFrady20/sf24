@@ -1,13 +1,13 @@
 import { Box, BoxProps } from "@mui/material";
 import { SpringValue, useSpringValue } from "@react-spring/web";
-import { ReactNode, useContext, useRef, useState } from "react";
+import { ReactNode, useContext, useRef, useState, FC } from "react";
 import { CursorContext } from "./Provider";
 
 export type CursorTargetEffect =
   | {
       type: "grow";
       size: number;
-      content?: ReactNode;
+      content?: FC<{}>;
     }
   | {
       type: "outline";
@@ -44,7 +44,7 @@ export function CursorTarget(
       }}
       onMouseLeave={(e) => {
         hover.start(0);
-        cursor.handleTargetExit(effect);
+        cursor.handleTargetExit();
         setHovered(false);
         onMouseLeave?.(e);
       }}

@@ -20,16 +20,25 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
-import { SpringProps, SpringValue, to } from "@react-spring/web";
+import {
+  animated,
+  SpringProps,
+  SpringValue,
+  to,
+  useSpring,
+} from "@react-spring/web";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import EmailIcon from "@mui/icons-material/Email";
+import AddIcon from "@mui/icons-material/Add";
 import DownloadIcon from "@mui/icons-material/Download";
 import { useApp } from "./_app";
+import { atom, useAtom } from "jotai";
 
 const projectList = [
   {
@@ -235,41 +244,132 @@ function AnimatePresence(props: {
   );
 }
 
+const AnimatedAddIcon = animated(AddIcon);
+
 function Project(props: { project: typeof projectList[number] }) {
   const { project } = props;
   const theme = useTheme();
   const cursor = useContext(CursorContext);
 
+  const expansionAtom = useRef(atom(false)).current;
+  const [isExpanded, setExpanded] = useAtom(expansionAtom);
+
   return (
-    <CursorTarget effect={{ type: "grow", size: 32, content: <>+</> }}>
+    <CursorTarget
+      effect={{
+        type: "grow",
+        size: 40,
+        content: () => {
+          const [isExpanded, setExpanded] = useAtom(expansionAtom);
+          const { expansion } = useSpring({
+            expansion: isExpanded ? 1 : 0,
+            config: { tension: 1000, mass: 3 },
+          });
+          return (
+            <AnimatedBox>
+              <AnimatedAddIcon
+                style={{
+                  // width: expansion.to([0, 1], [10, 16]),
+                  // height: expansion.to([0, 1], [10, 16]),
+                  transform: expansion.to((x) => `rotate(${x * 45}deg)`),
+                }}
+              />
+            </AnimatedBox>
+          );
+        },
+      }}
+      onClick={() => {
+        setExpanded((x) => !x);
+      }}
+    >
       {({ hover, isHovered }) => (
         <AnimatedBox
-          className={"grid grid-cols-12"}
           sx={{
+            position: "relative",
             borderBottomWidth: 1,
             borderBottomColor: "divider",
-            paddingY: 5,
-            position: "relative",
             cursor: "pointer",
           }}
           style={{ paddingLeft: hover.to([0, 1], ["0px", "20px"]) }}
         >
-          <Typography component={"div"} className={"col-span-2"}>
-            {project.name}
-          </Typography>
-          <Box component={"ul"} className={"col-span-5"}>
-            {project.frameworks.map((x) => (
-              <Chip key={x} size={"small"} label={x} />
-            ))}
-            {project.languages.map((x) => (
-              <Chip key={x} size={"small"} variant={"outlined"} label={x} />
-            ))}
-          </Box>
-          <Box component={"ul"} className={"col-span-3"}></Box>
+          <AnimatedBox
+            className={"grid grid-cols-10"}
+            sx={{
+              paddingY: 5,
+            }}
+          >
+            <Typography component={"div"} className={"col-span-2"}>
+              {project.name}
+            </Typography>
+            <Box component={"ul"} className={"col-span-5"}>
+              {project.frameworks.map((x) => (
+                <Chip key={x} size={"small"} label={x} />
+              ))}
+              {project.languages.map((x) => (
+                <Chip key={x} size={"small"} variant={"outlined"} label={x} />
+              ))}
+            </Box>
+            <Box component={"ul"} className={"col-span-3"}></Box>
+            <AnimatePresence isPresent={isHovered && !isExpanded}>
+              {({ enter, exit }) => (
+                <AnimatedBox
+                  sx={{
+                    position: "absolute",
+                    left: "50%",
+                    top: "50%",
+                    transform: "translate(-50%, -50%)",
+                    zIndex: 50,
+                    overflow: "hidden",
+                    pointerEvents: "none",
+                  }}
+                  style={{
+                    opacity: to([enter, exit], (enter, exit) => enter - exit),
+                    transform: to(
+                      [cursor.x, cursor.y, hover],
+                      (x, y, hover) => `translate(${-50 + x / 10}%, ${-50}%)`
+                    ),
+                  }}
+                >
+                  <AnimatedImage
+                    src={`https://picsum.photos/seed/${project.name}/400/500`}
+                    width={400}
+                    height={400}
+                    alt={project.name}
+                    style={{
+                      transform: to(
+                        [enter, exit],
+                        (enter, exit) =>
+                          `translate(${(-1 + enter + exit) * 100}%)`
+                      ),
+                    }}
+                  />
+                </AnimatedBox>
+              )}
+            </AnimatePresence>
+          </AnimatedBox>
+          <AnimatePresence isPresent={isExpanded}>
+            {({ enter, exit }) => (
+              <AnimatedBox
+                className={"grid grid-cols-10"}
+                sx={{ overflow: "hidden" }}
+                style={{
+                  height: to(
+                    [enter, exit],
+                    (enter, exit) => `${(enter - exit) * 100}px`
+                  ),
+                }}
+              >
+                <Box component={"div"} className={"col-span-2"}></Box>
+                <Typography className={"col-span-5"} sx={{ fontSize: 12 }}>
+                  {project.description}
+                </Typography>
+              </AnimatedBox>
+            )}
+          </AnimatePresence>
           <AnimatedBox
             sx={{
               position: "absolute",
-              background: theme.palette.primary.main,
+              background: theme.palette.text.primary,
               height: "1px",
               left: 0,
               top: "auto",
@@ -279,43 +379,6 @@ function Project(props: { project: typeof projectList[number] }) {
               width: hover.to([0, 1], ["0%", "100%"]),
             }}
           />
-          <AnimatedBox />
-          <AnimatePresence isPresent={isHovered}>
-            {({ enter, exit }) => (
-              <AnimatedBox
-                sx={{
-                  position: "absolute",
-                  left: "50%",
-                  top: "50%",
-                  transform: "translate(-50%, -50%)",
-                  zIndex: 50,
-                  overflow: "hidden",
-                  pointerEvents: "none",
-                }}
-                style={{
-                  opacity: to([enter, exit], (enter, exit) => enter - exit),
-                  transform: to(
-                    [cursor.x, cursor.y, hover],
-                    (x, y, hover) => `translate(${-50 + x / 10}%, ${-50}%)`
-                  ),
-                }}
-              >
-                <AnimatedImage
-                  src={`https://picsum.photos/seed/${project.name}/400/500`}
-                  width={400}
-                  height={400}
-                  alt={project.name}
-                  style={{
-                    transform: to(
-                      [enter, exit],
-                      (enter, exit) =>
-                        `translate(${(-1 + enter + exit) * 100}%)`
-                    ),
-                  }}
-                />
-              </AnimatedBox>
-            )}
-          </AnimatePresence>
         </AnimatedBox>
       )}
     </CursorTarget>

@@ -7,7 +7,7 @@ export const CursorContext = createContext<{
   y: SpringValue<number>;
   effect: CursorTargetEffect | null;
   handleTargetEnter: (effect: CursorTargetEffect) => void;
-  handleTargetExit: (effect: CursorTargetEffect) => void;
+  handleTargetExit: () => void;
 }>({
   x: {} as any,
   y: {} as any,

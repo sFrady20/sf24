@@ -19,6 +19,7 @@ export const defaultTheme: ThemeOptions = {
           },
           ["ul"]: {
             margin: 0,
+            padding: 0,
           },
 
           ["& > #__next"]: {
