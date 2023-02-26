@@ -35,10 +35,10 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import EmailIcon from "@mui/icons-material/Email";
-import AddIcon from "@mui/icons-material/Add";
+import CloseIcon from "@mui/icons-material/Close";
 import DownloadIcon from "@mui/icons-material/Download";
 import { useApp } from "./_app";
-import { atom, useAtom } from "jotai";
+import Image from "next/image";
 
 const projectList = [
   {
@@ -54,6 +54,7 @@ const projectList = [
     languages: ["typescript", "css"],
     frameworks: ["react", "nextjs", "prisma", "mui", "tailwind"],
     score: 8,
+    thumbnail: "/videos/abundant.webm",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim blandit mi, in dignissim arcu tristique sit amet. Etiam euismod tellus massa, quis vestibulum elit lacinia vitae.",
   },
@@ -244,40 +245,38 @@ function AnimatePresence(props: {
   );
 }
 
-const AnimatedAddIcon = animated(AddIcon);
+const AnimatedCloseIcon = animated(CloseIcon);
 
 function Project(props: { project: typeof projectList[number] }) {
   const { project } = props;
   const theme = useTheme();
   const cursor = useContext(CursorContext);
 
-  const expansionAtom = useRef(atom(false)).current;
-  const [isExpanded, setExpanded] = useAtom(expansionAtom);
+  const [isExpanded, setExpanded] = useState(false);
+  const { expansion } = useSpring({
+    expansion: isExpanded ? 1 : 0,
+  });
 
   return (
     <CursorTarget
-      effect={{
-        type: "grow",
-        size: 40,
-        content: () => {
-          const [isExpanded, setExpanded] = useAtom(expansionAtom);
-          const { expansion } = useSpring({
-            expansion: isExpanded ? 1 : 0,
-            config: { tension: 1000, mass: 3 },
-          });
-          return (
-            <AnimatedBox>
-              <AnimatedAddIcon
-                style={{
-                  // width: expansion.to([0, 1], [10, 16]),
-                  // height: expansion.to([0, 1], [10, 16]),
-                  transform: expansion.to((x) => `rotate(${x * 45}deg)`),
-                }}
-              />
-            </AnimatedBox>
-          );
-        },
-      }}
+      content={
+        <AnimatedBox>
+          <AnimatedCloseIcon
+            style={{
+              rotate: expansion.to([0, 1], ["-45deg", "0deg"]),
+              scale: expansion,
+            }}
+          />
+        </AnimatedBox>
+      }
+      effect={
+        isExpanded
+          ? {
+              type: "grow",
+              size: 40,
+            }
+          : null
+      }
       onClick={() => {
         setExpanded((x) => !x);
       }}
@@ -286,8 +285,8 @@ function Project(props: { project: typeof projectList[number] }) {
         <AnimatedBox
           sx={{
             position: "relative",
-            borderBottomWidth: 1,
-            borderBottomColor: "divider",
+            borderTopWidth: 1,
+            borderTopColor: "divider",
             cursor: "pointer",
           }}
           style={{ paddingLeft: hover.to([0, 1], ["0px", "20px"]) }}
@@ -330,19 +329,35 @@ function Project(props: { project: typeof projectList[number] }) {
                     ),
                   }}
                 >
-                  <AnimatedImage
-                    src={`https://picsum.photos/seed/${project.name}/400/500`}
-                    width={400}
-                    height={400}
-                    alt={project.name}
+                  <AnimatedBox
                     style={{
+                      width: 400,
+                      height: 400,
                       transform: to(
                         [enter, exit],
                         (enter, exit) =>
                           `translate(${(-1 + enter + exit) * 100}%)`
                       ),
                     }}
-                  />
+                  >
+                    <Image
+                      className="absolute inset-0"
+                      src={`https://picsum.photos/seed/${project.name}/400/500`}
+                      width={400}
+                      height={400}
+                      alt={project.name}
+                    />
+                    {/*
+                    <video
+                      className="absolute inset-0 object-cover"
+                      src={"/videos/abundant.webm"}
+                      autoPlay
+                      loop
+                      muted
+                      controls={false}
+                    />
+                    */}
+                  </AnimatedBox>
                 </AnimatedBox>
               )}
             </AnimatePresence>
@@ -366,19 +381,6 @@ function Project(props: { project: typeof projectList[number] }) {
               </AnimatedBox>
             )}
           </AnimatePresence>
-          <AnimatedBox
-            sx={{
-              position: "absolute",
-              background: theme.palette.text.primary,
-              height: "1px",
-              left: 0,
-              top: "auto",
-              bottom: 0,
-            }}
-            style={{
-              width: hover.to([0, 1], ["0%", "100%"]),
-            }}
-          />
         </AnimatedBox>
       )}
     </CursorTarget>

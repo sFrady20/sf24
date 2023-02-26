@@ -1,17 +1,23 @@
 import { SpringValue, useSpring } from "@react-spring/web";
+import { atom, Atom } from "jotai/vanilla";
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { CursorTargetEffect } from "./Target";
 
 export const CursorContext = createContext<{
   x: SpringValue<number>;
   y: SpringValue<number>;
-  effect: CursorTargetEffect | null;
-  handleTargetEnter: (effect: CursorTargetEffect) => void;
+  content?: ReactNode;
+  effect: Atom<CursorTargetEffect | null>;
+  handleTargetEnter: (
+    effect: Atom<CursorTargetEffect | null>,
+    content?: ReactNode
+  ) => void;
   handleTargetExit: () => void;
 }>({
   x: {} as any,
   y: {} as any,
-  effect: null,
+  content: undefined,
+  effect: atom(null),
   handleTargetEnter() {},
   handleTargetExit() {},
 });
@@ -36,19 +42,25 @@ export function CursorProvider(props: { children: ReactNode }) {
     };
   }, []);
 
-  const [effect, setEffect] = useState<CursorTargetEffect | null>(null);
+  const [effect, setEffect] = useState<Atom<CursorTargetEffect | null>>(
+    atom(null)
+  );
+  const [content, setContent] = useState<ReactNode>();
 
   return (
     <CursorContext.Provider
       value={{
         x,
         y,
+        content,
         effect,
-        handleTargetEnter(effect) {
+        handleTargetEnter(effect, content) {
+          setContent(content);
           setEffect(effect);
         },
         handleTargetExit() {
-          setEffect(null);
+          setContent(undefined);
+          setEffect(atom(null));
         },
       }}
     >
