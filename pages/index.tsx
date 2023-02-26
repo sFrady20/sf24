@@ -8,6 +8,8 @@ import {
   IconButton,
   Stack,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { makeServerSideProps } from "util/makeServerSideProps";
 import Link from "next/link";
@@ -46,7 +48,7 @@ const projectList = [
     frameworks: ["react", "nextjs", "prisma", "mui", "tailwind"],
     score: 9,
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim blandit mi, in dignissim arcu tristique sit amet. Etiam euismod tellus massa, quis vestibulum elit lacinia vitae.",
+      "WanderSeat is an ecosystem where travelers receive rewards for sharing flight deals and experiences that inspire the next traveler.",
   },
   {
     name: "Abundant",
@@ -249,11 +251,14 @@ const AnimatedCloseIcon = animated(CloseIcon);
 function Project(props: { project: typeof projectList[number] }) {
   const { project } = props;
   const cursor = useContext(CursorContext);
+  const theme = useTheme();
 
   const [isExpanded, setExpanded] = useState(false);
   const { expansion } = useSpring({
     expansion: isExpanded ? 1 : 0,
   });
+
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <CursorTarget
@@ -286,9 +291,11 @@ function Project(props: { project: typeof projectList[number] }) {
             borderBottomWidth: 1,
             borderColor: "divider",
             cursor: "pointer",
-            marginX: { xs: "32px", md: 0 },
+            marginX: { xs: "5vw", md: 0 },
           }}
-          style={{ paddingLeft: hover.to([0, 1], ["0px", "20px"]) }}
+          style={{
+            paddingLeft: isMobile ? 0 : hover.to([0, 1], ["0px", "20px"]),
+          }}
         >
           <AnimatedBox
             className={"grid grid-cols-10 <md:grid-cols-1"}
@@ -296,7 +303,11 @@ function Project(props: { project: typeof projectList[number] }) {
               paddingY: 5,
             }}
           >
-            <Typography component={"div"} className={"col-span-2"}>
+            <Typography
+              component={"div"}
+              className={"col-span-2"}
+              sx={{ marginBottom: { xs: 1, md: 0 } }}
+            >
               {project.name}
             </Typography>
             <Box component={"ul"} className={"col-span-5"}>
@@ -308,7 +319,7 @@ function Project(props: { project: typeof projectList[number] }) {
               ))}
             </Box>
             <Box component={"ul"} className={"col-span-3"}></Box>
-            <AnimatePresence isPresent={isHovered && !isExpanded}>
+            <AnimatePresence isPresent={!isMobile && isHovered && !isExpanded}>
               {({ enter, exit }) => (
                 <AnimatedBox
                   sx={{
@@ -388,6 +399,7 @@ function Project(props: { project: typeof projectList[number] }) {
 
 const Home = (props: {}) => {
   const { themePreset, setThemePreset } = useApp();
+  const [isMenuOpen, setMenuOpen] = useState(false);
 
   return (
     <>
