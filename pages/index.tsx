@@ -281,17 +281,17 @@ function Project(props: { project: typeof projectList[number] }) {
     >
       {({ hover, isHovered }) => (
         <AnimatedBox
-          className={"<md:(mx-7)"}
           sx={{
             position: "relative",
             borderBottomWidth: 1,
             borderColor: "divider",
             cursor: "pointer",
+            marginX: { xs: "32px", md: 0 },
           }}
           style={{ paddingLeft: hover.to([0, 1], ["0px", "20px"]) }}
         >
           <AnimatedBox
-            className={"grid grid-cols-10 <md:(grid-cols-1)"}
+            className={"grid grid-cols-10 <md:grid-cols-1"}
             sx={{
               paddingY: 5,
             }}
@@ -364,7 +364,7 @@ function Project(props: { project: typeof projectList[number] }) {
           <AnimatePresence isPresent={isExpanded}>
             {({ enter, exit }) => (
               <AnimatedBox
-                className={"grid grid-cols-10 <md:(grid-cols-1)"}
+                className={"grid grid-cols-10 <md:grid-cols-1"}
                 sx={{ overflow: "hidden" }}
                 style={{
                   height: to(
@@ -409,10 +409,12 @@ const Home = (props: {}) => {
       >
         <Avatar src={"/portrait-trans.png"} sx={{ width: 32, height: 32 }} />
         <Stack
-          className={"<md:(hidden)"}
           direction={"row"}
           alignItems={"center"}
           spacing={3}
+          sx={{
+            display: { xs: "none", md: "flex" },
+          }}
         >
           <Box component={"div"}>
             <Link href={"https://github.com/sFrady20"} target="_blank">
@@ -446,10 +448,12 @@ const Home = (props: {}) => {
           </Box>
         </Stack>
         <Stack
-          className={"<md:(hidden)"}
           direction={"row"}
           alignItems={"center"}
           spacing={2}
+          sx={{
+            display: { xs: "none", md: "flex" },
+          }}
         >
           <ButtonGroup>
             <Button variant={"text"} color={"inherit"}>
@@ -473,7 +477,11 @@ const Home = (props: {}) => {
             </Button>
           </ButtonGroup>
         </Stack>
-        <Stack className={"hidden <md:(block)"}>
+        <Stack
+          sx={{
+            display: { xs: "flex", md: "none" },
+          }}
+        >
           <IconButton sx={{ color: "inherit" }}>
             <MenuIcon />
           </IconButton>
@@ -481,7 +489,6 @@ const Home = (props: {}) => {
       </Stack>
 
       <Typography
-        className={"<md:(mt-140px)"}
         component={"h1"}
         sx={{
           fontFamily: "Zighead",
@@ -490,21 +497,20 @@ const Home = (props: {}) => {
           textAlign: "center",
           cursor: "default",
           lineHeight: 1,
-          mt: "172px",
+          mt: { xs: "140px", md: "172px" },
         }}
       >
         Frady
       </Typography>
 
       <Typography
-        className={"<md:(mb-40px)"}
         component={"div"}
         sx={{
           fontSize: 14.5,
           textAlign: "justify",
           width: 530,
           maxWidth: "80%",
-          margin: "0 auto 80px",
+          margin: { xs: "0 auto 40px", md: "0 auto 80px" },
         }}
       >
         I am a creative full-stack developer with over 9 years of experience. I
