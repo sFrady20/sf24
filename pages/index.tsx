@@ -249,7 +249,6 @@ const AnimatedCloseIcon = animated(CloseIcon);
 
 function Project(props: { project: typeof projectList[number] }) {
   const { project } = props;
-  const theme = useTheme();
   const cursor = useContext(CursorContext);
 
   const [isExpanded, setExpanded] = useState(false);
@@ -285,8 +284,8 @@ function Project(props: { project: typeof projectList[number] }) {
         <AnimatedBox
           sx={{
             position: "relative",
-            borderTopWidth: 1,
-            borderTopColor: "divider",
+            borderBottomWidth: 1,
+            borderColor: "divider",
             cursor: "pointer",
           }}
           style={{ paddingLeft: hover.to([0, 1], ["0px", "20px"]) }}
@@ -409,25 +408,25 @@ const Home = (props: {}) => {
         }}
       >
         <Avatar src={"/portrait-trans.png"} sx={{ width: 32, height: 32 }} />
-        <Stack direction={"row"} alignItems={"center"} spacing={4}>
+        <Stack direction={"row"} alignItems={"center"} spacing={3}>
           <Box component={"div"}>
             <Link href={"https://github.com/sFrady20"} target="_blank">
               <IconButton sx={{ color: "inherit" }}>
-                <GitHubIcon />
+                <GitHubIcon sx={{ width: 20, height: 20 }} />
               </IconButton>
             </Link>
           </Box>
           <Box component={"div"}>
             <Link href={"https://twitter.com/slowjamsteve"} target="_blank">
               <IconButton sx={{ color: "inherit" }}>
-                <TwitterIcon />
+                <TwitterIcon sx={{ width: 20, height: 20 }} />
               </IconButton>
             </Link>
           </Box>
           <Box component={"div"}>
             <Link href={"mailto:@sfrady20@gmail.com"} target="_blank">
               <IconButton sx={{ color: "inherit" }}>
-                <EmailIcon />
+                <EmailIcon sx={{ width: 20, height: 20 }} />
               </IconButton>
             </Link>
           </Box>
