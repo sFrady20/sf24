@@ -1,6 +1,6 @@
 import { Box, BoxProps } from "@mui/material";
 import { SpringValue, useSpringValue } from "@react-spring/web";
-import { ReactNode, useContext, useRef, useState, FC, useEffect } from "react";
+import { ReactNode, useContext, useRef, useState, useEffect } from "react";
 import { CursorContext } from "./Provider";
 import { atom, Atom } from "jotai/vanilla";
 import { useAtom } from "jotai/react";
@@ -46,7 +46,7 @@ export function CursorTarget<T>(
   const [effect, setEffect] = useAtom(effectAtom);
 
   useEffect(() => {
-    setEffect(effectProp);
+    (setEffect as any)(effectProp);
   }, [effectProp]);
 
   return (

@@ -8,19 +8,17 @@ import {
   IconButton,
   Stack,
   Typography,
-  useTheme,
 } from "@mui/material";
 import { makeServerSideProps } from "util/makeServerSideProps";
 import Link from "next/link";
 import { CursorContext, CursorTarget } from "components/Cursor";
-import { AnimatedBox, AnimatedImage } from "util/animated";
+import { AnimatedBox } from "util/animated";
 import {
   Fragment,
   ReactNode,
   useContext,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from "react";
 import {
@@ -37,6 +35,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import EmailIcon from "@mui/icons-material/Email";
 import CloseIcon from "@mui/icons-material/Close";
 import DownloadIcon from "@mui/icons-material/Download";
+import MenuIcon from "@mui/icons-material/Menu";
 import { useApp } from "./_app";
 import Image from "next/image";
 
@@ -282,6 +281,7 @@ function Project(props: { project: typeof projectList[number] }) {
     >
       {({ hover, isHovered }) => (
         <AnimatedBox
+          className={"<md:(mx-7)"}
           sx={{
             position: "relative",
             borderBottomWidth: 1,
@@ -291,7 +291,7 @@ function Project(props: { project: typeof projectList[number] }) {
           style={{ paddingLeft: hover.to([0, 1], ["0px", "20px"]) }}
         >
           <AnimatedBox
-            className={"grid grid-cols-10"}
+            className={"grid grid-cols-10 <md:(grid-cols-1)"}
             sx={{
               paddingY: 5,
             }}
@@ -364,7 +364,7 @@ function Project(props: { project: typeof projectList[number] }) {
           <AnimatePresence isPresent={isExpanded}>
             {({ enter, exit }) => (
               <AnimatedBox
-                className={"grid grid-cols-10"}
+                className={"grid grid-cols-10 <md:(grid-cols-1)"}
                 sx={{ overflow: "hidden" }}
                 style={{
                   height: to(
@@ -408,7 +408,12 @@ const Home = (props: {}) => {
         }}
       >
         <Avatar src={"/portrait-trans.png"} sx={{ width: 32, height: 32 }} />
-        <Stack direction={"row"} alignItems={"center"} spacing={3}>
+        <Stack
+          className={"<md:(hidden)"}
+          direction={"row"}
+          alignItems={"center"}
+          spacing={3}
+        >
           <Box component={"div"}>
             <Link href={"https://github.com/sFrady20"} target="_blank">
               <IconButton sx={{ color: "inherit" }}>
@@ -440,7 +445,12 @@ const Home = (props: {}) => {
             </Button>
           </Box>
         </Stack>
-        <Stack direction={"row"} alignItems={"center"} spacing={2}>
+        <Stack
+          className={"<md:(hidden)"}
+          direction={"row"}
+          alignItems={"center"}
+          spacing={2}
+        >
           <ButtonGroup>
             <Button variant={"text"} color={"inherit"}>
               SF23
@@ -463,13 +473,19 @@ const Home = (props: {}) => {
             </Button>
           </ButtonGroup>
         </Stack>
+        <Stack className={"hidden <md:(block)"}>
+          <IconButton sx={{ color: "inherit" }}>
+            <MenuIcon />
+          </IconButton>
+        </Stack>
       </Stack>
 
       <Typography
+        className={"<md:(mt-140px)"}
         component={"h1"}
         sx={{
           fontFamily: "Zighead",
-          fontSize: "min(30vw, 45vh)",
+          fontSize: "min(28vw, 45vh)",
           textTransform: "uppercase",
           textAlign: "center",
           cursor: "default",
@@ -481,6 +497,7 @@ const Home = (props: {}) => {
       </Typography>
 
       <Typography
+        className={"<md:(mb-40px)"}
         component={"div"}
         sx={{
           fontSize: 14.5,
