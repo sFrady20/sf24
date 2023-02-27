@@ -7,6 +7,8 @@ import {
   Container,
   IconButton,
   Stack,
+  Tab,
+  Tabs,
   Typography,
   useMediaQuery,
   useTheme,
@@ -14,7 +16,12 @@ import {
 import { makeServerSideProps } from "util/makeServerSideProps";
 import Link from "next/link";
 import { CursorContext, CursorTarget } from "components/Cursor";
-import { AnimatedBox } from "util/animated";
+import {
+  AnimatedBox,
+  AnimatedButton,
+  AnimatedStack,
+  AnimatedTabs,
+} from "util/animated";
 import {
   Fragment,
   ReactNode,
@@ -29,6 +36,7 @@ import {
   SpringValue,
   to,
   useSpring,
+  useTrail,
 } from "@react-spring/web";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
@@ -40,136 +48,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useApp } from "./_app";
 import Image from "next/image";
-
-const projectList = [
-  {
-    name: "Wanderseat",
-    languages: ["typescript", "css"],
-    frameworks: ["react", "nextjs", "prisma", "mui", "tailwind"],
-    score: 9,
-    description:
-      "WanderSeat is an ecosystem where travelers receive rewards for sharing flight deals and experiences that inspire the next traveler.",
-  },
-  {
-    name: "Abundant",
-    languages: ["typescript", "css"],
-    frameworks: ["react", "nextjs", "prisma", "mui", "tailwind"],
-    score: 8,
-    thumbnail: "/videos/abundant.webm",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim blandit mi, in dignissim arcu tristique sit amet. Etiam euismod tellus massa, quis vestibulum elit lacinia vitae.",
-  },
-  {
-    name: "Home Run Derby",
-    languages: ["c#"],
-    frameworks: ["unity"],
-    score: 8.5,
-  },
-  {
-    name: "Moneybot",
-    languages: ["javascript", "scss"],
-    frameworks: ["react", "nodejs", "electron"],
-    score: 4.5,
-  },
-  {
-    name: "MASC",
-    languages: ["javascript", "scss"],
-    frameworks: ["react", "ffmpeg", "electron"],
-    score: 5,
-  },
-  {
-    name: "Area 51 Defense Squad",
-    languages: ["c#"],
-    frameworks: ["unity"],
-    score: 7,
-  },
-  {
-    name: "Casino Bandito",
-    languages: ["c#"],
-    frameworks: ["unity"],
-    score: 5.5,
-  },
-  {
-    name: "Verizon Juggle",
-    languages: ["c#"],
-    frameworks: ["unity"],
-    score: 7,
-  },
-  {
-    name: "Phonetopia",
-    languages: ["javascript", "scss"],
-    frameworks: ["react", "nodejs", "electron"],
-    score: 5,
-  },
-  {
-    name: "Influence",
-    languages: ["java"],
-    frameworks: ["processing"],
-    score: 6,
-  },
-  {
-    name: "Block Party",
-    languages: ["actionscript"],
-    frameworks: ["flash"],
-    score: 6,
-  },
-  { name: "Walt Kart", languages: ["c#"], frameworks: ["unity"], score: 7 },
-  {
-    name: "QuarterVerse",
-    languages: ["typescript", "scss"],
-    frameworks: ["react"],
-    score: 8,
-  },
-  {
-    name: "Civic Education Kiosk",
-    languages: ["typescript", "scss"],
-    frameworks: ["react", "electron"],
-    score: 4,
-  },
-  {
-    name: "Centurylink Vikings",
-    languages: ["javascript", "scss"],
-    frameworks: ["electron"],
-    score: 5,
-  },
-  {
-    name: "Drexls",
-    languages: ["brightscript", "java", "php"],
-    frameworks: ["roku", "android"],
-    score: 7.5,
-  },
-  {
-    name: "Dispatch",
-    languages: ["actionscript"],
-    frameworks: ["flash"],
-    score: 6,
-  },
-  { name: "Mycota", languages: ["c#"], frameworks: ["unity"], score: 5.5 },
-  {
-    name: "Pit Crew",
-    languages: ["typescript", "scss"],
-    frameworks: ["react"],
-    score: 5.5,
-  },
-  {
-    name: "MimicMe",
-    languages: ["javascript"],
-    frameworks: ["react-native"],
-    score: 4.5,
-  },
-  {
-    name: "Metal After Man",
-    languages: ["c#"],
-    frameworks: ["unity"],
-    score: 5.5,
-  },
-  {
-    name: "Easy mesh gradient",
-    languages: ["typescript"],
-    frameworks: ["vite"],
-    score: 7,
-  },
-];
+import projectList from "projects";
 
 export const getServerSideProps = makeServerSideProps();
 
@@ -333,9 +212,8 @@ function Project(props: { project: typeof projectList[number] }) {
                   }}
                   style={{
                     opacity: to([enter, exit], (enter, exit) => enter - exit),
-                    transform: to(
-                      [cursor.x, cursor.y, hover],
-                      (x, y, hover) => `translate(${-50 + x / 10}%, ${-50}%)`
+                    transform: cursor.x.to(
+                      (x) => `translate(${-50 + x / 10}%, ${-50}%)`
                     ),
                   }}
                 >
@@ -380,14 +258,18 @@ function Project(props: { project: typeof projectList[number] }) {
                 style={{
                   height: to(
                     [enter, exit],
-                    (enter, exit) => `${(enter - exit) * 100}px`
+                    (enter, exit) => `${(enter - exit) * 300}px`
                   ),
                 }}
               >
-                <Box component={"div"} className={"col-span-2"}></Box>
-                <Typography className={"col-span-5"} sx={{ fontSize: 12 }}>
+                <Box component={"div"} className={"col-span-2"} />
+                <Box
+                  component={"div"}
+                  className={"col-span-5"}
+                  sx={{ fontSize: 14, lineHeight: 1.6 }}
+                >
                   {project.description}
-                </Typography>
+                </Box>
               </AnimatedBox>
             )}
           </AnimatePresence>
@@ -397,12 +279,150 @@ function Project(props: { project: typeof projectList[number] }) {
   );
 }
 
+function Menu(props: {
+  enter: SpringValue<number>;
+  exit: SpringValue<number>;
+  onClose?: () => void;
+}) {
+  const { enter, exit, onClose } = props;
+  const { themePreset, setThemePreset } = useApp();
+
+  const trail = useTrail(4, {
+    from: {
+      enter,
+      exit,
+    },
+  });
+
+  const t = (n: number) =>
+    to([trail[n].enter, trail[n].exit], (enter, exit) => enter - exit);
+
+  return (
+    <AnimatedBox
+      sx={{
+        position: "fixed",
+        left: 0,
+        top: 0,
+        right: 0,
+        overflow: "hidden",
+        backgroundColor: "common.black",
+        color: "common.white",
+        zIndex: 50,
+        paddingX: "15vw",
+        boxSizing: "border-box",
+      }}
+      style={{
+        height: to([enter, exit], (enter, exit) => `${(enter - exit) * 100}%`),
+      }}
+    >
+      <AnimatedStack justifyContent={"space-between"} height={"100vh"}>
+        <Stack></Stack>
+        <Stack spacing={4}>
+          <Link href={"https://github.com/sFrady20"} target="_blank">
+            <AnimatedButton
+              fullWidth
+              size={"large"}
+              sx={{
+                fontSize: "13vw",
+                lineHeight: 1.2,
+                textDecoration: "none",
+
+                ["& .MuiButton-startIcon"]: {
+                  marginRight: 5,
+                },
+              }}
+              style={{
+                opacity: t(0),
+              }}
+            >
+              GitHub
+            </AnimatedButton>
+          </Link>
+          <Link href={"https://twitter.com/slowjamsteve"} target="_blank">
+            <AnimatedButton
+              fullWidth
+              size={"large"}
+              sx={{
+                fontSize: "13vw",
+                lineHeight: 1.2,
+                textDecoration: "none",
+
+                ["& .MuiButton-startIcon"]: {
+                  marginRight: 5,
+                },
+              }}
+              style={{
+                opacity: t(1),
+              }}
+            >
+              Twitter
+            </AnimatedButton>
+          </Link>
+          <Link href={"mailto:@sfrady20@gmail.com"} target="_blank">
+            <AnimatedButton
+              fullWidth
+              size={"large"}
+              sx={{
+                fontSize: "13vw",
+                lineHeight: 1.2,
+                textDecoration: "none",
+
+                ["& .MuiButton-startIcon"]: {
+                  marginRight: 5,
+                },
+              }}
+              style={{
+                opacity: t(2),
+              }}
+            >
+              Email
+            </AnimatedButton>
+          </Link>
+        </Stack>
+        <Stack
+          spacing={4}
+          sx={{
+            marginBottom: "10vh",
+            backgroundColor: "background.default",
+            borderRadius: 2,
+            overflow: "hidden",
+          }}
+        >
+          <AnimatedTabs
+            value={["light", "dark", "system"].indexOf(
+              themePreset.mode || "system"
+            )}
+            variant="fullWidth"
+            onChange={(e, x) => {
+              setThemePreset({
+                ...themePreset,
+                mode: (["light", "dark", "system"] as const)[x],
+              });
+              onClose?.();
+            }}
+          >
+            <Tab label={"Light"} />
+            <Tab label={"Dark"} />
+            <Tab label={"System"} />
+          </AnimatedTabs>
+        </Stack>
+      </AnimatedStack>
+    </AnimatedBox>
+  );
+}
+
 const Home = (props: {}) => {
   const { themePreset, setThemePreset } = useApp();
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <>
+      <AnimatePresence isPresent={isMenuOpen && isMobile}>
+        {({ enter, exit }) => <Menu enter={enter} exit={exit} />}
+      </AnimatePresence>
+
       <Stack
         direction={"row"}
         justifyContent={"space-between"}
@@ -494,7 +514,10 @@ const Home = (props: {}) => {
             display: { xs: "flex", md: "none" },
           }}
         >
-          <IconButton sx={{ color: "inherit" }}>
+          <IconButton
+            sx={{ color: isMenuOpen ? "common.white" : "inherit" }}
+            onClick={() => setMenuOpen((x) => !x)}
+          >
             <MenuIcon />
           </IconButton>
         </Stack>
@@ -509,7 +532,7 @@ const Home = (props: {}) => {
           textAlign: "center",
           cursor: "default",
           lineHeight: 1,
-          mt: { xs: "140px", md: "172px" },
+          mt: "172px",
         }}
       >
         Frady

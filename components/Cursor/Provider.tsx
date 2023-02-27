@@ -34,7 +34,10 @@ export function CursorProvider(props: { children: ReactNode }) {
 
   useEffect(() => {
     const listener = (e: MouseEvent) => {
-      springRef.start({ x: e.clientX, y: e.clientY });
+      springRef.start({
+        x: e.clientX + window.scrollX,
+        y: e.clientY + window.scrollY,
+      });
     };
     document.body.addEventListener("mousemove", listener);
     return () => {

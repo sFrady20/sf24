@@ -19,6 +19,11 @@ import "../styles.css";
 import "large-small-dynamic-viewport-units-polyfill";
 import { defaultTheme } from "theme";
 import { merge } from "lodash";
+import { install } from "ga-gtag";
+
+//install GA4
+if (typeof window !== "undefined" && process.env.NODE_ENV !== "development")
+  install("G-CYYGZKHE9K");
 
 const themePresets = {
   default: {

@@ -32,7 +32,7 @@ export function Cursor(props: BoxProps) {
         justifyContent: "center",
         alignItems: "center",
         transform: "translate(-50%, -50%)",
-        position: "fixed",
+        position: "absolute",
         pointerEvents: "none",
         ...sx,
       }}

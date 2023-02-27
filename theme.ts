@@ -8,6 +8,11 @@ export const defaultTheme: ThemeOptions = {
     borderRadius: 12,
   },
   components: {
+    MuiButton: {
+      defaultProps: {
+        color: "inherit",
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: {
         body: {
@@ -16,6 +21,7 @@ export const defaultTheme: ThemeOptions = {
 
           ["a, a:visited, a:hover, a:active"]: {
             color: "inherit",
+            textDecoration: "none",
           },
           ["ul"]: {
             margin: 0,
