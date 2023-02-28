@@ -837,7 +837,17 @@ const Home = (props: {}) => {
                     <Typography variant={"subtitle1"}>
                       {experience.place}
                     </Typography>
-                    <Typography variant={"subtitle2"}>
+                    <Typography
+                      variant={"subtitle2"}
+                      sx={{
+                        display: "-webkit-box",
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        lineClamp: { xs: 2, md: 1 },
+                        WebkitLineClamp: { xs: 2, md: 1 },
+                      }}
+                    >
                       {experience.position}
                     </Typography>
                     <Typography
