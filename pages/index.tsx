@@ -52,6 +52,7 @@ import { useApp } from "./_app";
 import Image from "next/image";
 import projectList from "projects";
 import { Canvas } from "@react-three/fiber";
+import Color from "color";
 import Slice from "components/Slice";
 import frag3 from "shaders/genuary/2022/3.frag.glsl";
 import frag4 from "shaders/genuary/2022/4.frag.glsl";
@@ -450,12 +451,19 @@ function Shader(props: {
   sourceHref?: string;
 }) {
   const { frag, title, subtitle, sourceHref } = props;
+  const theme = useTheme();
   const containerEl = useRef<HTMLDivElement>(null);
   const uniforms = useRef({
     resolution: { value: [100, 100] },
     time: { value: 0 },
     cursor: { value: [0, 0] },
   }).current;
+
+  const backdropRgb = Color(theme.palette.background.paper)
+    .rgb()
+    .array()
+    .map((x) => `${x / 2.55}%`)
+    .join(" ");
 
   useEffect(() => {
     let frame = 0;
@@ -490,6 +498,7 @@ function Shader(props: {
         paddingBottom: "72%",
         height: 0,
         position: "relative",
+        boxShadow: "0 4px 3px -1.5px rgb(0 0 0 / 5%)",
 
         ["&:hover"]: {
           boxShadow: "0 40px 30px -15px rgb(0 0 0 / 30%)",
@@ -522,26 +531,17 @@ function Shader(props: {
           left: 0,
           right: 0,
           bottom: 0,
-          height: "50%",
+          height: "45%",
           alignItems: "flex-end",
           justifyContent: "space-between",
           padding: "20px 44px",
           pointerEvents: "none",
-          backgroundImage:
-            "linear-gradient(0deg, rgb(0% 0% 0%) 0%, rgb(0% 0% 0% / 0.9903926402016152) 6.25%, rgb(0% 0% 0% / 0.9619397662556434) 12.5%, rgb(0% 0% 0% / 0.9157348061512727) 18.75%, rgb(0% 0% 0% / 0.8535533905932737) 25%, rgb(0% 0% 0% / 0.7777851165098011) 31.25%, rgb(0% 0% 0% / 0.6913417161825449) 37.5%, rgb(0% 0% 0% / 0.5975451610080642) 43.75%, rgb(0% 0% 0% / 0.5) 50%, rgb(0% 0% 0% / 0.4024548389919359) 56.25%, rgb(0% 0% 0% / 0.3086582838174552) 62.5%, rgb(0% 0% 0% / 0.22221488349019902) 68.75%, rgb(0% 0% 0% / 0.14644660940672627) 75%, rgb(0% 0% 0% / 0.08426519384872733) 81.25%, rgb(0% 0% 0% / 0.03806023374435663) 87.5%, rgb(0% 0% 0% / 0.009607359798384785) 93.75%, rgb(0% 0% 0% / 0) 100% )",
+          backgroundImage: `linear-gradient(0deg, rgb(${backdropRgb}) 0%, rgb(${backdropRgb} / 0.9903926402016152) 6.25%, rgb(${backdropRgb} / 0.9619397662556434) 12.5%, rgb(${backdropRgb} / 0.9157348061512727) 18.75%, rgb(${backdropRgb} / 0.8535533905932737) 25%, rgb(${backdropRgb} / 0.7777851165098011) 31.25%, rgb(${backdropRgb} / 0.6913417161825449) 37.5%, rgb(${backdropRgb} / 0.5975451610080642) 43.75%, rgb(${backdropRgb} / 0.5) 50%, rgb(${backdropRgb} / 0.4024548389919359) 56.25%, rgb(${backdropRgb} / 0.3086582838174552) 62.5%, rgb(${backdropRgb} / 0.22221488349019902) 68.75%, rgb(${backdropRgb} / 0.14644660940672627) 75%, rgb(${backdropRgb} / 0.08426519384872733) 81.25%, rgb(${backdropRgb} / 0.03806023374435663) 87.5%, rgb(${backdropRgb} / 0.009607359798384785) 93.75%, rgb(${backdropRgb} / 0) 100% )`,
         }}
       >
         <Stack>
-          <Typography
-            color={"common.white"}
-            sx={{ opacity: 0.8, lineHeight: 1 }}
-          >
-            {title}
-          </Typography>
-          <Typography
-            color={"common.white"}
-            sx={{ opacity: 0.4, lineHeight: 1 }}
-          >
+          <Typography sx={{ opacity: 0.8, lineHeight: 1 }}>{title}</Typography>
+          <Typography sx={{ opacity: 0.4, lineHeight: 1 }}>
             {subtitle}
           </Typography>
         </Stack>
@@ -549,7 +549,7 @@ function Shader(props: {
           {sourceHref && (
             <Link href={sourceHref} target={"_blank"}>
               <IconButton sx={{ pointerEvents: "all" }}>
-                <GitHubIcon sx={{ color: "common.white" }} />
+                <GitHubIcon />
               </IconButton>
             </Link>
           )}
