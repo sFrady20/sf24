@@ -591,7 +591,7 @@ const Home = (props: {}) => {
           position: "fixed",
           top: "5vh",
           left: "5vw",
-          width: "88vw",
+          right: "5vw",
           borderRadius: 4,
           paddingX: 2,
           paddingY: 1,
@@ -700,7 +700,7 @@ const Home = (props: {}) => {
       <Typography
         component={"div"}
         sx={{
-          fontSize: 14.5,
+          fontSize: { xs: 12, sm: 14, md: 14.5 },
           textAlign: "justify",
           width: 530,
           maxWidth: "80%",

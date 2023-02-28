@@ -16,8 +16,9 @@ export const defaultTheme: ThemeOptions = {
     MuiContainer: {
       styleOverrides: {
         root: ({ theme }) => ({
-          [theme.breakpoints.between("md", "lg")]: {
-            maxWidth: "90vw",
+          [theme.breakpoints.down("lg")]: {
+            maxWidth: "85vw",
+            padding: 0,
           },
         }),
       },
