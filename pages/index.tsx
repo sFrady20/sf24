@@ -712,21 +712,6 @@ const Home = (props: {}) => {
         features with a focus on simplicity and scalability.
       </Typography>
 
-      <Container>
-        <Stack>
-          {projectList
-            .sort((a, b) =>
-              a.score > b.score ? -1 : a.score < b.score ? 1 : 0
-            )
-            .slice(0, 8)
-            .flatMap((project, i) => [
-              <Project key={i} project={project} />,
-              <Divider key={`divider-${i}`} />,
-            ])
-            .slice(0, -1)}
-        </Stack>
-      </Container>
-
       <Box
         component={"div"}
         sx={{
@@ -734,7 +719,6 @@ const Home = (props: {}) => {
             xs: "60px",
             md: "100px",
           },
-          marginBottom: "100px",
           marginX: "5vw",
           display: "grid",
           gap: {
@@ -773,6 +757,26 @@ const Home = (props: {}) => {
           }
         />
       </Box>
+
+      <Container
+        sx={{
+          marginTop: "100px",
+          marginBottom: "100px",
+        }}
+      >
+        <Stack>
+          {projectList
+            .sort((a, b) =>
+              a.score > b.score ? -1 : a.score < b.score ? 1 : 0
+            )
+            .slice(0, 8)
+            .flatMap((project, i) => [
+              <Project key={i} project={project} />,
+              <Divider key={`divider-${i}`} />,
+            ])
+            .slice(0, -1)}
+        </Stack>
+      </Container>
     </>
   );
 };
