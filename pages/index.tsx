@@ -53,7 +53,9 @@ import Image from "next/image";
 import projectList from "projects";
 import { Canvas } from "@react-three/fiber";
 import Slice from "components/Slice";
-import frag from "shaders/genuary/2023/1.frag.glsl";
+import frag3 from "shaders/genuary/2022/3.frag.glsl";
+import frag4 from "shaders/genuary/2022/4.frag.glsl";
+import frag5 from "shaders/genuary/2022/5.frag.glsl";
 
 export const getServerSideProps = makeServerSideProps();
 
@@ -279,7 +281,7 @@ function Project(props: { project: typeof projectList[number] }) {
               >
                 <Box component={"div"} className={"col-span-2"} />
                 <Typography
-                  className={"col-span-5"}
+                  className={"col-span-6"}
                   sx={{
                     fontFamily: "'Open Sans', sans-serif",
                     fontSize: 14,
@@ -441,33 +443,53 @@ function Menu(props: {
   );
 }
 
-function Shader(props: { frag: string; span: number }) {
-  const { span } = props;
+function Shader(props: {
+  frag: string;
+  title?: string;
+  subtitle?: string;
+  sourceHref?: string;
+}) {
+  const { frag, title, subtitle, sourceHref } = props;
   const containerEl = useRef<HTMLDivElement>(null);
-  const uniforms = useRef({ resolution: { value: [100, 100] } }).current;
+  const uniforms = useRef({
+    resolution: { value: [100, 100] },
+    time: { value: 0 },
+    cursor: { value: [0, 0] },
+  }).current;
 
-  // useResize({
-  //   container: containerEl,
-  //   onChange: ({ width, height }) => {
-  //     console.log(width, height);
-  //     uniforms.resolution.value = [width, height];
-  //   },
-  // });
+  useEffect(() => {
+    let frame = 0;
+    const cb = (now: number) => {
+      uniforms.time.value = now / 1000;
+      frame = requestAnimationFrame(cb);
+    };
+    frame = requestAnimationFrame(cb);
+    return () => {
+      cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  useResize({
+    container: containerEl as any,
+    immediate: true,
+    onChange: ({ value: { width, height } }) => {
+      uniforms.resolution.value = [width, height];
+    },
+  });
 
   return (
     <Box
-      ref={containerEl}
       component={"div"}
-      className={span === 1 ? "col-span-1" : "col-span-2"}
+      className={"col-span-1"}
       sx={{
-        height: 490,
         backgroundColor: "background.paper",
-        borderWidth: 1,
-        borderColor: "divider",
         borderRadius: 5,
         transition: "box-shadow 0.2s ease-out, transform 0.2s ease-in-out",
         cursor: "crosshair",
         overflow: "hidden",
+        paddingBottom: "72%",
+        height: 0,
+        position: "relative",
 
         ["&:hover"]: {
           boxShadow: "0 40px 30px -15px rgb(0 0 0 / 30%)",
@@ -475,11 +497,64 @@ function Shader(props: { frag: string; span: number }) {
         },
       }}
     >
-      <Canvas>
-        <Slice>
-          <shaderMaterial fragmentShader={frag} uniforms={uniforms} />
-        </Slice>
-      </Canvas>
+      <Box
+        ref={containerEl}
+        component={"div"}
+        sx={{ position: "absolute", left: 0, right: 0, top: 0, bottom: 0 }}
+        onMouseMove={(e) => {
+          var rect = (e.target as any).getBoundingClientRect();
+          var x = e.clientX - rect.left;
+          var y = e.clientY - rect.top;
+          uniforms.cursor.value = [x, y];
+        }}
+      >
+        <Canvas dpr={[1, 1]}>
+          <Slice>
+            <shaderMaterial fragmentShader={frag} uniforms={uniforms} />
+          </Slice>
+        </Canvas>
+      </Box>
+
+      <Stack
+        direction={"row"}
+        sx={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height: "50%",
+          alignItems: "flex-end",
+          justifyContent: "space-between",
+          padding: "20px 44px",
+          pointerEvents: "none",
+          backgroundImage:
+            "linear-gradient(0deg, rgb(0% 0% 0%) 0%, rgb(0% 0% 0% / 0.9903926402016152) 6.25%, rgb(0% 0% 0% / 0.9619397662556434) 12.5%, rgb(0% 0% 0% / 0.9157348061512727) 18.75%, rgb(0% 0% 0% / 0.8535533905932737) 25%, rgb(0% 0% 0% / 0.7777851165098011) 31.25%, rgb(0% 0% 0% / 0.6913417161825449) 37.5%, rgb(0% 0% 0% / 0.5975451610080642) 43.75%, rgb(0% 0% 0% / 0.5) 50%, rgb(0% 0% 0% / 0.4024548389919359) 56.25%, rgb(0% 0% 0% / 0.3086582838174552) 62.5%, rgb(0% 0% 0% / 0.22221488349019902) 68.75%, rgb(0% 0% 0% / 0.14644660940672627) 75%, rgb(0% 0% 0% / 0.08426519384872733) 81.25%, rgb(0% 0% 0% / 0.03806023374435663) 87.5%, rgb(0% 0% 0% / 0.009607359798384785) 93.75%, rgb(0% 0% 0% / 0) 100% )",
+        }}
+      >
+        <Stack>
+          <Typography
+            color={"common.white"}
+            sx={{ opacity: 0.8, lineHeight: 1 }}
+          >
+            {title}
+          </Typography>
+          <Typography
+            color={"common.white"}
+            sx={{ opacity: 0.4, lineHeight: 1 }}
+          >
+            {subtitle}
+          </Typography>
+        </Stack>
+        <Stack direction={"row"}>
+          {sourceHref && (
+            <Link href={sourceHref} target={"_blank"}>
+              <IconButton sx={{ pointerEvents: "all" }}>
+                <GitHubIcon sx={{ color: "common.white" }} />
+              </IconButton>
+            </Link>
+          )}
+        </Stack>
+      </Stack>
     </Box>
   );
 }
@@ -637,7 +712,7 @@ const Home = (props: {}) => {
             .sort((a, b) =>
               a.score > b.score ? -1 : a.score < b.score ? 1 : 0
             )
-            .slice(0, 6)
+            .slice(0, 8)
             .flatMap((project, i) => [
               <Project key={i} project={project} />,
               <Divider key={`divider-${i}`} />,
@@ -646,14 +721,52 @@ const Home = (props: {}) => {
         </Stack>
       </Container>
 
-      {/* <Box
+      <Box
         component={"div"}
-        className={"grid grid-cols-3 gap-10"}
-        sx={{ marginTop: "100px", marginX: "5vw" }}
+        sx={{
+          marginTop: {
+            xs: "60px",
+            md: "100px",
+          },
+          marginBottom: "100px",
+          marginX: "5vw",
+          display: "grid",
+          gap: {
+            xs: "40px",
+            md: "10px",
+            lg: "40px",
+          },
+          gridTemplateColumns: {
+            xs: "repeat(1, minmax(0, 1fr))",
+            md: "repeat(3, minmax(0, 1fr))",
+          },
+        }}
       >
-        <Shader span={2} />
-        <Shader span={1} />
-      </Box> */}
+        <Shader
+          frag={frag3}
+          title={"SpaceTime"}
+          subtitle={"Genuary 2022 - Day 3"}
+          sourceHref={
+            "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
+          }
+        />
+        <Shader
+          frag={frag4}
+          title={"The next fidenza"}
+          subtitle={"Genuary 2022 - Day 4"}
+          sourceHref={
+            "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
+          }
+        />
+        <Shader
+          frag={frag5}
+          title={"Destroy a square"}
+          subtitle={"Genuary 2022 - Day 5"}
+          sourceHref={
+            "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
+          }
+        />
+      </Box>
     </>
   );
 };

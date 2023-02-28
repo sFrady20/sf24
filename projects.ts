@@ -18,7 +18,7 @@ const projectList = [
     name: "Abundant",
     languages: ["typescript", "css"],
     frameworks: ["react", "nextjs", "prisma", "mui", "tailwind"],
-    score: 8,
+    score: 7.5,
     thumbnail: "/videos/abundant.webm",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim blandit mi, in dignissim arcu tristique sit amet. Etiam euismod tellus massa, quis vestibulum elit lacinia vitae.",
@@ -27,7 +27,13 @@ const projectList = [
     name: "Home Run Derby",
     languages: ["c#"],
     frameworks: ["unity"],
-    score: 8.5,
+    score: 7.5,
+  },
+  {
+    name: "Road to greatness",
+    languages: ["c#"],
+    frameworks: ["unity"],
+    score: 8,
   },
   {
     name: "Moneybot",
@@ -45,7 +51,7 @@ const projectList = [
     name: "Area 51 Defense Squad",
     languages: ["c#"],
     frameworks: ["unity"],
-    score: 7,
+    score: 5.5,
   },
   {
     name: "Casino Bandito",
@@ -77,7 +83,7 @@ const projectList = [
     frameworks: ["flash"],
     score: 6,
   },
-  { name: "Walt Kart", languages: ["c#"], frameworks: ["unity"], score: 7 },
+  { name: "Walt Kart", languages: ["c#"], frameworks: ["unity"], score: 6 },
   {
     name: "QuarterVerse",
     languages: ["typescript", "scss"],

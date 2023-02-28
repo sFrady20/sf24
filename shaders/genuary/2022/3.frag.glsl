@@ -134,7 +134,7 @@ float expImpulse( float x, float k ) {
 
 void blackHole  (inout vec4 col, inout vec2 uv, out float mag) {
   vec2 center = resolution * 0.5;
-  center += (cursorSpring - resolution * 0.5) * vec2(0.1,-0.1);
+  center += (cursor - resolution * 0.5) * vec2(0.1,-0.1);
 
   float dx = (uv.x - center.x) / (resolution.x * 0.5);
   float dy = (uv.y - center.y) / (resolution.x * 0.5);
