@@ -22,7 +22,7 @@ export function CursorTarget<T>(
           hover: SpringValue<number>;
           isHovered: boolean;
         }) => ReactNode);
-    content: ReactNode;
+    content?: ReactNode;
     effect: CursorTargetEffect | null;
   } & Omit<BoxProps, "component" | "children">
 ) {

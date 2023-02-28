@@ -1,4 +1,4 @@
-const projectList = [
+export const projectList = [
   {
     name: "Wanderseat",
     languages: ["typescript", "css"],
@@ -140,5 +140,3 @@ const projectList = [
     score: 7,
   },
 ];
-
-export default projectList;
