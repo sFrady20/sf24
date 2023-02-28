@@ -459,7 +459,7 @@ function Shader(props: {
     cursor: { value: [0, 0] },
   }).current;
 
-  const backdropRgb = Color(theme.palette.background.paper)
+  const backdropRgb = Color(theme.palette.common.black)
     .rgb()
     .array()
     .map((x) => `${x / 2.55}%`)
@@ -540,8 +540,14 @@ function Shader(props: {
         }}
       >
         <Stack>
-          <Typography sx={{ opacity: 0.8, lineHeight: 1 }}>{title}</Typography>
-          <Typography sx={{ opacity: 0.4, lineHeight: 1 }}>
+          <Typography
+            sx={{ opacity: 0.8, lineHeight: 1, color: "common.white" }}
+          >
+            {title}
+          </Typography>
+          <Typography
+            sx={{ opacity: 0.4, lineHeight: 1, color: "common.white" }}
+          >
             {subtitle}
           </Typography>
         </Stack>
@@ -549,7 +555,7 @@ function Shader(props: {
           {sourceHref && (
             <Link href={sourceHref} target={"_blank"}>
               <IconButton sx={{ pointerEvents: "all" }}>
-                <GitHubIcon />
+                <GitHubIcon sx={{ color: "common.white" }} />
               </IconButton>
             </Link>
           )}
