@@ -17,7 +17,7 @@ export const defaultTheme: ThemeOptions = {
       styleOverrides: {
         root: ({ theme }) => ({
           [theme.breakpoints.down("lg")]: {
-            maxWidth: "85vw",
+            maxWidth: "90vw",
             padding: 0,
           },
         }),
