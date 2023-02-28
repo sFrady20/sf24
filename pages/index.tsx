@@ -140,11 +140,6 @@ function Project(props: { project: typeof projectList[number] }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  const [isExpanded, setExpanded] = useState(false);
-  const { expansion } = useSpring({
-    expansion: isExpanded ? 1 : 0,
-  });
-
   return (
     <CursorTarget
       content={
@@ -166,26 +161,41 @@ function Project(props: { project: typeof projectList[number] }) {
           sx={{
             position: "relative",
             cursor: "pointer",
-            marginX: { xs: "5vw", md: 0 },
+            marginX: { md: 0 },
           }}
           style={{
             paddingLeft: isMobile ? 0 : hover.to([0, 1], ["0px", "20px"]),
           }}
         >
           <AnimatedBox
-            className={"grid grid-cols-10 <md:grid-cols-1"}
             sx={{
-              paddingY: 5,
+              py: 5,
+              display: {
+                x: "block",
+                md: "grid",
+              },
+              gridTemplateColumns: {
+                md: "repeat(10, minmax(0, 1fr))",
+              },
             }}
           >
             <Typography
               component={"div"}
-              className={"col-span-2"}
-              sx={{ marginBottom: { xs: 1, md: 0 } }}
+              sx={{
+                marginBottom: { xs: 2, md: 0 },
+                gridColumn: { xs: "span 1 / span 1", md: "span 2 / span 2" },
+              }}
             >
               {project.name}
             </Typography>
-            <Box component={"ul"} className={"col-span-5"}>
+
+            <Box
+              component={"ul"}
+              sx={{
+                marginBottom: { xs: 2, md: 0 },
+                gridColumn: "span 5 / span 5",
+              }}
+            >
               {project.frameworks
                 .filter((x) => !["tailwind"].includes(x))
                 .map((x) => (
@@ -206,30 +216,37 @@ function Project(props: { project: typeof projectList[number] }) {
                 />
               ))}
             </Box>
-            <Box component={"ul"} className={"col-span-3"}></Box>
-            <AnimatePresence isPresent={!isMobile && isHovered && !isExpanded}>
+
+            <AnimatePresence isPresent={isMobile || isHovered}>
               {({ enter, exit }) => (
                 <AnimatedBox
                   sx={{
-                    position: "absolute",
+                    position: { xs: "static", md: "absolute" },
                     left: "50%",
                     top: "50%",
-                    transform: "translate(-50%, -50%)",
+                    transform: { xs: undefined, md: "translate(-50%, -50%)" },
                     zIndex: 50,
                     overflow: "hidden",
                     pointerEvents: "none",
+                    borderRadius: 2,
                   }}
                   style={{
                     opacity: to([enter, exit], (enter, exit) => enter - exit),
-                    transform: cursor.x.to(
-                      (x) => `translate(${-50 + x / 10}%, ${-50}%)`
-                    ),
+                    transform: isMobile
+                      ? ""
+                      : cursor.x.to(
+                          (x) => `translate(${-50 + x / 10}%, ${-50}%)`
+                        ),
                   }}
                 >
                   <AnimatedBox
+                    sx={{
+                      width: { xs: "100%", md: 400 },
+                      height: { xs: 300, md: 400 },
+                      overflow: "hidden",
+                      borderRadius: 2,
+                    }}
                     style={{
-                      width: 400,
-                      height: 400,
                       transform: to(
                         [enter, exit],
                         (enter, exit) =>
@@ -240,8 +257,7 @@ function Project(props: { project: typeof projectList[number] }) {
                     <Image
                       className="absolute inset-0"
                       src={`https://picsum.photos/seed/${project.name}/400/500`}
-                      width={400}
-                      height={400}
+                      fill
                       alt={project.name}
                     />
                     {/*
@@ -259,32 +275,6 @@ function Project(props: { project: typeof projectList[number] }) {
               )}
             </AnimatePresence>
           </AnimatedBox>
-          <AnimatePresence isPresent={isExpanded}>
-            {({ enter, exit }) => (
-              <AnimatedBox
-                className={"grid grid-cols-10 <md:grid-cols-1"}
-                sx={{ overflow: "hidden" }}
-                style={{
-                  height: to(
-                    [enter, exit],
-                    (enter, exit) => `${(enter - exit) * 300}px`
-                  ),
-                }}
-              >
-                <Box component={"div"} className={"col-span-2"} />
-                <Typography
-                  className={"col-span-6"}
-                  sx={{
-                    fontFamily: "'Open Sans', sans-serif",
-                    fontSize: 14,
-                    lineHeight: 1.6,
-                  }}
-                >
-                  {project.description}
-                </Typography>
-              </AnimatedBox>
-            )}
-          </AnimatePresence>
         </AnimatedBox>
       )}
     </CursorTarget>
@@ -483,7 +473,10 @@ function Shader(props: {
         className={"col-span-1"}
         sx={{
           backgroundColor: "background.paper",
-          borderRadius: 5,
+          borderRadius: {
+            xs: 2,
+            lg: 5,
+          },
           transition: "box-shadow 0.2s ease-out, transform 0.2s ease-in-out",
           cursor: "crosshair",
           overflow: "hidden",
@@ -679,12 +672,13 @@ const Home = (props: {}) => {
         component={"h1"}
         sx={{
           fontFamily: "Zighead",
-          fontSize: "min(28vw, 45vh)",
+          fontSize: "min(31.3vw, 45vh)",
           textTransform: "uppercase",
           textAlign: "center",
           cursor: "default",
           lineHeight: 1,
-          mt: "172px",
+          transform: "translateX(-2.2vw)",
+          mt: { xs: "calc(5vh + 90px)", md: "calc(5vh + 130px)" },
         }}
       >
         Frady
@@ -696,7 +690,7 @@ const Home = (props: {}) => {
           fontSize: { xs: 12, sm: 14, md: 14.5 },
           textAlign: "justify",
           width: 530,
-          maxWidth: "80%",
+          maxWidth: "90vw",
           margin: { xs: "0 auto 40px", md: "0 auto 80px" },
         }}
       >
@@ -814,26 +808,34 @@ const Home = (props: {}) => {
                 <Box
                   key={i}
                   component={"div"}
-                  className={"grid grid-cols-12 gap-4"}
-                  sx={{ py: 5 }}
+                  sx={{
+                    py: 5,
+                    display: "grid",
+                    gap: "24px",
+                    gridTemplateColumns: {
+                      xs: "repeat(1, minmax(0, 1fr))",
+                      md: "repeat(12, minmax(0, 1fr))",
+                    },
+                  }}
                 >
-                  <Box component={"div"} className={"col-span-5"}>
+                  <Box component={"div"} className={"col-span-4"}>
                     <Typography
                       sx={{
-                        fontSize: "20px",
+                        fontSize: "16px",
                         fontWeight: "bold",
                       }}
                     >
                       {`${experience.years[0]}`}
                       {experience.years[1] && (
                         <>
-                          <ArrowForwardIcon />
+                          {` `}
+                          <ArrowForwardIcon sx={{ width: 16, height: 16 }} />
                           {` ${experience.years[1]}`}
                         </>
                       )}
                     </Typography>
                   </Box>
-                  <Box component={"div"} className={"col-span-7"}>
+                  <Box component={"div"} className={"col-span-8"}>
                     <Typography variant={"subtitle1"}>
                       {experience.place}
                     </Typography>
