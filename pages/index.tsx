@@ -46,6 +46,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import EmailIcon from "@mui/icons-material/Email";
 import CloseIcon from "@mui/icons-material/Close";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import DownloadIcon from "@mui/icons-material/Download";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useApp } from "./_app";
@@ -133,8 +134,6 @@ function AnimatePresence(props: {
   );
 }
 
-const AnimatedCloseIcon = animated(CloseIcon);
-
 function Project(props: { project: typeof projectList[number] }) {
   const { project } = props;
   const cursor = useContext(CursorContext);
@@ -150,24 +149,16 @@ function Project(props: { project: typeof projectList[number] }) {
     <CursorTarget
       content={
         <AnimatedBox>
-          <AnimatedCloseIcon
+          <ArrowForwardIcon
             style={{
-              rotate: expansion.to([0, 1], ["-45deg", "0deg"]),
-              scale: expansion,
+              rotate: "-45deg",
             }}
           />
         </AnimatedBox>
       }
-      effect={
-        isExpanded
-          ? {
-              type: "grow",
-              size: 40,
-            }
-          : null
-      }
-      onClick={() => {
-        setExpanded((x) => !x);
+      effect={{
+        type: "grow",
+        size: 40,
       }}
     >
       {({ hover, isHovered }) => (
@@ -712,10 +703,40 @@ const Home = (props: {}) => {
         features with a focus on simplicity and scalability.
       </Typography>
 
+      <Container
+        sx={{
+          marginTop: {
+            xs: "60px",
+            md: "100px",
+          },
+          marginBottom: {
+            xs: "60px",
+            md: "100px",
+          },
+        }}
+      >
+        <Stack>
+          {projectList
+            .sort((a, b) =>
+              a.score > b.score ? -1 : a.score < b.score ? 1 : 0
+            )
+            .slice(0, 8)
+            .flatMap((project, i) => [
+              <Project key={i} project={project} />,
+              <Divider key={`divider-${i}`} />,
+            ])
+            .slice(0, -1)}
+        </Stack>
+      </Container>
+
       <Box
         component={"div"}
         sx={{
           marginTop: {
+            xs: "60px",
+            md: "100px",
+          },
+          marginBottom: {
             xs: "60px",
             md: "100px",
           },
@@ -757,26 +778,6 @@ const Home = (props: {}) => {
           }
         />
       </Box>
-
-      <Container
-        sx={{
-          marginTop: "100px",
-          marginBottom: "100px",
-        }}
-      >
-        <Stack>
-          {projectList
-            .sort((a, b) =>
-              a.score > b.score ? -1 : a.score < b.score ? 1 : 0
-            )
-            .slice(0, 8)
-            .flatMap((project, i) => [
-              <Project key={i} project={project} />,
-              <Divider key={`divider-${i}`} />,
-            ])
-            .slice(0, -1)}
-        </Stack>
-      </Container>
     </>
   );
 };
