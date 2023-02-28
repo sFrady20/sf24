@@ -7,7 +7,6 @@ uniform float exit;
 
 void main(){
   vec2 uv = gl_FragCoord.xy / resolution.xy;
-  float amt = max(enter - exit, 0.);
-  vec4 color=texture2D(scene,uv)*2.;
+  vec4 color= vec4(uv,1.,1.);
   gl_FragColor=color;
 }

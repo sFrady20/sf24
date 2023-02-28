@@ -1,5 +1,5 @@
 import React, { ReactNode, useRef } from "react";
-import { MeshProps, useFrame, useThree } from "@react-three/fiber";
+import { MeshProps, useThree } from "@react-three/fiber";
 import { Mesh, PerspectiveCamera } from "three";
 
 const Slice = (

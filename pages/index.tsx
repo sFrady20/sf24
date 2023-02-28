@@ -5,10 +5,10 @@ import {
   ButtonGroup,
   Chip,
   Container,
+  Divider,
   IconButton,
   Stack,
   Tab,
-  Tabs,
   Typography,
   useMediaQuery,
   useTheme,
@@ -28,6 +28,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import {
@@ -35,6 +36,7 @@ import {
   SpringProps,
   SpringValue,
   to,
+  useResize,
   useSpring,
   useTrail,
 } from "@react-spring/web";
@@ -49,6 +51,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useApp } from "./_app";
 import Image from "next/image";
 import projectList from "projects";
+import { Canvas } from "@react-three/fiber";
+import Slice from "components/Slice";
+import frag from "shaders/genuary/2023/1.frag.glsl";
 
 export const getServerSideProps = makeServerSideProps();
 
@@ -131,13 +136,12 @@ function Project(props: { project: typeof projectList[number] }) {
   const { project } = props;
   const cursor = useContext(CursorContext);
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const [isExpanded, setExpanded] = useState(false);
   const { expansion } = useSpring({
     expansion: isExpanded ? 1 : 0,
   });
-
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <CursorTarget
@@ -167,8 +171,6 @@ function Project(props: { project: typeof projectList[number] }) {
         <AnimatedBox
           sx={{
             position: "relative",
-            borderBottomWidth: 1,
-            borderColor: "divider",
             cursor: "pointer",
             marginX: { xs: "5vw", md: 0 },
           }}
@@ -190,11 +192,24 @@ function Project(props: { project: typeof projectList[number] }) {
               {project.name}
             </Typography>
             <Box component={"ul"} className={"col-span-5"}>
-              {project.frameworks.map((x) => (
-                <Chip key={x} size={"small"} label={x} />
-              ))}
+              {project.frameworks
+                .filter((x) => !["tailwind"].includes(x))
+                .map((x) => (
+                  <Chip
+                    key={x}
+                    size={"small"}
+                    label={x}
+                    sx={{ marginRight: "2px", marginBottom: "2px" }}
+                  />
+                ))}
               {project.languages.map((x) => (
-                <Chip key={x} size={"small"} variant={"outlined"} label={x} />
+                <Chip
+                  key={x}
+                  size={"small"}
+                  variant={"outlined"}
+                  label={x}
+                  sx={{ marginRight: "2px", marginBottom: "2px" }}
+                />
               ))}
             </Box>
             <Box component={"ul"} className={"col-span-3"}></Box>
@@ -263,13 +278,16 @@ function Project(props: { project: typeof projectList[number] }) {
                 }}
               >
                 <Box component={"div"} className={"col-span-2"} />
-                <Box
-                  component={"div"}
+                <Typography
                   className={"col-span-5"}
-                  sx={{ fontSize: 14, lineHeight: 1.6 }}
+                  sx={{
+                    fontFamily: "'Open Sans', sans-serif",
+                    fontSize: 14,
+                    lineHeight: 1.6,
+                  }}
                 >
                   {project.description}
-                </Box>
+                </Typography>
               </AnimatedBox>
             )}
           </AnimatePresence>
@@ -315,7 +333,10 @@ function Menu(props: {
         height: to([enter, exit], (enter, exit) => `${(enter - exit) * 100}%`),
       }}
     >
-      <AnimatedStack justifyContent={"space-between"} height={"100vh"}>
+      <Stack
+        justifyContent={"center"}
+        style={{ height: "calc(var(--1svh) * 100)" }}
+      >
         <Stack></Stack>
         <Stack spacing={4}>
           <Link href={"https://github.com/sFrady20"} target="_blank">
@@ -379,13 +400,22 @@ function Menu(props: {
             </AnimatedButton>
           </Link>
         </Stack>
-        <Stack
+        <AnimatedStack
           spacing={4}
           sx={{
-            marginBottom: "10vh",
+            position: "absolute",
+            bottom: 0,
+            left: "5vw",
+            right: "5vw",
+            marginBottom: "5vh",
             backgroundColor: "background.default",
             borderRadius: 2,
             overflow: "hidden",
+          }}
+          style={{
+            opacity: to([t(3), enter, exit], (t, enter, exit) =>
+              Math.min(t, enter - exit)
+            ),
           }}
         >
           <AnimatedTabs
@@ -405,9 +435,52 @@ function Menu(props: {
             <Tab label={"Dark"} />
             <Tab label={"System"} />
           </AnimatedTabs>
-        </Stack>
-      </AnimatedStack>
+        </AnimatedStack>
+      </Stack>
     </AnimatedBox>
+  );
+}
+
+function Shader(props: { frag: string; span: number }) {
+  const { span } = props;
+  const containerEl = useRef<HTMLDivElement>(null);
+  const uniforms = useRef({ resolution: { value: [100, 100] } }).current;
+
+  // useResize({
+  //   container: containerEl,
+  //   onChange: ({ width, height }) => {
+  //     console.log(width, height);
+  //     uniforms.resolution.value = [width, height];
+  //   },
+  // });
+
+  return (
+    <Box
+      ref={containerEl}
+      component={"div"}
+      className={span === 1 ? "col-span-1" : "col-span-2"}
+      sx={{
+        height: 490,
+        backgroundColor: "background.paper",
+        borderWidth: 1,
+        borderColor: "divider",
+        borderRadius: 5,
+        transition: "box-shadow 0.2s ease-out, transform 0.2s ease-in-out",
+        cursor: "crosshair",
+        overflow: "hidden",
+
+        ["&:hover"]: {
+          boxShadow: "0 40px 30px -15px rgb(0 0 0 / 30%)",
+          transform: "scale(1.02)",
+        },
+      }}
+    >
+      <Canvas>
+        <Slice>
+          <shaderMaterial fragmentShader={frag} uniforms={uniforms} />
+        </Slice>
+      </Canvas>
+    </Box>
   );
 }
 
@@ -416,6 +489,11 @@ const Home = (props: {}) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  useEffect(() => {
+    window.document.body.style.overflowY =
+      isMenuOpen && isMobile ? "hidden" : "auto";
+  }, [isMenuOpen && isMobile]);
 
   return (
     <>
@@ -559,11 +637,23 @@ const Home = (props: {}) => {
             .sort((a, b) =>
               a.score > b.score ? -1 : a.score < b.score ? 1 : 0
             )
-            .map((project, i) => (
-              <Project key={i} project={project} />
-            ))}
+            .slice(0, 6)
+            .flatMap((project, i) => [
+              <Project key={i} project={project} />,
+              <Divider key={`divider-${i}`} />,
+            ])
+            .slice(0, -1)}
         </Stack>
       </Container>
+
+      {/* <Box
+        component={"div"}
+        className={"grid grid-cols-3 gap-10"}
+        sx={{ marginTop: "100px", marginX: "5vw" }}
+      >
+        <Shader span={2} />
+        <Shader span={1} />
+      </Box> */}
     </>
   );
 };

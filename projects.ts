@@ -2,7 +2,14 @@ const projectList = [
   {
     name: "Wanderseat",
     languages: ["typescript", "css"],
-    frameworks: ["react", "nextjs", "prisma", "mui", "tailwind"],
+    frameworks: [
+      "react",
+      "react-native",
+      "nextjs",
+      "prisma",
+      "mui",
+      "tailwind",
+    ],
     score: 9,
     description:
       "WanderSeat is an ecosystem where travelers receive rewards for sharing flight deals and experiences that inspire the next traveler.",

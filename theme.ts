@@ -13,6 +13,15 @@ export const defaultTheme: ThemeOptions = {
         color: "inherit",
       },
     },
+    MuiContainer: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          [theme.breakpoints.between("md", "lg")]: {
+            maxWidth: "90vw",
+          },
+        }),
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: {
         body: {
