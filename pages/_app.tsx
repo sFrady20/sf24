@@ -5,6 +5,7 @@ import {
   createContext,
   useContext,
   useMemo,
+  useEffect,
 } from "react";
 import {
   ThemeProvider,
@@ -62,6 +63,16 @@ export default function App(props: AppProps) {
   const [themePreset, setThemePreset] = useState<AppThemePreset>({
     key: "default",
   });
+
+  useEffect(() => {
+    setThemePreset((x) => ({
+      ...x,
+      mode: localStorage.getItem("mode") as any,
+    }));
+  }, []);
+  useEffect(() => {
+    if (themePreset.mode) localStorage.setItem("mode", themePreset.mode);
+  }, [themePreset]);
 
   const theme = useMemo(
     () =>

@@ -32,12 +32,10 @@ import {
   useState,
 } from "react";
 import {
-  animated,
   SpringProps,
   SpringValue,
   to,
   useResize,
-  useSpring,
   useTrail,
 } from "@react-spring/web";
 import LightModeIcon from "@mui/icons-material/LightMode";
@@ -49,6 +47,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import DownloadIcon from "@mui/icons-material/Download";
 import CopyrightIcon from "@mui/icons-material/Copyright";
 import MenuIcon from "@mui/icons-material/Menu";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { useApp } from "./_app";
 import Image from "next/image";
 import { projectList } from "data/projects";
@@ -482,7 +481,8 @@ function Shader(props: {
           backgroundColor: "background.paper",
           borderRadius: {
             xs: 2,
-            lg: 5,
+            md: 1,
+            lg: 3,
           },
           transition: "box-shadow 0.2s ease-out, transform 0.2s ease-in-out",
           cursor: "crosshair",
@@ -677,14 +677,21 @@ const Home = (props: {}) => {
                 onClick={() =>
                   setThemePreset({
                     ...themePreset,
-                    mode: themePreset.mode === "dark" ? "light" : "dark",
+                    mode:
+                      themePreset.mode === "light"
+                        ? "dark"
+                        : themePreset.mode === "dark"
+                        ? "system"
+                        : "light",
                   })
                 }
               >
                 {themePreset.mode === "dark" ? (
                   <DarkModeIcon />
-                ) : (
+                ) : themePreset.mode === "light" ? (
                   <LightModeIcon />
+                ) : (
+                  <AutoAwesomeIcon />
                 )}
               </Button>
             </ButtonGroup>
@@ -758,10 +765,19 @@ const Home = (props: {}) => {
               ])
               .slice(0, -1)}
           </Stack>
+          <Stack direction={"row"} justifyContent={"flex-end"}>
+            <Button
+              size={"small"}
+              endIcon={
+                <ArrowForwardIcon sx={{ transform: "rotate(-45deg)" }} />
+              }
+            >
+              More projects
+            </Button>
+          </Stack>
         </Container>
 
-        <Box
-          component={"div"}
+        <Stack
           sx={{
             marginTop: {
               xs: "60px",
@@ -771,44 +787,65 @@ const Home = (props: {}) => {
               xs: "60px",
               md: "100px",
             },
-            marginX: "5vw",
-            display: "grid",
-            gap: {
-              xs: "40px",
-              md: "10px",
-              lg: "40px",
-            },
-            gridTemplateColumns: {
-              xs: "repeat(1, minmax(0, 1fr))",
-              md: "repeat(3, minmax(0, 1fr))",
+            marginX: {
+              xs: "5vw",
+              md: 0,
+              lg: "5vw",
             },
           }}
+          spacing={5}
         >
-          <Shader
-            frag={frag3}
-            title={"SpaceTime"}
-            subtitle={"Genuary 2022 - Day 3"}
-            sourceHref={
-              "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
-            }
-          />
-          <Shader
-            frag={frag4}
-            title={"The next fidenza"}
-            subtitle={"Genuary 2022 - Day 4"}
-            sourceHref={
-              "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
-            }
-          />
-          <Shader
-            frag={frag5}
-            title={"Destroy a square"}
-            subtitle={"Genuary 2022 - Day 5"}
-            sourceHref={
-              "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
-            }
-          />
-        </Box>
+          <Box
+            component={"div"}
+            sx={{
+              display: "grid",
+              gap: {
+                xs: "40px",
+                md: "1px",
+                lg: "40px",
+              },
+              gridTemplateColumns: {
+                xs: "repeat(1, minmax(0, 1fr))",
+                md: "repeat(3, minmax(0, 1fr))",
+              },
+            }}
+          >
+            <Shader
+              frag={frag3}
+              title={"SpaceTime"}
+              subtitle={"Genuary 2022 - Day 3"}
+              sourceHref={
+                "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
+              }
+            />
+            <Shader
+              frag={frag4}
+              title={"The next fidenza"}
+              subtitle={"Genuary 2022 - Day 4"}
+              sourceHref={
+                "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
+              }
+            />
+            <Shader
+              frag={frag5}
+              title={"Destroy a square"}
+              subtitle={"Genuary 2022 - Day 5"}
+              sourceHref={
+                "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
+              }
+            />
+          </Box>
+          <Stack direction={"row"} justifyContent={"flex-end"}>
+            <Button
+              size={"small"}
+              endIcon={
+                <ArrowForwardIcon sx={{ transform: "rotate(-45deg)" }} />
+              }
+            >
+              More shaders
+            </Button>
+          </Stack>
+        </Stack>
 
         <Container
           sx={{

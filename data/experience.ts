@@ -20,7 +20,7 @@ export const experienceList = [
   {
     years: [2018, 2020],
     place: "U.Group",
-    position: "Full-stack Developer · Full-time",
+    position: "Frontend Developer · Full-time",
     location: "Remote - Crystal City, VA",
   },
   {
