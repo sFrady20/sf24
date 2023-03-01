@@ -565,10 +565,6 @@ const Home = (props: {}) => {
 
   return (
     <>
-      <AnimatePresence isPresent={isMenuOpen && isMobile}>
-        {({ enter, exit }) => <Menu enter={enter} exit={exit} />}
-      </AnimatePresence>
-
       <Box
         component={"div"}
         sx={{
@@ -580,6 +576,9 @@ const Home = (props: {}) => {
           overflow: "hidden",
         }}
       >
+        <AnimatePresence isPresent={isMenuOpen && isMobile}>
+          {({ enter, exit }) => <Menu enter={enter} exit={exit} />}
+        </AnimatePresence>
         <Stack
           direction={"row"}
           justifyContent={"space-between"}
@@ -601,7 +600,14 @@ const Home = (props: {}) => {
               src={"/portrait-trans.png"}
               sx={{ width: 32, height: 32, marginRight: 2 }}
             />
-            <Typography component={"h1"}>sf23</Typography>
+            <Typography
+              component={"h1"}
+              sx={{
+                color: isMenuOpen && isMobile ? "common.white" : undefined,
+              }}
+            >
+              sf23
+            </Typography>
           </Stack>
           <Stack
             direction={"row"}
@@ -695,7 +701,7 @@ const Home = (props: {}) => {
           component={"h1"}
           sx={{
             fontFamily: "Zighead",
-            fontSize: "min(31.3vw, 45vh)",
+            fontSize: "min(calc(31.3vw - 16px), 45vh)",
             textTransform: "uppercase",
             textAlign: "center",
             cursor: "default",
@@ -713,11 +719,11 @@ const Home = (props: {}) => {
             fontSize: { xs: 12, sm: 14, md: 14.5 },
             textAlign: "justify",
             width: 530,
-            maxWidth: "90vw",
+            maxWidth: "calc(90vw - 32px)",
             margin: { xs: "0 auto 40px", md: "0 auto 80px" },
           }}
         >
-          I am a creative full-stack developer with over 9 years of experience.
+          I am a creative full-stack developer with over 8 years of experience.
           I specialize in building elegant solutions and I'm constantly crafting
           new features with a focus on simplicity and scalability.
         </Typography>
@@ -739,7 +745,7 @@ const Home = (props: {}) => {
               .sort((a, b) =>
                 a.score > b.score ? -1 : a.score < b.score ? 1 : 0
               )
-              .slice(0, isMobile ? 3 : 8)
+              .slice(0, isMobile ? 5 : 8)
               .flatMap((project, i) => [
                 <Project key={i} project={project} />,
                 <Divider key={`divider-${i}`} />,
@@ -899,6 +905,29 @@ const Home = (props: {}) => {
           backgroundColor: "common.black",
           color: "common.white",
           display: "flex",
+          zIndex: 1,
+
+          //backsplash for overscroll
+          ["&:before"]: {
+            content: '" "',
+            position: "fixed",
+            zIndex: -1,
+            left: 0,
+            right: 0,
+            top: 0,
+            height: "50vh",
+            backgroundColor: "background.default",
+          },
+          ["&:after"]: {
+            content: '" "',
+            position: "fixed",
+            zIndex: -1,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: "50vh",
+            backgroundColor: "common.black",
+          },
         }}
       >
         <Container>
