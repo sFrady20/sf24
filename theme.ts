@@ -28,6 +28,7 @@ export const defaultTheme: ThemeOptions = {
         body: {
           minHeight: "calc(var(--1svh) * 100)",
           overflowX: "hidden",
+          overscrollBehavior: "none",
 
           ["a, a:visited, a:hover, a:active"]: {
             color: "inherit",

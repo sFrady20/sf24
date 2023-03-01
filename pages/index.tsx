@@ -47,6 +47,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import EmailIcon from "@mui/icons-material/Email";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import DownloadIcon from "@mui/icons-material/Download";
+import CopyrightIcon from "@mui/icons-material/Copyright";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useApp } from "./_app";
 import Image from "next/image";
@@ -568,301 +569,359 @@ const Home = (props: {}) => {
         {({ enter, exit }) => <Menu enter={enter} exit={exit} />}
       </AnimatePresence>
 
-      <Stack
-        direction={"row"}
-        justifyContent={"space-between"}
-        alignItems={"center"}
-        className={"backdrop-filter backdrop-blur-100px"}
-        sx={{
-          position: "fixed",
-          top: "5vh",
-          left: "5vw",
-          right: "5vw",
-          borderRadius: 4,
-          paddingX: 2,
-          paddingY: 1,
-          zIndex: 100,
-        }}
-      >
-        <Avatar src={"/portrait-trans.png"} sx={{ width: 32, height: 32 }} />
-        <Stack
-          direction={"row"}
-          alignItems={"center"}
-          spacing={3}
-          sx={{
-            display: { xs: "none", md: "flex" },
-          }}
-        >
-          <Box component={"div"}>
-            <Link href={"https://github.com/sFrady20"} target="_blank">
-              <IconButton sx={{ color: "inherit", cursor: "alias" }}>
-                <GitHubIcon sx={{ width: 20, height: 20 }} />
-              </IconButton>
-            </Link>
-          </Box>
-          <Box component={"div"}>
-            <Link href={"https://twitter.com/slowjamsteve"} target="_blank">
-              <IconButton sx={{ color: "inherit", cursor: "alias" }}>
-                <TwitterIcon sx={{ width: 20, height: 20 }} />
-              </IconButton>
-            </Link>
-          </Box>
-          <Box component={"div"}>
-            <Link href={"mailto:@sfrady20@gmail.com"} target="_blank">
-              <IconButton sx={{ color: "inherit" }}>
-                <EmailIcon sx={{ width: 20, height: 20 }} />
-              </IconButton>
-            </Link>
-          </Box>
-          <Box component={"div"}>
-            <Button
-              startIcon={<DownloadIcon />}
-              color={"inherit"}
-              sx={{ color: "inherit", borderRadius: 10, textTransform: "none" }}
-            >
-              Resume
-            </Button>
-          </Box>
-        </Stack>
-        <Stack
-          direction={"row"}
-          alignItems={"center"}
-          spacing={2}
-          sx={{
-            display: { xs: "none", md: "flex" },
-          }}
-        >
-          <ButtonGroup>
-            <Button variant={"text"} color={"inherit"}>
-              SF23
-            </Button>
-            <Button
-              variant={"text"}
-              color={"inherit"}
-              onClick={() =>
-                setThemePreset({
-                  ...themePreset,
-                  mode: themePreset.mode === "dark" ? "light" : "dark",
-                })
-              }
-            >
-              {themePreset.mode === "dark" ? (
-                <DarkModeIcon />
-              ) : (
-                <LightModeIcon />
-              )}
-            </Button>
-          </ButtonGroup>
-        </Stack>
-        <Stack
-          sx={{
-            display: { xs: "flex", md: "none" },
-          }}
-        >
-          <IconButton
-            sx={{ color: isMenuOpen ? "common.white" : "inherit" }}
-            onClick={() => setMenuOpen((x) => !x)}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Stack>
-      </Stack>
-
-      <Typography
-        component={"h1"}
-        sx={{
-          fontFamily: "Zighead",
-          fontSize: "min(31.3vw, 45vh)",
-          textTransform: "uppercase",
-          textAlign: "center",
-          cursor: "default",
-          lineHeight: 1,
-          transform: "translateX(-2.2vw)",
-          mt: { xs: "calc(5vh + 90px)", md: "calc(5vh + 130px)" },
-        }}
-      >
-        Frady
-      </Typography>
-
-      <Typography
-        component={"div"}
-        sx={{
-          fontSize: { xs: 12, sm: 14, md: 14.5 },
-          textAlign: "justify",
-          width: 530,
-          maxWidth: "90vw",
-          margin: { xs: "0 auto 40px", md: "0 auto 80px" },
-        }}
-      >
-        I am a creative full-stack developer with over 9 years of experience. I
-        specialize in building elegant solutions and I'm constantly crafting new
-        features with a focus on simplicity and scalability.
-      </Typography>
-
-      <Container
-        sx={{
-          marginTop: {
-            xs: "60px",
-            md: "100px",
-          },
-          marginBottom: {
-            xs: "60px",
-            md: "100px",
-          },
-        }}
-      >
-        <Stack>
-          {projectList
-            .sort((a, b) =>
-              a.score > b.score ? -1 : a.score < b.score ? 1 : 0
-            )
-            .slice(0, 8)
-            .flatMap((project, i) => [
-              <Project key={i} project={project} />,
-              <Divider key={`divider-${i}`} />,
-            ])
-            .slice(0, -1)}
-        </Stack>
-      </Container>
-
       <Box
         component={"div"}
         sx={{
-          marginTop: {
-            xs: "60px",
-            md: "100px",
-          },
-          marginBottom: {
-            xs: "60px",
-            md: "100px",
-          },
-          marginX: "5vw",
-          display: "grid",
-          gap: {
-            xs: "40px",
-            md: "10px",
-            lg: "40px",
-          },
-          gridTemplateColumns: {
-            xs: "repeat(1, minmax(0, 1fr))",
-            md: "repeat(3, minmax(0, 1fr))",
-          },
+          position: "relative",
+          zIndex: 10,
+          backgroundColor: "background.default",
+          color: "text.primary",
+          borderRadius: "0 0 24px 24px",
+          overflow: "hidden",
         }}
       >
-        <Shader
-          frag={frag3}
-          title={"SpaceTime"}
-          subtitle={"Genuary 2022 - Day 3"}
-          sourceHref={
-            "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
-          }
-        />
-        <Shader
-          frag={frag4}
-          title={"The next fidenza"}
-          subtitle={"Genuary 2022 - Day 4"}
-          sourceHref={
-            "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
-          }
-        />
-        <Shader
-          frag={frag5}
-          title={"Destroy a square"}
-          subtitle={"Genuary 2022 - Day 5"}
-          sourceHref={
-            "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
-          }
-        />
-      </Box>
-
-      <Container
-        sx={{
-          marginTop: {
-            xs: "60px",
-            md: "100px",
-          },
-          marginBottom: {
-            xs: "60px",
-            md: "100px",
-          },
-        }}
-      >
-        <Stack>
-          <Box
-            component={"div"}
-            className={"gap-x-15"}
+        <Stack
+          direction={"row"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+          className={"backdrop-filter backdrop-blur-100px"}
+          sx={{
+            position: "fixed",
+            top: "5vh",
+            left: "5vw",
+            right: "5vw",
+            borderRadius: 4,
+            paddingX: 2,
+            paddingY: 1,
+            zIndex: 100,
+          }}
+        >
+          <Stack direction={"row"} alignItems={"center"} sx={{ flex: 1 }}>
+            <Avatar
+              src={"/portrait-trans.png"}
+              sx={{ width: 32, height: 32, marginRight: 2 }}
+            />
+            <Typography component={"h1"}>sf23</Typography>
+          </Stack>
+          <Stack
+            direction={"row"}
+            spacing={3}
+            alignItems={"center"}
+            justifyContent={"center"}
             sx={{
-              display: "grid",
-              gridTemplateColumns: {
-                xs: "repeat(1, minmax(0, 1fr))",
-                lg: "repeat(2, minmax(0, 1fr))",
-              },
+              flex: 1,
+              display: { xs: "none", md: "flex" },
             }}
           >
-            {experienceList
-              .sort((a, b) =>
-                a.years[0] > b.years[0] ? -1 : a.years[0] < b.years[0] ? 1 : 0
-              )
-              .slice(0, 8)
-              .map((experience, i) => (
-                <Box
-                  key={i}
-                  component={"div"}
-                  sx={{
-                    py: 5,
-                    display: "grid",
-                    gap: "24px",
-                    gridTemplateColumns: {
-                      xs: "repeat(1, minmax(0, 1fr))",
-                      md: "repeat(12, minmax(0, 1fr))",
-                    },
-                  }}
-                >
-                  <Box component={"div"} className={"col-span-4"}>
-                    <Typography
-                      sx={{
-                        fontSize: "16px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {`${experience.years[0]}`}
-                      {experience.years[1] && (
-                        <>
-                          {` `}
-                          <ArrowForwardIcon sx={{ width: 16, height: 16 }} />
-                          {` ${experience.years[1]}`}
-                        </>
-                      )}
-                    </Typography>
-                  </Box>
-                  <Box component={"div"} className={"col-span-8"}>
-                    <Typography variant={"subtitle1"}>
-                      {experience.place}
-                    </Typography>
-                    <Typography
-                      variant={"subtitle2"}
-                      sx={{
-                        display: "-webkit-box",
-                        WebkitBoxOrient: "vertical",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        lineClamp: { xs: 2, md: 1 },
-                        WebkitLineClamp: { xs: 2, md: 1 },
-                      }}
-                    >
-                      {experience.position}
-                    </Typography>
-                    <Typography
-                      sx={{ marginTop: 2, fontSize: "14px", opacity: 0.6 }}
-                    >
-                      {experience.location}
-                    </Typography>
-                  </Box>
-                </Box>
-              ))}
-          </Box>
+            <Box component={"div"}>
+              <Link href={"https://github.com/sFrady20"} target="_blank">
+                <IconButton sx={{ color: "inherit", cursor: "alias" }}>
+                  <GitHubIcon sx={{ width: 20, height: 20 }} />
+                </IconButton>
+              </Link>
+            </Box>
+            <Box component={"div"}>
+              <Link href={"https://twitter.com/slowjamsteve"} target="_blank">
+                <IconButton sx={{ color: "inherit", cursor: "alias" }}>
+                  <TwitterIcon sx={{ width: 20, height: 20 }} />
+                </IconButton>
+              </Link>
+            </Box>
+            <Box component={"div"}>
+              <Link href={"mailto:@sfrady20@gmail.com"} target="_blank">
+                <IconButton sx={{ color: "inherit" }}>
+                  <EmailIcon sx={{ width: 20, height: 20 }} />
+                </IconButton>
+              </Link>
+            </Box>
+            <Box component={"div"}>
+              <Button
+                startIcon={<DownloadIcon />}
+                color={"inherit"}
+                sx={{
+                  color: "inherit",
+                  borderRadius: 10,
+                  textTransform: "none",
+                }}
+              >
+                Resume
+              </Button>
+            </Box>
+          </Stack>
+          <Stack
+            direction={"row"}
+            alignItems={"center"}
+            justifyContent={"flex-end"}
+            spacing={2}
+            sx={{
+              flex: 1,
+              display: { xs: "none", md: "flex" },
+            }}
+          >
+            <ButtonGroup>
+              <Button
+                variant={"text"}
+                color={"inherit"}
+                onClick={() =>
+                  setThemePreset({
+                    ...themePreset,
+                    mode: themePreset.mode === "dark" ? "light" : "dark",
+                  })
+                }
+              >
+                {themePreset.mode === "dark" ? (
+                  <DarkModeIcon />
+                ) : (
+                  <LightModeIcon />
+                )}
+              </Button>
+            </ButtonGroup>
+          </Stack>
+          <Stack
+            sx={{
+              display: { xs: "flex", md: "none" },
+            }}
+          >
+            <IconButton
+              sx={{ color: isMenuOpen ? "common.white" : "inherit" }}
+              onClick={() => setMenuOpen((x) => !x)}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Stack>
         </Stack>
-      </Container>
+
+        <Typography
+          component={"h1"}
+          sx={{
+            fontFamily: "Zighead",
+            fontSize: "min(31.3vw, 45vh)",
+            textTransform: "uppercase",
+            textAlign: "center",
+            cursor: "default",
+            lineHeight: 1,
+            transform: "translateX(-2.2vw)",
+            mt: { xs: "calc(5vh + 90px)", md: "calc(5vh + 130px)" },
+          }}
+        >
+          Frady
+        </Typography>
+
+        <Typography
+          component={"div"}
+          sx={{
+            fontSize: { xs: 12, sm: 14, md: 14.5 },
+            textAlign: "justify",
+            width: 530,
+            maxWidth: "90vw",
+            margin: { xs: "0 auto 40px", md: "0 auto 80px" },
+          }}
+        >
+          I am a creative full-stack developer with over 9 years of experience.
+          I specialize in building elegant solutions and I'm constantly crafting
+          new features with a focus on simplicity and scalability.
+        </Typography>
+
+        <Container
+          sx={{
+            marginTop: {
+              xs: "60px",
+              md: "100px",
+            },
+            marginBottom: {
+              xs: "60px",
+              md: "100px",
+            },
+          }}
+        >
+          <Stack>
+            {projectList
+              .sort((a, b) =>
+                a.score > b.score ? -1 : a.score < b.score ? 1 : 0
+              )
+              .slice(0, isMobile ? 3 : 8)
+              .flatMap((project, i) => [
+                <Project key={i} project={project} />,
+                <Divider key={`divider-${i}`} />,
+              ])
+              .slice(0, -1)}
+          </Stack>
+        </Container>
+
+        <Box
+          component={"div"}
+          sx={{
+            marginTop: {
+              xs: "60px",
+              md: "100px",
+            },
+            marginBottom: {
+              xs: "60px",
+              md: "100px",
+            },
+            marginX: "5vw",
+            display: "grid",
+            gap: {
+              xs: "40px",
+              md: "10px",
+              lg: "40px",
+            },
+            gridTemplateColumns: {
+              xs: "repeat(1, minmax(0, 1fr))",
+              md: "repeat(3, minmax(0, 1fr))",
+            },
+          }}
+        >
+          <Shader
+            frag={frag3}
+            title={"SpaceTime"}
+            subtitle={"Genuary 2022 - Day 3"}
+            sourceHref={
+              "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
+            }
+          />
+          <Shader
+            frag={frag4}
+            title={"The next fidenza"}
+            subtitle={"Genuary 2022 - Day 4"}
+            sourceHref={
+              "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
+            }
+          />
+          <Shader
+            frag={frag5}
+            title={"Destroy a square"}
+            subtitle={"Genuary 2022 - Day 5"}
+            sourceHref={
+              "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
+            }
+          />
+        </Box>
+
+        <Container
+          sx={{
+            marginTop: {
+              xs: "60px",
+              md: "100px",
+            },
+            marginBottom: {
+              xs: "60px",
+              md: "100px",
+            },
+          }}
+        >
+          <Stack>
+            <Box
+              component={"div"}
+              className={"gap-x-15"}
+              sx={{
+                display: "grid",
+                gridTemplateColumns: {
+                  xs: "repeat(1, minmax(0, 1fr))",
+                  lg: "repeat(2, minmax(0, 1fr))",
+                },
+              }}
+            >
+              {experienceList
+                .sort((a, b) =>
+                  a.years[0] > b.years[0] ? -1 : a.years[0] < b.years[0] ? 1 : 0
+                )
+                .slice(0, 8)
+                .map((experience, i) => (
+                  <Box
+                    key={i}
+                    component={"div"}
+                    sx={{
+                      py: 5,
+                      display: "grid",
+                      gap: "24px",
+                      gridTemplateColumns: {
+                        xs: "repeat(1, minmax(0, 1fr))",
+                        md: "repeat(12, minmax(0, 1fr))",
+                      },
+                    }}
+                  >
+                    <Box component={"div"} className={"col-span-4"}>
+                      <Typography
+                        sx={{
+                          fontSize: "16px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {`${experience.years[0]}`}
+                        {experience.years[1] && (
+                          <>
+                            {` `}
+                            <ArrowForwardIcon sx={{ width: 16, height: 16 }} />
+                            {` ${experience.years[1]}`}
+                          </>
+                        )}
+                      </Typography>
+                    </Box>
+                    <Box component={"div"} className={"col-span-8"}>
+                      <Typography variant={"subtitle1"}>
+                        {experience.place}
+                      </Typography>
+                      <Typography
+                        variant={"subtitle2"}
+                        sx={{
+                          display: "-webkit-box",
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          lineClamp: { xs: 2, md: 1 },
+                          WebkitLineClamp: { xs: 2, md: 1 },
+                        }}
+                      >
+                        {experience.position}
+                      </Typography>
+                      <Typography
+                        sx={{ marginTop: 2, fontSize: "14px", opacity: 0.6 }}
+                      >
+                        {experience.location}
+                      </Typography>
+                    </Box>
+                  </Box>
+                ))}
+            </Box>
+          </Stack>
+        </Container>
+      </Box>
+
+      <Box
+        component={"footer"}
+        sx={{
+          position: "sticky",
+          bottom: 0,
+          margin: "-200px 0 0 0",
+          paddingTop: "200px",
+          boxSizing: "content-box",
+          backgroundColor: "common.black",
+          color: "common.white",
+          display: "flex",
+        }}
+      >
+        <Container>
+          <Stack
+            sx={{
+              flexDirection: "row",
+              minHeight: 60,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: 12,
+                opacity: 0.5,
+              }}
+            >
+              Des. and Dev. by Steven Frady{" "}
+              <CopyrightIcon sx={{ width: 12, height: 12 }} /> 2023
+            </Typography>
+          </Stack>
+        </Container>
+      </Box>
     </>
   );
 };
