@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Dispatch,
   SetStateAction,
@@ -6,6 +8,7 @@ import {
   useContext,
   useMemo,
   useEffect,
+  ReactNode,
 } from "react";
 import {
   ThemeProvider,
@@ -13,18 +16,9 @@ import {
   createTheme,
   ThemeOptions,
 } from "@mui/material";
-import type { AppProps } from "next/app";
 import { Cursor, CursorProvider } from "components/Cursor";
-import "windi.css";
-import "../styles.css";
-import "large-small-dynamic-viewport-units-polyfill";
 import { defaultTheme } from "theme";
 import { merge } from "lodash";
-import { install } from "ga-gtag";
-
-//install GA4
-if (typeof window !== "undefined" && process.env.NODE_ENV !== "development")
-  install("G-CYYGZKHE9K");
 
 const themePresets = {
   default: {
@@ -57,8 +51,8 @@ function getSystemMode() {
     : "light";
 }
 
-export default function App(props: AppProps) {
-  const { Component } = props;
+export function AppProvider(props: { children?: ReactNode }) {
+  const { children } = props;
 
   const [themePreset, setThemePreset] = useState<AppThemePreset>({
     key: "default",
@@ -94,7 +88,7 @@ export default function App(props: AppProps) {
       <ThemeProvider theme={theme}>
         <CursorProvider>
           <CssBaseline />
-          <Component {...props} />
+          {children}
           <Cursor />
         </CursorProvider>
       </ThemeProvider>

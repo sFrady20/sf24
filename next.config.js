@@ -1,6 +1,9 @@
 const WindiCSS = require("windicss-webpack-plugin");
 
 const config = {
+  experimental: {
+    appDir: true,
+  },
   swcMinify: false,
   pageExtensions: ["ts", "tsx", "js", "jsx"],
   images: {
