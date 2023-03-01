@@ -13,6 +13,7 @@ export const projectList = [
     score: 9,
     description:
       "WanderSeat is an ecosystem where travelers receive rewards for sharing flight deals and experiences that inspire the next traveler.",
+    images: ["/wanderseat-promo.webp", "/wanderseat-1.png"],
   },
   {
     name: "Abundant",
@@ -22,6 +23,7 @@ export const projectList = [
     thumbnail: "/videos/abundant.webm",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim blandit mi, in dignissim arcu tristique sit amet. Etiam euismod tellus massa, quis vestibulum elit lacinia vitae.",
+    images: ["/abundant-promo.webp"],
   },
   {
     name: "Home Run Derby",
@@ -89,6 +91,7 @@ export const projectList = [
     languages: ["typescript", "scss"],
     frameworks: ["react"],
     score: 8,
+    images: ["/quarterverse-promo.webp"],
   },
   {
     name: "Civic Education Kiosk",

@@ -257,8 +257,14 @@ function Project(props: { project: typeof projectList[number] }) {
                   >
                     <Image
                       className="absolute inset-0"
-                      src={`https://picsum.photos/seed/${project.name}/400/500`}
+                      src={
+                        project.images?.[0] ||
+                        `https://picsum.photos/seed/${project.name}/400/500`
+                      }
                       fill
+                      objectFit="cover"
+                      objectPosition="left"
+                      style={{ objectFit: "cover", objectPosition: "left" }}
                       alt={project.name}
                     />
                     {/*
