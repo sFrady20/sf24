@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import { Cursor, CursorProvider } from "components/Cursor";
 import { defaultTheme } from "theme";
-import { merge } from "lodash";
+import merge from "lodash/merge";
 
 const themePresets = {
   default: {
