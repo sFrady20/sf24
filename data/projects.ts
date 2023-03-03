@@ -141,5 +141,6 @@ export const projectList = [
     languages: ["typescript"],
     frameworks: ["vite"],
     score: 7,
+    images: ["/easy-mesh-gradient-promo.webp"],
   },
 ];

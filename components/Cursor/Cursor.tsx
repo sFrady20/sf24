@@ -21,7 +21,6 @@ export function Cursor(props: BoxProps) {
   return (
     <AnimatedBox
       ref={elRef}
-      className={"mix-blend-difference"}
       sx={{
         zIndex: 500,
         backgroundColor: "common.white",
@@ -33,6 +32,7 @@ export function Cursor(props: BoxProps) {
         transform: "translate(-50%, -50%)",
         position: "absolute",
         pointerEvents: "none",
+        mixBlendMode: "difference",
         ...sx,
       }}
       style={{

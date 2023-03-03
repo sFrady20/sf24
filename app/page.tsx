@@ -32,7 +32,7 @@ import frag4 from "shaders/genuary/2022/4.frag.glsl";
 import frag5 from "shaders/genuary/2022/5.frag.glsl";
 import { experienceList } from "data/experience";
 import { Menu } from "./Menu";
-import { AnimatePresence } from "./AnimatePresence";
+import { AnimatePresence } from "components/AnimatePresence";
 import { Project } from "./Project";
 import { Shader } from "./Shader";
 
@@ -58,6 +58,7 @@ export default function HomePage(props: {}) {
           color: "text.primary",
           borderRadius: "0 0 24px 24px",
           overflow: "hidden",
+          boxShadow: "0 20px 15px -15px rgb(0 0 0 / 15%)",
         }}
       >
         <AnimatePresence isPresent={isMenuOpen && isMobile}>
@@ -192,12 +193,12 @@ export default function HomePage(props: {}) {
           component={"h1"}
           sx={{
             fontFamily: "Zighead",
-            fontSize: "min(calc(31.3vw - 16px), 45vh)",
+            fontSize: "min(calc(31.3vw), 45vh)",
             textTransform: "uppercase",
             textAlign: "center",
             cursor: "default",
             lineHeight: 1,
-            transform: "translateX(-2.2vw)",
+            transform: "translateX(-2vw)",
             mt: { xs: "calc(5vh + 90px)", md: "calc(5vh + 130px)" },
           }}
         >
@@ -344,9 +345,10 @@ export default function HomePage(props: {}) {
           <Stack>
             <Box
               component={"div"}
-              className={"gap-x-15"}
               sx={{
                 display: "grid",
+                px: { xs: 2, md: 0 },
+                gap: { xs: "0", md: "16px" },
                 gridTemplateColumns: {
                   xs: "repeat(1, minmax(0, 1fr))",
                   lg: "repeat(2, minmax(0, 1fr))",
@@ -363,31 +365,46 @@ export default function HomePage(props: {}) {
                     key={i}
                     component={"div"}
                     sx={{
-                      py: 5,
+                      my: { xs: 2, md: 5 },
                       display: "grid",
-                      gap: "24px",
+                      gap: { xs: 0, md: "24px" },
                       gridTemplateColumns: {
                         xs: "repeat(1, minmax(0, 1fr))",
                         md: "repeat(12, minmax(0, 1fr))",
                       },
                     }}
                   >
-                    <Box component={"div"} className={"col-span-4"}>
-                      <Typography
-                        sx={{
-                          fontSize: "16px",
-                          fontWeight: "bold",
-                        }}
+                    <Box
+                      component={"div"}
+                      sx={{ gridColumn: "span 4 / span 4" }}
+                    >
+                      <Stack
+                        direction={"row"}
+                        alignItems={"center"}
+                        spacing={1}
                       >
-                        {`${experience.years[0]}`}
+                        <Typography
+                          sx={{
+                            fontSize: "16px",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          {`${experience.years[0]}`}
+                        </Typography>
                         {experience.years[1] && (
                           <>
-                            {` `}
                             <ArrowForwardIcon sx={{ width: 16, height: 16 }} />
-                            {` ${experience.years[1]}`}
+                            <Typography
+                              sx={{
+                                fontSize: "16px",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              {` ${experience.years[1]}`}
+                            </Typography>
                           </>
                         )}
-                      </Typography>
+                      </Stack>
                     </Box>
                     <Box component={"div"} className={"col-span-8"}>
                       <Typography variant={"subtitle1"}>
@@ -407,7 +424,11 @@ export default function HomePage(props: {}) {
                         {experience.position}
                       </Typography>
                       <Typography
-                        sx={{ marginTop: 2, fontSize: "14px", opacity: 0.6 }}
+                        sx={{
+                          marginTop: { xs: 0, md: 2 },
+                          fontSize: "14px",
+                          opacity: 0.6,
+                        }}
                       >
                         {experience.location}
                       </Typography>
@@ -427,32 +448,8 @@ export default function HomePage(props: {}) {
           margin: "-200px 0 0 0",
           paddingTop: "200px",
           boxSizing: "content-box",
-          backgroundColor: "common.black",
-          color: "common.white",
           display: "flex",
           zIndex: 1,
-
-          //backsplash for overscroll
-          ["&:before"]: {
-            content: '" "',
-            position: "fixed",
-            zIndex: -1,
-            left: 0,
-            right: 0,
-            top: 0,
-            height: "50vh",
-            backgroundColor: "background.default",
-          },
-          ["&:after"]: {
-            content: '" "',
-            position: "fixed",
-            zIndex: -1,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            height: "50vh",
-            backgroundColor: "common.black",
-          },
         }}
       >
         <Container>

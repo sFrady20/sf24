@@ -8,7 +8,7 @@ import { to } from "@react-spring/web";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Image from "next/image";
 import { projectList } from "data/projects";
-import { AnimatePresence } from "./AnimatePresence";
+import { AnimatePresence } from "components/AnimatePresence";
 
 export function Project(props: { project: typeof projectList[number] }) {
   const { project } = props;
@@ -19,13 +19,11 @@ export function Project(props: { project: typeof projectList[number] }) {
   return (
     <CursorTarget
       content={
-        <AnimatedBox>
-          <ArrowForwardIcon
-            style={{
-              rotate: "-45deg",
-            }}
-          />
-        </AnimatedBox>
+        <ArrowForwardIcon
+          style={{
+            rotate: "-45deg",
+          }}
+        />
       }
       effect={{
         type: "grow",
@@ -79,7 +77,10 @@ export function Project(props: { project: typeof projectList[number] }) {
                     key={x}
                     size={"small"}
                     label={x}
-                    sx={{ marginRight: "2px", marginBottom: "2px" }}
+                    sx={{
+                      marginRight: "2px",
+                      marginBottom: { xs: "8px", md: "2px" },
+                    }}
                   />
                 ))}
               {project.languages.map((x) => (
@@ -88,7 +89,10 @@ export function Project(props: { project: typeof projectList[number] }) {
                   size={"small"}
                   variant={"outlined"}
                   label={x}
-                  sx={{ marginRight: "2px", marginBottom: "2px" }}
+                  sx={{
+                    marginRight: "2px",
+                    marginBottom: { xs: "8px", md: "2px" },
+                  }}
                 />
               ))}
             </Box>
@@ -104,7 +108,7 @@ export function Project(props: { project: typeof projectList[number] }) {
                     zIndex: 50,
                     overflow: "hidden",
                     pointerEvents: "none",
-                    borderRadius: 2,
+                    borderRadius: 1,
                   }}
                   style={{
                     opacity: to([enter, exit], (enter, exit) => enter - exit),
@@ -120,7 +124,7 @@ export function Project(props: { project: typeof projectList[number] }) {
                       width: { xs: "100%", md: 400 },
                       height: { xs: 300, md: 400 },
                       overflow: "hidden",
-                      borderRadius: 2,
+                      borderRadius: 1,
                     }}
                     style={{
                       transform: to(
