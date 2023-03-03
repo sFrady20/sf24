@@ -58,7 +58,7 @@ export default function HomePage(props: {}) {
           color: "text.primary",
           borderRadius: "0 0 24px 24px",
           overflow: "hidden",
-          boxShadow: "0 20px 15px -15px rgb(0 0 0 / 15%)",
+          boxShadow: "0 5px 20px -10px rgb(0 0 0 / 30%)",
         }}
       >
         <AnimatePresence isPresent={isMenuOpen && isMobile}>
