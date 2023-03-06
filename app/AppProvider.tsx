@@ -19,6 +19,7 @@ import {
 import { Cursor, CursorProvider } from "components/Cursor";
 import { defaultTheme } from "theme";
 import merge from "lodash/merge";
+import Transitions from "./Transitions";
 
 const themePresets = {
   default: {
@@ -88,8 +89,10 @@ export function AppProvider(props: { children?: ReactNode }) {
       <ThemeProvider theme={theme}>
         <CursorProvider>
           <CssBaseline />
-          {children}
-          <Cursor />
+          <Transitions>
+            {children}
+            <Cursor />
+          </Transitions>
         </CursorProvider>
       </ThemeProvider>
     </AppContext.Provider>

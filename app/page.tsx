@@ -125,19 +125,6 @@ export default function HomePage(props: {}) {
                 </IconButton>
               </Link>
             </Box>
-            <Box component={"div"}>
-              <Button
-                startIcon={<DownloadIcon />}
-                color={"inherit"}
-                sx={{
-                  color: "inherit",
-                  borderRadius: 10,
-                  textTransform: "none",
-                }}
-              >
-                Resume
-              </Button>
-            </Box>
           </Stack>
           <Stack
             direction={"row"}
@@ -258,78 +245,6 @@ export default function HomePage(props: {}) {
           </Stack>
         </Container>
 
-        <Stack
-          sx={{
-            marginTop: {
-              xs: "60px",
-              md: "100px",
-            },
-            marginBottom: {
-              xs: "60px",
-              md: "100px",
-            },
-            marginX: {
-              xs: "5vw",
-              md: 0,
-              lg: "5vw",
-            },
-          }}
-          spacing={5}
-        >
-          <Box
-            component={"div"}
-            sx={{
-              display: "grid",
-              gap: {
-                xs: "40px",
-                md: "1px",
-                lg: "40px",
-              },
-              gridTemplateColumns: {
-                xs: "repeat(1, minmax(0, 1fr))",
-                md: "repeat(3, minmax(0, 1fr))",
-              },
-            }}
-          >
-            <Shader
-              frag={frag3}
-              title={"SpaceTime"}
-              subtitle={"Genuary 2022 - Day 3"}
-              sourceHref={
-                "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
-              }
-            />
-            <Shader
-              frag={frag4}
-              title={"The next fidenza"}
-              subtitle={"Genuary 2022 - Day 4"}
-              sourceHref={
-                "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
-              }
-            />
-            <Shader
-              frag={frag5}
-              title={"Destroy a square"}
-              subtitle={"Genuary 2022 - Day 5"}
-              sourceHref={
-                "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
-              }
-            />
-          </Box>
-          <Stack direction={"row"} justifyContent={"flex-end"}>
-            <Link href={"/shaders"}>
-              <Button
-                size={"small"}
-                endIcon={
-                  <ArrowForwardIcon sx={{ transform: "rotate(-45deg)" }} />
-                }
-              >
-                More shaders
-              </Button>
-            </Link>
-          </Stack>
-        </Stack>
-
         <Container
           sx={{
             marginTop: {
@@ -342,7 +257,7 @@ export default function HomePage(props: {}) {
             },
           }}
         >
-          <Stack>
+          <Stack spacing={5}>
             <Box
               component={"div"}
               sx={{
@@ -436,8 +351,95 @@ export default function HomePage(props: {}) {
                   </Box>
                 ))}
             </Box>
+
+            <Container>
+              <Stack direction={"row"} justifyContent={"flex-end"}>
+                <Link href={"/shaders"}>
+                  <Button size={"small"} startIcon={<DownloadIcon />}>
+                    Download Resume
+                  </Button>
+                </Link>
+              </Stack>
+            </Container>
           </Stack>
         </Container>
+
+        <Stack
+          sx={{
+            marginTop: {
+              xs: "60px",
+              md: "100px",
+            },
+            marginBottom: {
+              xs: "60px",
+              md: "100px",
+            },
+            marginX: {
+              xs: "5vw",
+              md: 0,
+              lg: "5vw",
+            },
+          }}
+          alignItems={"center"}
+          spacing={5}
+        >
+          <Box
+            component={"div"}
+            sx={{
+              display: "grid",
+              width: "100%",
+              gap: {
+                xs: "40px",
+                md: "1px",
+                lg: "40px",
+              },
+              gridTemplateColumns: {
+                xs: "repeat(1, minmax(0, 1fr))",
+                md: "repeat(3, minmax(0, 1fr))",
+              },
+            }}
+          >
+            <Shader
+              frag={frag3}
+              title={"SpaceTime"}
+              subtitle={"Genuary 2022 - Day 3"}
+              sourceHref={
+                "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
+              }
+            />
+            <Shader
+              frag={frag4}
+              title={"The next fidenza"}
+              subtitle={"Genuary 2022 - Day 4"}
+              sourceHref={
+                "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
+              }
+            />
+            <Shader
+              frag={frag5}
+              title={"Destroy a square"}
+              subtitle={"Genuary 2022 - Day 5"}
+              sourceHref={
+                "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
+              }
+            />
+          </Box>
+
+          <Container>
+            <Stack direction={"row"} justifyContent={"flex-end"}>
+              <Link href={"/shaders"}>
+                <Button
+                  size={"small"}
+                  endIcon={
+                    <ArrowForwardIcon sx={{ transform: "rotate(-45deg)" }} />
+                  }
+                >
+                  More shaders
+                </Button>
+              </Link>
+            </Stack>
+          </Container>
+        </Stack>
       </Box>
 
       <Box
