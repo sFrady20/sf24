@@ -30,7 +30,7 @@ export function Cursor(props: BoxProps) {
         justifyContent: "center",
         alignItems: "center",
         transform: "translate(-50%, -50%)",
-        position: "absolute",
+        position: "fixed",
         pointerEvents: "none",
         mixBlendMode: "difference",
         ...sx,

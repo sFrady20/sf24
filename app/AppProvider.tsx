@@ -97,24 +97,23 @@ export function AppProvider(props: { children?: ReactNode }) {
         <CursorProvider>
           <CssBaseline />
           <Header />
-          <Transitions>
-            <Box
-              component={"div"}
-              sx={{
-                position: "relative",
-                zIndex: 10,
-                backgroundColor: "background.default",
-                color: "text.primary",
-                borderRadius: "0 0 24px 24px",
-                overflow: "hidden",
-                boxShadow: "0 5px 20px -10px rgb(0 0 0 / 30%)",
-              }}
-            >
-              {children}
-            </Box>
-            <Footer />
-            <Cursor />
-          </Transitions>
+          <Box
+            component={"div"}
+            sx={{
+              position: "relative",
+              zIndex: 10,
+              backgroundColor: "background.default",
+              color: "text.primary",
+              borderRadius: "0 0 24px 24px",
+              overflow: "hidden",
+              boxShadow: "0 5px 20px -10px rgb(0 0 0 / 30%)",
+              minHeight: "calc(100vh - 60px)",
+            }}
+          >
+            {children}
+          </Box>
+          <Footer />
+          <Cursor />
         </CursorProvider>
       </ThemeProvider>
     </AppContext.Provider>

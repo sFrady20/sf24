@@ -90,6 +90,7 @@ export default function HomePage(props: {}) {
               ])
               .slice(0, -1)}
           </Stack>
+          {/*
           <Stack direction={"row"} justifyContent={"flex-end"}>
             <Link href={"/projects"}>
               <Button
@@ -102,6 +103,7 @@ export default function HomePage(props: {}) {
               </Button>
             </Link>
           </Stack>
+          */}
         </Stack>
       </Container>
 
@@ -209,7 +211,7 @@ export default function HomePage(props: {}) {
           </Box>
 
           <Stack direction={"row"} justifyContent={"flex-end"}>
-            <Link href={"/shaders"}>
+            <Link download href={"/resume.pdf"} target={"_blank"}>
               <Button size={"small"} startIcon={<DownloadIcon />}>
                 Download Resume
               </Button>
@@ -286,6 +288,7 @@ export default function HomePage(props: {}) {
           />
         </Box>
 
+        {/*
         <Container>
           <Stack direction={"row"} justifyContent={"flex-end"}>
             <Link href={"/shaders"}>
@@ -300,6 +303,7 @@ export default function HomePage(props: {}) {
             </Link>
           </Stack>
         </Container>
+        */}
       </Stack>
     </>
   );

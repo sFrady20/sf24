@@ -53,7 +53,7 @@ export const defaultTheme: ThemeOptions = {
         {
           props: { variant: "h5" },
           style: {
-            fontSize: 18,
+            fontSize: 16,
             fontFamily: "'Open Sans', sans-serif",
           },
         },

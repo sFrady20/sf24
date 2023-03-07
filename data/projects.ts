@@ -13,17 +13,16 @@ export const projectList = [
     score: 9,
     description:
       "WanderSeat is an ecosystem where travelers receive rewards for sharing flight deals and experiences that inspire the next traveler.",
-    images: ["/wanderseat-promo.webp", "/wanderseat-1.png"],
+    thumbnail: "/wanderseat-promo.webp",
   },
   {
     name: "Abundant Staff Portal",
     languages: ["typescript", "css"],
     frameworks: ["react", "nextjs", "prisma", "mui", "tailwind"],
     score: 7.5,
-    thumbnail: "/videos/abundant.webm",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dignissim blandit mi, in dignissim arcu tristique sit amet. Etiam euismod tellus massa, quis vestibulum elit lacinia vitae.",
-    images: ["/abundant-promo.webp"],
+    thumbnail: "/abundant-promo.webp",
   },
   {
     name: "Home Run Derby",
@@ -36,6 +35,8 @@ export const projectList = [
     languages: ["c#"],
     frameworks: ["unity"],
     score: 8,
+    thumbnail: "/rtg-promo.webp",
+    preview: "/rtg-promo.webm",
   },
   {
     name: "Moneybot",
@@ -66,6 +67,7 @@ export const projectList = [
     languages: ["c#"],
     frameworks: ["unity"],
     score: 7,
+    preview: "/juggle-promo.webm",
   },
   {
     name: "Phonetopia",
@@ -91,7 +93,7 @@ export const projectList = [
     languages: ["typescript", "scss"],
     frameworks: ["react"],
     score: 8,
-    images: ["/quarterverse-promo.webp"],
+    thumbnail: "/quarterverse-promo.webp",
   },
   {
     name: "Civic Education Kiosk",
@@ -106,10 +108,11 @@ export const projectList = [
     score: 5,
   },
   {
-    name: "Drexls",
-    languages: ["brightscript", "java", "php"],
-    frameworks: ["roku", "android"],
+    name: "Drexls Roku App",
+    languages: ["brightscript", "php"],
+    frameworks: ["roku"],
     score: 7.5,
+    thumbnail: "/drexls-promo.webp",
   },
   {
     name: "Dispatch",
@@ -141,6 +144,6 @@ export const projectList = [
     languages: ["typescript"],
     frameworks: ["vite"],
     score: 7,
-    images: ["/easy-mesh-gradient-promo.webp"],
+    thumbnail: "/easy-mesh-gradient-promo.webp",
   },
 ];
