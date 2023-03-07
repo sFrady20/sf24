@@ -16,7 +16,7 @@ export const projectList = [
     images: ["/wanderseat-promo.webp", "/wanderseat-1.png"],
   },
   {
-    name: "Abundant",
+    name: "Abundant Staff Portal",
     languages: ["typescript", "css"],
     frameworks: ["react", "nextjs", "prisma", "mui", "tailwind"],
     score: 7.5,

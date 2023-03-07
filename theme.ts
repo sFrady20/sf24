@@ -48,5 +48,32 @@ export const defaultTheme: ThemeOptions = {
         },
       },
     },
+    MuiTypography: {
+      variants: [
+        {
+          props: { variant: "h5" },
+          style: {
+            fontSize: 18,
+            fontFamily: "'Open Sans', sans-serif",
+          },
+        },
+        {
+          props: { variant: "subtitle2" },
+          style: ({ theme }) => ({
+            fontSize: 12,
+            fontFamily: "'Open Sans', sans-serif",
+            letterSpacing: 1.1,
+          }),
+        },
+        {
+          props: { variant: "caption" },
+          style: ({ theme }) => ({
+            color: theme.palette.text.secondary,
+            fontFamily: "'Open Sans', sans-serif",
+            letterSpacing: 1.1,
+          }),
+        },
+      ],
+    },
   },
 };

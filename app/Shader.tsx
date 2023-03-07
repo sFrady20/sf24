@@ -52,7 +52,7 @@ export function Shader(props: {
   });
 
   return (
-    <CursorTarget effect={{ type: "grow", size: 0 }}>
+    <CursorTarget effect={{ type: "hide" }}>
       <Box
         component={"div"}
         className={"col-span-1"}

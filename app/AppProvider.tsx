@@ -15,11 +15,18 @@ import {
   CssBaseline,
   createTheme,
   ThemeOptions,
+  Box,
+  Container,
+  Stack,
+  Typography,
 } from "@mui/material";
 import { Cursor, CursorProvider } from "components/Cursor";
 import { defaultTheme } from "theme";
 import merge from "lodash/merge";
 import Transitions from "./Transitions";
+import Header from "./Header";
+import CopyrightIcon from "@mui/icons-material/Copyright";
+import { Footer } from "./Footer";
 
 const themePresets = {
   default: {
@@ -89,8 +96,23 @@ export function AppProvider(props: { children?: ReactNode }) {
       <ThemeProvider theme={theme}>
         <CursorProvider>
           <CssBaseline />
+          <Header />
           <Transitions>
-            {children}
+            <Box
+              component={"div"}
+              sx={{
+                position: "relative",
+                zIndex: 10,
+                backgroundColor: "background.default",
+                color: "text.primary",
+                borderRadius: "0 0 24px 24px",
+                overflow: "hidden",
+                boxShadow: "0 5px 20px -10px rgb(0 0 0 / 30%)",
+              }}
+            >
+              {children}
+            </Box>
+            <Footer />
             <Cursor />
           </Transitions>
         </CursorProvider>

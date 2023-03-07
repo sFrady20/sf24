@@ -20,9 +20,6 @@ export function useTransition() {
   return useContext(TransitionContext);
 }
 
-const firstEnter = new SpringValue(1);
-const firstExit = new SpringValue(0);
-
 export default function Transitions(props: { children: ReactNode }) {
   const { children } = props;
 
@@ -41,29 +38,34 @@ export default function Transitions(props: { children: ReactNode }) {
     const enter = new SpringValue(0);
     const exit = new SpringValue(0);
 
-    console.log("ADDING", key, pathname);
-    setChildMap((x) => ({
-      ...x,
-      [key]: {
-        child: (
-          <TransitionContext.Provider value={{ enter, exit }}>
-            {children}
-          </TransitionContext.Provider>
-        ),
-        enter,
-        exit,
-      },
-    }));
+    setChildMap((x) => {
+      return {
+        ...x,
+        [key]: {
+          child: (
+            <TransitionContext.Provider key={key} value={{ enter, exit }}>
+              {children}
+            </TransitionContext.Provider>
+          ),
+          enter,
+          exit,
+        },
+      };
+    });
 
-    enter.start(1);
+    enter.start(1, {
+      onRest: ({ cancelled, finished }) => {
+        if (!finished || cancelled) return;
+        //window.document.body.style.overflowY = "auto";
+      },
+    });
 
     return () => {
-      console.log("EXIT", key, pathname);
+      //window.document.body.style.overflowY = "hidden";
       exit.start(1, {
         onRest: ({ cancelled, finished }) => {
           if (!finished || cancelled) return;
           setChildMap((x) => {
-            console.log("REMOVING", key, pathname);
             delete x[key];
             return { ...x };
           });
@@ -74,15 +76,21 @@ export default function Transitions(props: { children: ReactNode }) {
 
   return (
     <Box sx={{ display: "grid" }}>
-      {Object.entries(childMap).map(([key, { child, enter, exit }]) => (
+      {/* {Object.entries(childMap).map(([key, { child, enter, exit }]) => (
         <AnimatedBox
           key={key}
           sx={{ gridArea: "1 / 1" }}
-          style={{ opacity: to([enter, exit], (enter, exit) => enter - exit) }}
+          style={{
+            transform: to(
+              [enter, exit],
+              (enter, exit) => `${(enter + exit) * 20}px`
+            ),
+          }}
         >
           {child}
         </AnimatedBox>
-      ))}
+      ))} */}
+      {children}
     </Box>
   );
 }

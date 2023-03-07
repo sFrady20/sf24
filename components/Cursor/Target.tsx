@@ -11,7 +11,7 @@ export type CursorTargetEffect =
       size: number;
     }
   | {
-      type: "outline";
+      type: "hide";
     };
 
 export function CursorTarget<T>(
@@ -48,6 +48,15 @@ export function CursorTarget<T>(
   useEffect(() => {
     (setEffect as any)(effectProp);
   }, [effectProp]);
+
+  useEffect(() => {
+    return () => {
+      setHovered((x) => {
+        if (x) cursor.handleTargetExit();
+        return x;
+      });
+    };
+  }, []);
 
   return (
     <Box
