@@ -1,6 +1,6 @@
 "use client";
 
-import { Stack, Tab } from "@mui/material";
+import { Stack, Tab, useColorScheme } from "@mui/material";
 import Link from "next/link";
 import {
   AnimatedBox,
@@ -9,7 +9,6 @@ import {
   AnimatedTabs,
 } from "util/animated";
 import { SpringValue, to, useTrail } from "@react-spring/web";
-import { useApp } from "./AppProvider";
 
 export function Menu(props: {
   enter: SpringValue<number>;
@@ -17,7 +16,7 @@ export function Menu(props: {
   onClose?: () => void;
 }) {
   const { enter, exit, onClose } = props;
-  const { themePreset, setThemePreset } = useApp();
+  const { mode, setMode } = useColorScheme();
 
   const trail = useTrail(4, {
     from: {
@@ -133,15 +132,10 @@ export function Menu(props: {
           }}
         >
           <AnimatedTabs
-            value={["light", "dark", "system"].indexOf(
-              themePreset.mode || "system"
-            )}
+            value={["light", "dark", "system"].indexOf(mode || "system")}
             variant="fullWidth"
             onChange={(e, x) => {
-              setThemePreset({
-                ...themePreset,
-                mode: (["light", "dark", "system"] as const)[x],
-              });
+              setMode((["light", "dark", "system"] as const)[x]);
               onClose?.();
             }}
           >

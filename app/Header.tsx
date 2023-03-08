@@ -8,6 +8,7 @@ import {
   IconButton,
   Stack,
   Typography,
+  useColorScheme,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -20,12 +21,11 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import EmailIcon from "@mui/icons-material/Email";
 import MenuIcon from "@mui/icons-material/Menu";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import { useApp } from "./AppProvider";
 import { Menu } from "./Menu";
 import { AnimatePresence } from "components/AnimatePresence";
 
 export default function Header(props: {}) {
-  const { themePreset, setThemePreset } = useApp();
+  const { setMode, mode } = useColorScheme();
   const [isMenuOpen, setMenuOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -124,21 +124,19 @@ export default function Header(props: {}) {
             <Button
               variant={"text"}
               color={"inherit"}
-              onClick={() =>
-                setThemePreset({
-                  ...themePreset,
-                  mode:
-                    themePreset.mode === "light"
-                      ? "dark"
-                      : themePreset.mode === "dark"
-                      ? "system"
-                      : "light",
-                })
-              }
+              onClick={() => {
+                setMode(
+                  mode === "system"
+                    ? "light"
+                    : mode === "light"
+                    ? "dark"
+                    : "system"
+                );
+              }}
             >
-              {themePreset.mode === "dark" ? (
+              {mode === "dark" ? (
                 <DarkModeIcon />
-              ) : themePreset.mode === "light" ? (
+              ) : mode === "light" ? (
                 <LightModeIcon />
               ) : (
                 <AutoAwesomeIcon />

@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Container,
+  CssBaseline,
   Divider,
   Stack,
   Typography,
@@ -23,6 +24,7 @@ import frag5 from "shaders/genuary/2022/5.frag.glsl";
 import { experienceList } from "data/experience";
 import { Project } from "./Project";
 import { Shader } from "./Shader";
+import Header from "./Header";
 
 export default function HomePage(props: {}) {
   const theme = useTheme();
@@ -49,10 +51,10 @@ export default function HomePage(props: {}) {
       <Typography
         component={"div"}
         sx={{
-          fontSize: { xs: 12, sm: 14, md: 14.5 },
+          fontSize: { xs: 13, sm: 14, md: 14.5 },
           textAlign: "justify",
           width: 530,
-          maxWidth: "calc(90vw - 32px)",
+          maxWidth: "90vw",
           margin: { xs: "0 auto 40px", md: "0 auto 80px" },
         }}
       >
@@ -73,12 +75,13 @@ export default function HomePage(props: {}) {
           },
         }}
       >
-        <Stack spacing={3}>
-          <Stack direction={"row"} alignItems={"center"} spacing={1}>
+        <Stack spacing={4}>
+          <Stack direction={"row"} alignItems={"center"} spacing={2}>
             <DesignServicesIcon sx={{ height: 20, width: 20 }} />
             <Typography variant={"h5"}>Projects</Typography>
           </Stack>
           <Stack>
+            <Divider />
             {projectList
               .sort((a, b) =>
                 a.score > b.score ? -1 : a.score < b.score ? 1 : 0
@@ -120,7 +123,7 @@ export default function HomePage(props: {}) {
         }}
       >
         <Stack spacing={3}>
-          <Stack direction={"row"} alignItems={"center"} spacing={1}>
+          <Stack direction={"row"} alignItems={"center"} spacing={2}>
             <WorkIcon sx={{ height: 20, width: 20 }} />
             <Typography variant={"h5"}>Experience</Typography>
           </Stack>
@@ -237,10 +240,10 @@ export default function HomePage(props: {}) {
           },
         }}
         alignItems={"center"}
-        spacing={5}
+        spacing={3}
       >
         <Container>
-          <Stack direction={"row"} alignItems={"center"} spacing={1}>
+          <Stack direction={"row"} alignItems={"center"} spacing={2}>
             <ScienceIcon sx={{ height: 20, width: 20 }} />
             <Typography variant={"h5"}>Shaders</Typography>
           </Stack>

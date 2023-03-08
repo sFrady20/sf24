@@ -1,6 +1,10 @@
-import { ThemeOptions } from "@mui/material";
+import { CssVarsThemeOptions } from "@mui/material";
 
-export const defaultTheme: ThemeOptions = {
+export const defaultTheme: CssVarsThemeOptions = {
+  colorSchemes: {
+    light: {},
+    dark: {},
+  },
   typography: {
     fontFamily: "Optician",
   },
@@ -24,10 +28,12 @@ export const defaultTheme: ThemeOptions = {
       },
     },
     MuiCssBaseline: {
-      styleOverrides: {
+      styleOverrides: (theme) => ({
         body: {
           minHeight: "calc(var(--1svh) * 100)",
           overflowX: "hidden",
+          backgroundColor: theme.palette.background.default,
+          color: theme.palette.text.primary,
 
           ["a, a:visited, a:hover, a:active"]: {
             color: "inherit",
@@ -46,7 +52,7 @@ export const defaultTheme: ThemeOptions = {
             background: "#00000009",
           },
         },
-      },
+      }),
     },
     MuiTypography: {
       variants: [
@@ -54,7 +60,7 @@ export const defaultTheme: ThemeOptions = {
           props: { variant: "h5" },
           style: {
             fontSize: 16,
-            fontFamily: "'Open Sans', sans-serif",
+            //fontFamily: "'Open Sans', sans-serif",
           },
         },
         {

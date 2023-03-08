@@ -105,7 +105,8 @@ export function Shader(props: {
             height: "45%",
             alignItems: "flex-end",
             justifyContent: "space-between",
-            padding: "20px 44px",
+            px: { xs: 3, md: 4 },
+            py: 3,
             pointerEvents: "none",
             backgroundImage: `linear-gradient(0deg, rgb(${backdropRgb}) 0%, rgb(${backdropRgb} / 0.9903926402016152) 6.25%, rgb(${backdropRgb} / 0.9619397662556434) 12.5%, rgb(${backdropRgb} / 0.9157348061512727) 18.75%, rgb(${backdropRgb} / 0.8535533905932737) 25%, rgb(${backdropRgb} / 0.7777851165098011) 31.25%, rgb(${backdropRgb} / 0.6913417161825449) 37.5%, rgb(${backdropRgb} / 0.5975451610080642) 43.75%, rgb(${backdropRgb} / 0.5) 50%, rgb(${backdropRgb} / 0.4024548389919359) 56.25%, rgb(${backdropRgb} / 0.3086582838174552) 62.5%, rgb(${backdropRgb} / 0.22221488349019902) 68.75%, rgb(${backdropRgb} / 0.14644660940672627) 75%, rgb(${backdropRgb} / 0.08426519384872733) 81.25%, rgb(${backdropRgb} / 0.03806023374435663) 87.5%, rgb(${backdropRgb} / 0.009607359798384785) 93.75%, rgb(${backdropRgb} / 0) 100% )`,
           }}
