@@ -29,6 +29,7 @@ export const projectList = [
     languages: ["c#"],
     frameworks: ["unity"],
     score: 7.5,
+    preview: "/home-run-promo.webm",
   },
   {
     name: "Road to greatness",

@@ -239,15 +239,12 @@ export default function HomePage(props: {}) {
             lg: "5vw",
           },
         }}
-        alignItems={"center"}
         spacing={3}
       >
-        <Container>
-          <Stack direction={"row"} alignItems={"center"} spacing={2}>
-            <ScienceIcon sx={{ height: 20, width: 20 }} />
-            <Typography variant={"h5"}>Shaders</Typography>
-          </Stack>
-        </Container>
+        <Stack direction={"row"} alignItems={"center"} spacing={2}>
+          <ScienceIcon sx={{ height: 20, width: 20 }} />
+          <Typography variant={"h5"}>Shaders</Typography>
+        </Stack>
 
         <Box
           component={"div"}
