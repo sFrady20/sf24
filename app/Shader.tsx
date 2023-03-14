@@ -58,23 +58,11 @@ export function Shader(props: {
         className={"col-span-1"}
         sx={{
           backgroundColor: "background.paper",
-          borderRadius: {
-            xs: 2,
-            md: 1,
-            lg: 3,
-          },
-          transition: "box-shadow 0.2s ease-out, transform 0.2s ease-in-out",
           cursor: "crosshair",
           overflow: "hidden",
           paddingBottom: "72%",
           height: 0,
           position: "relative",
-          boxShadow: "0 4px 3px -1.5px rgb(0 0 0 / 5%)",
-
-          ["&:hover"]: {
-            boxShadow: "0 40px 30px -15px rgb(0 0 0 / 30%)",
-            transform: "scale(1.02)",
-          },
         }}
       >
         <Box

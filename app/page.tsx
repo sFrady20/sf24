@@ -251,14 +251,17 @@ export default function HomePage(props: {}) {
           sx={{
             display: "grid",
             width: "100%",
-            gap: {
-              xs: "40px",
-              md: "1px",
-              lg: "40px",
-            },
+            gap: "1px",
+            borderRadius: 2,
+            overflow: "hidden",
             gridTemplateColumns: {
               xs: "repeat(1, minmax(0, 1fr))",
               md: "repeat(3, minmax(0, 1fr))",
+            },
+            marginX: {
+              xs: "5vw",
+              md: 0,
+              lg: "5vw",
             },
           }}
         >
@@ -288,22 +291,28 @@ export default function HomePage(props: {}) {
           />
         </Box>
 
-        {/*
-        <Container>
-          <Stack direction={"row"} justifyContent={"flex-end"}>
-            <Link href={"/shaders"}>
-              <Button
-                size={"small"}
-                endIcon={
-                  <ArrowForwardIcon sx={{ transform: "rotate(-45deg)" }} />
-                }
-              >
-                More shaders
-              </Button>
-            </Link>
-          </Stack>
-        </Container>
-        */}
+        {/* <Stack
+          direction={"row"}
+          justifyContent={"flex-end"}
+          sx={{
+            paddingX: {
+              xs: "5vw",
+              md: 0,
+              lg: "5vw",
+            },
+          }}
+        >
+          <Link href={"/shaders"}>
+            <Button
+              size={"small"}
+              endIcon={
+                <ArrowForwardIcon sx={{ transform: "rotate(-45deg)" }} />
+              }
+            >
+              More shaders
+            </Button>
+          </Link>
+        </Stack> */}
       </Stack>
     </>
   );

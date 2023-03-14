@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import EmailIcon from "@mui/icons-material/Email";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -92,6 +93,16 @@ export default function Header(props: {}) {
             <Link href={"https://github.com/sFrady20"} target="_blank">
               <IconButton sx={{ color: "inherit", cursor: "alias" }}>
                 <GitHubIcon sx={{ width: 20, height: 20 }} />
+              </IconButton>
+            </Link>
+          </Box>
+          <Box component={"div"}>
+            <Link
+              href={"https://www.linkedin.com/in/stevenfrady/"}
+              target="_blank"
+            >
+              <IconButton sx={{ color: "inherit", cursor: "alias" }}>
+                <LinkedInIcon sx={{ width: 20, height: 20 }} />
               </IconButton>
             </Link>
           </Box>
