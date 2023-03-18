@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Avatar,
   Box,
@@ -7,13 +5,14 @@ import {
   ButtonGroup,
   IconButton,
   Stack,
+  SupportedColorScheme,
   Typography,
   useColorScheme,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -24,12 +23,30 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { Menu } from "./Menu";
 import { AnimatePresence } from "components/AnimatePresence";
+import Clover from "util/clover.svg";
+import { useApp } from "./Providers";
+import { themes } from "themes";
+
+const colorSchemeIconMap: {
+  [key in SupportedColorScheme | "system"]: ReactNode;
+} = {
+  system: <AutoAwesomeIcon />,
+  dark: <DarkModeIcon />,
+  light: <LightModeIcon />,
+};
+const themeIconMap: {
+  [key in keyof typeof themes]: ReactNode;
+} = {
+  original: <AutoAwesomeIcon />,
+  shamrock: <Clover style={{ width: 24, height: 24 }} />,
+};
 
 export default function Header(props: {}) {
   const { setMode, mode, allColorSchemes } = useColorScheme();
   const [isMenuOpen, setMenuOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const { setThemePreset, themePreset, allThemePresets } = useApp();
 
   useEffect(() => {
     window.document.body.style.overflowY =
@@ -134,23 +151,36 @@ export default function Header(props: {}) {
           }}
         >
           <ButtonGroup>
+            {themePreset !== "original" && (
+              <Button
+                variant={"text"}
+                color={"inherit"}
+                onClick={(e) => {
+                  setThemePreset("original");
+                }}
+              >
+                {themeIconMap[themePreset]}
+              </Button>
+            )}
             <Button
               variant={"text"}
               color={"inherit"}
-              onClick={() => {
-                console.log(cm[(cm.indexOf(mode || "system") + 1) % cm.length]);
-                setMode(
-                  cm[(cm.indexOf(mode || "system") + 1) % cm.length] as any
-                );
+              onClick={(e) => {
+                if (e.shiftKey) {
+                  setThemePreset(
+                    allThemePresets[
+                      (allThemePresets.indexOf(themePreset) + 1) %
+                        allThemePresets.length
+                    ] as any
+                  );
+                } else {
+                  setMode(
+                    cm[(cm.indexOf(mode || "system") + 1) % cm.length] as any
+                  );
+                }
               }}
             >
-              {mode === "dark" ? (
-                <DarkModeIcon />
-              ) : mode === "light" ? (
-                <LightModeIcon />
-              ) : (
-                <AutoAwesomeIcon />
-              )}
+              {mode && colorSchemeIconMap[mode]}
             </Button>
           </ButtonGroup>
         </Stack>

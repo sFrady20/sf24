@@ -1,21 +1,11 @@
-import { createTheme, CssVarsThemeOptions } from "@mui/material";
+import {
+  experimental_extendTheme as extendTheme,
+  CssVarsThemeOptions,
+} from "@mui/material";
+import Color from "color";
+import { merge } from "lodash";
 
-const shamrock = createTheme({
-  palette: {
-    mode: "dark",
-    background: {
-      default: "#004400",
-    },
-  },
-});
-
-export const defaultThemeOptions: CssVarsThemeOptions = {
-  colorSchemes: {
-    light: {
-      palette: { background: { default: "#D9D9D9", paper: "#DDD" } },
-    },
-    dark: {},
-  },
+const base: CssVarsThemeOptions = {
   typography: {
     fontFamily: "Optician",
   },
@@ -26,6 +16,13 @@ export const defaultThemeOptions: CssVarsThemeOptions = {
     MuiButton: {
       defaultProps: {
         color: "inherit",
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          color: theme.palette.text.primary,
+        }),
       },
     },
     MuiContainer: {
@@ -93,4 +90,64 @@ export const defaultThemeOptions: CssVarsThemeOptions = {
       ],
     },
   },
+};
+
+const original = extendTheme(
+  merge(base, {
+    colorSchemes: {
+      light: {
+        palette: {
+          background: { default: "#D9D9D9", paper: "#DDD" },
+          secondary: { main: "#CCCCCC" },
+        },
+      },
+      dark: {
+        palette: {
+          background: { default: "#0F0F0F", paper: "#121212" },
+          secondary: { main: "#333333" },
+        },
+      },
+    },
+  })
+);
+
+const shamrock = extendTheme(
+  merge(base, {
+    colorSchemes: {
+      light: {
+        palette: {
+          mode: "dark",
+          background: {
+            default: new Color("#122212").darken(0.1).hex(),
+            paper: "#122212",
+          },
+          text: {
+            primary: "#55AA55",
+            secondary: new Color("#55AA55").darken(0.4).hex(),
+          },
+          secondary: { main: new Color("#122212").lighten(0.3).hex() },
+        },
+      },
+      dark: {
+        palette: {
+          mode: "dark",
+          background: {
+            default: new Color("#080D08").darken(0.1).hex(),
+            paper: "#080D08",
+          },
+          text: {
+            primary: "#339933",
+            secondary: new Color("#339933").darken(0.1).hex(),
+          },
+          secondary: { main: new Color("#080D08").lighten(2).hex() },
+          divider: "#444411",
+        },
+      },
+    },
+  })
+);
+
+export const themes = {
+  original,
+  shamrock,
 };

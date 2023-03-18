@@ -1,5 +1,3 @@
-"use client";
-
 import { Box, Chip, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { CursorContext, CursorTarget } from "components/Cursor";
 import { AnimatedBox } from "util/animated";
@@ -83,6 +81,7 @@ export function Project(props: { project: typeof projectList[number] }) {
                     key={x}
                     size={"small"}
                     label={x}
+                    color={"secondary"}
                     sx={{
                       marginRight: "2px",
                       marginBottom: { xs: "8px", md: "2px" },
@@ -95,6 +94,7 @@ export function Project(props: { project: typeof projectList[number] }) {
                   size={"small"}
                   variant={"outlined"}
                   label={x}
+                  color={"secondary"}
                   sx={{
                     marginRight: "2px",
                     marginBottom: { xs: "8px", md: "2px" },

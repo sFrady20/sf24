@@ -1,5 +1,3 @@
-"use client";
-
 import { Stack, Tab, useColorScheme } from "@mui/material";
 import Link from "next/link";
 import {

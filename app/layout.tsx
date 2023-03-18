@@ -63,8 +63,8 @@ export default function App(props: { children?: ReactNode }) {
         />
       </head>
       <body>
-        {getInitColorSchemeScript({ defaultMode: "system" })}
         <Providers>
+          {getInitColorSchemeScript({ defaultMode: "system" })}
           <CssBaseline />
           <Header />
           <Box

@@ -1,5 +1,3 @@
-"use client";
-
 import { Box, IconButton, Stack, Typography, useTheme } from "@mui/material";
 import Link from "next/link";
 import { CursorTarget } from "components/Cursor";

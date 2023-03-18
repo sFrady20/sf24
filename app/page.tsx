@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   Container,
-  CssBaseline,
   Divider,
   Stack,
   Typography,
@@ -24,7 +23,6 @@ import frag5 from "shaders/genuary/2022/5.frag.glsl";
 import { experienceList } from "data/experience";
 import { Project } from "./Project";
 import { Shader } from "./Shader";
-import Header from "./Header";
 
 export default function HomePage(props: {}) {
   const theme = useTheme();
@@ -159,7 +157,7 @@ export default function HomePage(props: {}) {
                   }}
                 >
                   <Box component={"div"} sx={{ gridColumn: "span 4 / span 4" }}>
-                    <Stack direction={"row"} alignItems={"center"} spacing={3}>
+                    <Stack direction={"row"} alignItems={"center"} spacing={1}>
                       <Typography
                         sx={{
                           fontSize: "16px",

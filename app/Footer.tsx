@@ -1,5 +1,3 @@
-"use client";
-
 import { Box, Container, Stack, Typography } from "@mui/material";
 import CopyrightIcon from "@mui/icons-material/Copyright";
 
