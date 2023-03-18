@@ -26,7 +26,7 @@ import { Menu } from "./Menu";
 import { AnimatePresence } from "components/AnimatePresence";
 
 export default function Header(props: {}) {
-  const { setMode, mode } = useColorScheme();
+  const { setMode, mode, allColorSchemes } = useColorScheme();
   const [isMenuOpen, setMenuOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -35,6 +35,8 @@ export default function Header(props: {}) {
     window.document.body.style.overflowY =
       isMenuOpen && isMobile ? "hidden" : "auto";
   }, [isMenuOpen && isMobile]);
+
+  const cm = ["system", ...allColorSchemes];
 
   return (
     <>
@@ -136,12 +138,9 @@ export default function Header(props: {}) {
               variant={"text"}
               color={"inherit"}
               onClick={() => {
+                console.log(cm[(cm.indexOf(mode || "system") + 1) % cm.length]);
                 setMode(
-                  mode === "system"
-                    ? "light"
-                    : mode === "light"
-                    ? "dark"
-                    : "system"
+                  cm[(cm.indexOf(mode || "system") + 1) % cm.length] as any
                 );
               }}
             >

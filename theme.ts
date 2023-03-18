@@ -1,8 +1,19 @@
-import { CssVarsThemeOptions } from "@mui/material";
+import { createTheme, CssVarsThemeOptions } from "@mui/material";
 
-export const defaultTheme: CssVarsThemeOptions = {
+const shamrock = createTheme({
+  palette: {
+    mode: "dark",
+    background: {
+      default: "#004400",
+    },
+  },
+});
+
+export const defaultThemeOptions: CssVarsThemeOptions = {
   colorSchemes: {
-    light: {},
+    light: {
+      palette: { background: { default: "#D9D9D9", paper: "#DDD" } },
+    },
     dark: {},
   },
   typography: {

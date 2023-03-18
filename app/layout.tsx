@@ -72,7 +72,7 @@ export default function App(props: { children?: ReactNode }) {
             sx={{
               position: "relative",
               zIndex: 10,
-              backgroundColor: "background.default",
+              backgroundColor: "background.paper",
               color: "text.primary",
               borderRadius: "0 0 24px 24px",
               overflow: "hidden",

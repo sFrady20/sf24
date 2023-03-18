@@ -15,6 +15,7 @@ export function Footer() {
         boxSizing: "content-box",
         display: "flex",
         zIndex: 1,
+        backgroundColor: "background.default",
       }}
     >
       <Container>
