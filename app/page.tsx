@@ -131,7 +131,7 @@ export default function HomePage(props: {}) {
             component={"div"}
             sx={{
               display: "grid",
-              gap: { xs: "0", md: "60px" },
+              gap: { xs: "32px", md: "60px" },
               gridTemplateColumns: {
                 xs: "repeat(1, minmax(0, 1fr))",
                 md: "repeat(8, minmax(0, 1fr))",
