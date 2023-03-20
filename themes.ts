@@ -28,7 +28,7 @@ const base: CssVarsThemeOptions = {
     MuiContainer: {
       styleOverrides: {
         root: ({ theme }) => ({
-          [theme.breakpoints.down("lg")]: {
+          [theme.breakpoints.down("xl")]: {
             maxWidth: "90vw",
             padding: 0,
           },
@@ -116,6 +116,22 @@ const shamrock = extendTheme(
     colorSchemes: {
       light: {
         palette: {
+          mode: "light",
+          background: {
+            default: new Color("#CCCCCC").darken(0.03).hex(),
+            paper: "#CCCCCC",
+          },
+          text: {
+            primary: "#116611",
+            secondary: new Color("#116611").lighten(1.5).desaturate(1).hex(),
+          },
+          secondary: {
+            main: new Color("#116611").lighten(2).desaturate(0.8).hex(),
+          },
+        },
+      },
+      dark: {
+        palette: {
           mode: "dark",
           background: {
             default: new Color("#122212").darken(0.1).hex(),
@@ -126,21 +142,6 @@ const shamrock = extendTheme(
             secondary: new Color("#55AA55").darken(0.4).hex(),
           },
           secondary: { main: new Color("#122212").lighten(0.3).hex() },
-        },
-      },
-      dark: {
-        palette: {
-          mode: "dark",
-          background: {
-            default: new Color("#080D08").darken(0.1).hex(),
-            paper: "#080D08",
-          },
-          text: {
-            primary: "#339933",
-            secondary: new Color("#339933").darken(0.1).hex(),
-          },
-          secondary: { main: new Color("#080D08").lighten(2).hex() },
-          divider: "#444411",
         },
       },
     },

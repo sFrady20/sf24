@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Avatar,
   Box,
   Button,
   Container,
@@ -120,7 +121,7 @@ export default function HomePage(props: {}) {
           },
         }}
       >
-        <Stack spacing={3}>
+        <Stack spacing={6}>
           <Stack direction={"row"} alignItems={"center"} spacing={2}>
             <WorkIcon sx={{ height: 20, width: 20 }} />
             <Typography variant={"h5"}>Experience</Typography>
@@ -130,10 +131,11 @@ export default function HomePage(props: {}) {
             component={"div"}
             sx={{
               display: "grid",
-              gap: { xs: "0", md: "16px" },
+              gap: { xs: "0", md: "60px" },
               gridTemplateColumns: {
                 xs: "repeat(1, minmax(0, 1fr))",
-                lg: "repeat(2, minmax(0, 1fr))",
+                md: "repeat(8, minmax(0, 1fr))",
+                lg: "repeat(12, minmax(0, 1fr))",
               },
             }}
           >
@@ -143,20 +145,14 @@ export default function HomePage(props: {}) {
               )
               .slice(0, 8)
               .map((experience, i) => (
-                <Box
+                <Stack
                   key={i}
-                  component={"div"}
-                  sx={{
-                    my: { xs: 2, md: 5 },
-                    display: "grid",
-                    gap: { xs: 0, md: "24px" },
-                    gridTemplateColumns: {
-                      xs: "repeat(1, minmax(0, 1fr))",
-                      md: "repeat(12, minmax(0, 1fr))",
-                    },
-                  }}
+                  direction={"row"}
+                  className={"col-span-4"}
+                  spacing={3}
                 >
-                  <Box component={"div"} sx={{ gridColumn: "span 4 / span 4" }}>
+                  <Avatar src={experience.avatar} />
+                  <Stack>
                     <Stack direction={"row"} alignItems={"center"} spacing={1}>
                       <Typography
                         sx={{
@@ -180,9 +176,18 @@ export default function HomePage(props: {}) {
                         </>
                       )}
                     </Stack>
-                  </Box>
-                  <Box component={"div"} className={"col-span-8"}>
-                    <Typography variant={"subtitle1"} sx={{ lineHeight: 1.2 }}>
+                    <Typography
+                      variant={"subtitle1"}
+                      sx={{
+                        lineHeight: 1.2,
+                        display: "-webkit-box",
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        lineClamp: { xs: 2, md: 1 },
+                        WebkitLineClamp: { xs: 2, md: 1 },
+                      }}
+                    >
                       {experience.place}
                     </Typography>
                     <Typography
@@ -206,8 +211,8 @@ export default function HomePage(props: {}) {
                     >
                       {experience.location}
                     </Typography>
-                  </Box>
-                </Box>
+                  </Stack>
+                </Stack>
               ))}
           </Box>
 
@@ -233,8 +238,6 @@ export default function HomePage(props: {}) {
           },
           marginX: {
             xs: "5vw",
-            md: 0,
-            lg: "5vw",
           },
         }}
         spacing={3}
@@ -255,11 +258,6 @@ export default function HomePage(props: {}) {
             gridTemplateColumns: {
               xs: "repeat(1, minmax(0, 1fr))",
               md: "repeat(3, minmax(0, 1fr))",
-            },
-            marginX: {
-              xs: "5vw",
-              md: 0,
-              lg: "5vw",
             },
           }}
         >

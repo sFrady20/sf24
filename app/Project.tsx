@@ -7,7 +7,6 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Image from "next/image";
 import { projectList } from "data/projects";
 import { AnimatePresence } from "components/AnimatePresence";
-import Link from "next/link";
 
 export function Project(props: { project: typeof projectList[number] }) {
   const { project } = props;
