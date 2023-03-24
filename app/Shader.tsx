@@ -61,6 +61,7 @@ export function Shader(props: {
           paddingBottom: "72%",
           height: 0,
           position: "relative",
+          borderRadius: 2,
         }}
       >
         <Box
