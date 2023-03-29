@@ -17,13 +17,13 @@ import DownloadIcon from "@mui/icons-material/Download";
 import WorkIcon from "@mui/icons-material/Work";
 import ScienceIcon from "@mui/icons-material/Science";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
-import { projectList } from "data/projects";
-import frag3 from "shaders/genuary/2022/3.frag.glsl";
-import frag4 from "shaders/genuary/2022/4.frag.glsl";
-import frag5 from "shaders/genuary/2022/5.frag.glsl";
-import { experienceList } from "data/experience";
+import { projectList } from "~/data/projects";
+import frag3 from "~/shaders/genuary/2022/3.frag.glsl";
+import frag4 from "~/shaders/genuary/2022/4.frag.glsl";
+import frag5 from "~/shaders/genuary/2022/5.frag.glsl";
+import { experienceList } from "~/data/experience";
 import { Project } from "./Project";
-import { Shader } from "./Shader";
+import { ShaderCard } from "~/components/Shader";
 
 export default function HomePage(props: {}) {
   const theme = useTheme();
@@ -252,7 +252,7 @@ export default function HomePage(props: {}) {
           sx={{
             display: "grid",
             width: "100%",
-            gap: "1px",
+            gap: "10px",
             borderRadius: 2,
             overflow: "hidden",
             gridTemplateColumns: {
@@ -261,43 +261,33 @@ export default function HomePage(props: {}) {
             },
           }}
         >
-          <Shader
+          <ShaderCard
             frag={frag3}
             title={"SpaceTime"}
             subtitle={"Genuary 2022 - Day 3"}
             sourceHref={
-              "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
+              "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/3.frag.glsl"
             }
           />
-          <Shader
+          <ShaderCard
             frag={frag4}
             title={"The next fidenza"}
             subtitle={"Genuary 2022 - Day 4"}
             sourceHref={
-              "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
+              "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/3.frag.glsl"
             }
           />
-          <Shader
+          <ShaderCard
             frag={frag5}
             title={"Destroy a square"}
             subtitle={"Genuary 2022 - Day 5"}
             sourceHref={
-              "https://github.com/sFrady20/sf23/blob/main/shaders/genuary/2022/3.frag.glsl"
+              "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/3.frag.glsl"
             }
           />
         </Box>
 
-        {/* <Stack
-          direction={"row"}
-          justifyContent={"flex-end"}
-          sx={{
-            paddingX: {
-              xs: "5vw",
-              md: 0,
-              lg: "5vw",
-            },
-          }}
-        >
+        <Stack direction={"row"} justifyContent={"flex-end"}>
           <Link href={"/shaders"}>
             <Button
               size={"small"}
@@ -308,7 +298,7 @@ export default function HomePage(props: {}) {
               More shaders
             </Button>
           </Link>
-        </Stack> */}
+        </Stack>
       </Stack>
     </>
   );

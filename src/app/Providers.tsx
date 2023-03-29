@@ -10,8 +10,8 @@ import {
   experimental_extendTheme as extendTheme,
   Experimental_CssVarsProvider as CssVarsProvider,
 } from "@mui/material";
-import { CursorProvider } from "components/Cursor";
-import { themes } from "themes";
+import { CursorProvider } from "~/components/Cursor";
+import { themes } from "~/themes";
 
 const AppContext = createContext<{
   themePreset: keyof typeof themes;

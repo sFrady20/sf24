@@ -4,16 +4,6 @@ const config = {
   experimental: {
     appDir: true,
   },
-  swcMinify: false,
-  pageExtensions: ["ts", "tsx", "js", "jsx"],
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "picsum.photos",
-      },
-    ],
-  },
   webpack: (config, {}) => {
     config.plugins.push(new WindiCSS());
 
@@ -28,10 +18,18 @@ const config = {
       ],
     });
 
+    //glsl code
     config.module.rules.push({
       test: /\.glsl$/i,
       issuer: /\.[jt]sx?$/,
       use: ["raw-loader", "glslify-loader"],
+    });
+
+    //txt loading (for ai prompts)
+    config.module.rules.push({
+      test: /\.txt$/i,
+      issuer: /\.[jt]sx?$/,
+      use: "raw-loader",
     });
 
     return config;

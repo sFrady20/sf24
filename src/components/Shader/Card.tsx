@@ -1,14 +1,11 @@
 import { Box, IconButton, Stack, Typography, useTheme } from "@mui/material";
 import Link from "next/link";
-import { CursorTarget } from "components/Cursor";
-import { useEffect, useRef } from "react";
-import { useResize } from "@react-spring/web";
+import { CursorTarget } from "~/components/Cursor";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import { Canvas } from "@react-three/fiber";
 import Color from "color";
-import Slice from "components/Slice";
+import { Shader } from "./Component";
 
-export function Shader(props: {
+export function ShaderCard(props: {
   frag: string;
   title?: string;
   subtitle?: string;
@@ -16,38 +13,12 @@ export function Shader(props: {
 }) {
   const { frag, title, subtitle, sourceHref } = props;
   const theme = useTheme();
-  const containerEl = useRef<HTMLDivElement>(null);
-  const uniforms = useRef({
-    resolution: { value: [100, 100] },
-    time: { value: 0 },
-    cursor: { value: [0, 0] },
-  }).current;
 
   const backdropRgb = Color(theme.palette.common.black)
     .rgb()
     .array()
     .map((x) => `${x / 2.55}%`)
     .join(" ");
-
-  useEffect(() => {
-    let frame = 0;
-    const cb = (now: number) => {
-      uniforms.time.value = now / 1000;
-      frame = requestAnimationFrame(cb);
-    };
-    frame = requestAnimationFrame(cb);
-    return () => {
-      cancelAnimationFrame(frame);
-    };
-  }, []);
-
-  useResize({
-    container: containerEl as any,
-    immediate: true,
-    onChange: ({ value: { width, height } }) => {
-      uniforms.resolution.value = [width, height];
-    },
-  });
 
   return (
     <CursorTarget effect={{ type: "hide" }}>
@@ -64,24 +35,10 @@ export function Shader(props: {
           borderRadius: 2,
         }}
       >
-        <Box
-          ref={containerEl}
-          component={"div"}
+        <Shader
+          frag={frag}
           sx={{ position: "absolute", left: 0, right: 0, top: 0, bottom: 0 }}
-          onMouseMove={(e) => {
-            var rect = (e.target as any).getBoundingClientRect();
-            var x = e.clientX - rect.left;
-            var y = e.clientY - rect.top;
-            uniforms.cursor.value = [x, y];
-          }}
-        >
-          <Canvas dpr={[1, 1]}>
-            <Slice>
-              <shaderMaterial fragmentShader={frag} uniforms={uniforms} />
-            </Slice>
-          </Canvas>
-        </Box>
-
+        />
         <Stack
           direction={"row"}
           sx={{

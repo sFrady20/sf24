@@ -22,10 +22,10 @@ import EmailIcon from "@mui/icons-material/Email";
 import MenuIcon from "@mui/icons-material/Menu";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { Menu } from "./Menu";
-import { AnimatePresence } from "components/AnimatePresence";
-import Clover from "util/clover.svg";
+import { AnimatePresence } from "~/components/AnimatePresence";
+import Clover from "~/util/clover.svg";
 import { useApp } from "./Providers";
-import { themes } from "themes";
+import { themes } from "~/themes";
 
 const colorSchemeIconMap: {
   [key in SupportedColorScheme | "system"]: ReactNode;
@@ -70,7 +70,7 @@ export default function Header(props: {}) {
           top: "5vh",
           left: "5vw",
           right: "5vw",
-          borderRadius: 4,
+          borderRadius: 1,
           pr: 1,
           zIndex: 100,
           overflow: "hidden",

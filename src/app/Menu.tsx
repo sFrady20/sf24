@@ -5,7 +5,7 @@ import {
   AnimatedButton,
   AnimatedStack,
   AnimatedTabs,
-} from "util/animated";
+} from "~/util/animated";
 import { SpringValue, to, useTrail } from "@react-spring/web";
 
 export function Menu(props: {

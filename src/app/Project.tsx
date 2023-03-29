@@ -1,12 +1,12 @@
 import { Box, Chip, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { CursorContext, CursorTarget } from "components/Cursor";
-import { AnimatedBox } from "util/animated";
+import { CursorContext, CursorTarget } from "~/components/Cursor";
+import { AnimatedBox } from "~/util/animated";
 import { useContext } from "react";
 import { to } from "@react-spring/web";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Image from "next/image";
-import { projectList } from "data/projects";
-import { AnimatePresence } from "components/AnimatePresence";
+import { projectList } from "~/data/projects";
+import { AnimatePresence } from "~/components/AnimatePresence";
 
 export function Project(props: { project: typeof projectList[number] }) {
   const { project } = props;
@@ -70,7 +70,7 @@ export function Project(props: { project: typeof projectList[number] }) {
               component={"ul"}
               sx={{
                 marginBottom: { xs: 2, md: 0 },
-                gridColumn: "span 5 / span 5",
+                gridColumn: "span 5",
               }}
             >
               {project.frameworks
