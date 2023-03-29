@@ -1,16 +1,15 @@
 import { OPEN_AI_API_KEY } from "~/config";
 import axios from "axios";
-import prompt from "../../defaultPrompt.txt";
-import frag from "../../defaultFrag.glsl";
+import prompt from "~/prompts/shader.txt";
+// import frag from "~/shaders/test.frag.glsl";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const buffer = searchParams.get("buffer") ?? frag;
+  // const buffer = searchParams.get("buffer") ?? frag;
   const input = searchParams.get("input") ?? "";
 
-  const query = prompt
-    .replace(`{{{input}}}`, input)
-    .replace(`{{{buffer}}}`, buffer);
+  const query = prompt.replace(`{{{input}}}`, input);
+  //  .replace(`{{{buffer}}}`, buffer);
 
   const data = {
     model: "gpt-3.5-turbo",

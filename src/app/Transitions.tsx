@@ -8,7 +8,7 @@ import {
 } from "react";
 import { usePathname } from "next/navigation";
 import { SpringValue, to } from "@react-spring/web";
-import { AnimatedBox } from "util/animated";
+import { AnimatedBox } from "~/util/animated";
 import { Box } from "@mui/material";
 
 const TransitionContext = createContext<{
