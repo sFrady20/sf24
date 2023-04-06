@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Avatar,
   Box,
@@ -24,7 +26,7 @@ import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { Menu } from "./Menu";
 import { AnimatePresence } from "~/components/AnimatePresence";
 import Clover from "~/util/clover.svg";
-import { useApp } from "./Providers";
+import { useApp } from "./Shell";
 import { themes } from "~/themes";
 
 const colorSchemeIconMap: {

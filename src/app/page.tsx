@@ -109,6 +109,7 @@ export default function HomePage(props: {}) {
         </Stack>
       </Container>
 
+      {/* 
       <Container
         sx={{
           marginTop: {
@@ -225,6 +226,7 @@ export default function HomePage(props: {}) {
           </Stack>
         </Stack>
       </Container>
+      */}
 
       <Stack
         sx={{

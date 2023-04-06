@@ -1,3 +1,5 @@
+"use client";
+
 import { Box, Chip, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { CursorContext, CursorTarget } from "~/components/Cursor";
 import { AnimatedBox } from "~/util/animated";

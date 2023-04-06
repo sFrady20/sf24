@@ -1,3 +1,5 @@
+"use client";
+
 import {
   useState,
   createContext,
@@ -7,11 +9,15 @@ import {
   SetStateAction,
 } from "react";
 import {
-  experimental_extendTheme as extendTheme,
   Experimental_CssVarsProvider as CssVarsProvider,
+  Box,
+  CssBaseline,
+  getInitColorSchemeScript,
 } from "@mui/material";
-import { CursorProvider } from "~/components/Cursor";
 import { themes } from "~/themes";
+import Header from "./Header";
+import { Footer } from "./Footer";
+import { Cursor, CursorProvider } from "~/components/Cursor";
 
 const AppContext = createContext<{
   themePreset: keyof typeof themes;
@@ -27,7 +33,7 @@ export function useApp() {
   return useContext(AppContext);
 }
 
-export function Providers(props: { children?: ReactNode }) {
+export function AppShell(props: { children?: ReactNode }) {
   const { children } = props;
 
   const [themePreset, setThemePreset] =
@@ -42,7 +48,28 @@ export function Providers(props: { children?: ReactNode }) {
       }}
     >
       <CssVarsProvider theme={themes[themePreset]}>
-        <CursorProvider>{children}</CursorProvider>
+        <CursorProvider>
+          {getInitColorSchemeScript({ defaultMode: "system" })}
+          <CssBaseline />
+          <Header />
+          <Box
+            component={"div"}
+            sx={{
+              position: "relative",
+              zIndex: 10,
+              backgroundColor: "background.paper",
+              color: "text.primary",
+              borderRadius: "0 0 24px 24px",
+              overflow: "hidden",
+              boxShadow: "0 5px 20px -10px rgb(0 0 0 / 30%)",
+              minHeight: "100vh",
+            }}
+          >
+            {children}
+          </Box>
+          <Footer />
+          <Cursor />
+        </CursorProvider>
       </CssVarsProvider>
     </AppContext.Provider>
   );

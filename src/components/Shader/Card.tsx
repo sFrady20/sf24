@@ -32,7 +32,7 @@ export function ShaderCard(props: {
           paddingBottom: "72%",
           height: 0,
           position: "relative",
-          borderRadius: 2,
+          borderRadius: 0,
         }}
       >
         <Shader
