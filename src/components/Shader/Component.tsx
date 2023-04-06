@@ -4,8 +4,10 @@ import { Canvas } from "@react-three/fiber";
 import Slice from "~/components/Slice";
 import { Box, BoxProps } from "@mui/material";
 
-export function Shader(props: { frag?: string } & BoxProps) {
-  const { frag, ...rest } = props;
+export function Shader(
+  props: { frag?: string; autoplay?: boolean } & BoxProps
+) {
+  const { frag, autoplay, ...rest } = props;
   const containerEl = useRef<HTMLDivElement>(null);
   const uniforms = useRef({
     resolution: { value: [100, 100] },

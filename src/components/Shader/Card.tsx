@@ -10,8 +10,9 @@ export function ShaderCard(props: {
   title?: string;
   subtitle?: string;
   sourceHref?: string;
+  autoplay?: boolean;
 }) {
-  const { frag, title, subtitle, sourceHref } = props;
+  const { frag, title, subtitle, sourceHref, autoplay } = props;
   const theme = useTheme();
 
   const backdropRgb = Color(theme.palette.common.black)
@@ -37,6 +38,7 @@ export function ShaderCard(props: {
       >
         <Shader
           frag={frag}
+          autoplay={autoplay}
           sx={{ position: "absolute", left: 0, right: 0, top: 0, bottom: 0 }}
         />
         <Stack

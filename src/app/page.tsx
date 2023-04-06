@@ -264,6 +264,7 @@ export default function HomePage(props: {}) {
           }}
         >
           <ShaderCard
+            autoplay
             frag={frag3}
             title={"SpaceTime"}
             subtitle={"Genuary 2022 - Day 3"}
@@ -272,6 +273,7 @@ export default function HomePage(props: {}) {
             }
           />
           <ShaderCard
+            autoplay
             frag={frag4}
             title={"The next fidenza"}
             subtitle={"Genuary 2022 - Day 4"}
@@ -280,6 +282,7 @@ export default function HomePage(props: {}) {
             }
           />
           <ShaderCard
+            autoplay
             frag={frag5}
             title={"Destroy a square"}
             subtitle={"Genuary 2022 - Day 5"}
