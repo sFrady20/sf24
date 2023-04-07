@@ -33,7 +33,7 @@ export default function ShadersGrid() {
         title={"Draw 10,000 of something"}
         subtitle={"Genuary 2022 - Day 1"}
         sourceHref={
-          "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/3.frag.glsl"
+          "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/1.frag.glsl"
         }
       />
       <ShaderCard
@@ -41,7 +41,7 @@ export default function ShadersGrid() {
         title={"Dithering"}
         subtitle={"Genuary 2022 - Day 2"}
         sourceHref={
-          "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/3.frag.glsl"
+          "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/2.frag.glsl"
         }
       />
       <ShaderCard
@@ -57,7 +57,7 @@ export default function ShadersGrid() {
         title={"The next fidenza"}
         subtitle={"Genuary 2022 - Day 4"}
         sourceHref={
-          "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/3.frag.glsl"
+          "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/4.frag.glsl"
         }
       />
       <ShaderCard
@@ -65,7 +65,7 @@ export default function ShadersGrid() {
         title={"Destroy a square"}
         subtitle={"Genuary 2022 - Day 5"}
         sourceHref={
-          "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/3.frag.glsl"
+          "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/5.frag.glsl"
         }
       />
       {/* <ShaderCard

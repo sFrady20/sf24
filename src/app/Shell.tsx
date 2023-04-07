@@ -18,6 +18,7 @@ import { themes } from "~/themes";
 import Header from "./Header";
 import { Footer } from "./Footer";
 import { Cursor, CursorProvider } from "~/components/Cursor";
+import Transitions from "./Transitions";
 
 const AppContext = createContext<{
   themePreset: keyof typeof themes;
@@ -61,7 +62,6 @@ export function AppShell(props: { children?: ReactNode }) {
               color: "text.primary",
               borderRadius: "0 0 24px 24px",
               overflow: "hidden",
-              boxShadow: "0 5px 20px -10px rgb(0 0 0 / 30%)",
               minHeight: "100vh",
             }}
           >

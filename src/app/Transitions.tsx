@@ -1,6 +1,5 @@
 import {
   createContext,
-  Fragment,
   ReactNode,
   useContext,
   useEffect,
@@ -76,21 +75,20 @@ export default function Transitions(props: { children: ReactNode }) {
 
   return (
     <Box sx={{ display: "grid" }}>
-      {/* {Object.entries(childMap).map(([key, { child, enter, exit }]) => (
+      {Object.entries(childMap).map(([key, { child, enter, exit }]) => (
         <AnimatedBox
           key={key}
           sx={{ gridArea: "1 / 1" }}
           style={{
             transform: to(
               [enter, exit],
-              (enter, exit) => `${(enter + exit) * 20}px`
+              (enter, exit) => `translateX(${(enter + exit) * 20}px)`
             ),
           }}
         >
           {child}
         </AnimatedBox>
-      ))} */}
-      {children}
+      ))}
     </Box>
   );
 }

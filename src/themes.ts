@@ -97,7 +97,7 @@ const original = extendTheme(
     colorSchemes: {
       light: {
         palette: {
-          background: { default: "#E7E7E7", paper: "#E9E9E9" },
+          background: { default: "#E2E2E2", paper: "#E9E9E9" },
           secondary: { main: "#CCCCCC" },
         },
       },

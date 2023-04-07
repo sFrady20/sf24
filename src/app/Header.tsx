@@ -81,7 +81,7 @@ export default function Header(props: {}) {
         <Stack direction={"row"} alignItems={"center"} sx={{ flex: 1 }}>
           <Link href={"/"}>
             <Button
-              sx={{ borderRadius: 4, height: 50, px: 2 }}
+              sx={{ borderRadius: 1, height: 50, px: 2 }}
               startIcon={
                 <Avatar
                   src={"/portrait-trans.png"}
