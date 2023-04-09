@@ -1,5 +1,6 @@
 import { Box, Button, Tabs, Typography, Stack } from "@mui/material";
 import { animated } from "@react-spring/web";
+import { Canvas } from "@react-three/fiber";
 import Image from "next/image";
 
 export const AnimatedBox = animated(Box);

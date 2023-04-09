@@ -7,6 +7,7 @@ import frag2 from "~/shaders/genuary/2022/2.frag.glsl";
 import frag3 from "~/shaders/genuary/2022/3.frag.glsl";
 import frag4 from "~/shaders/genuary/2022/4.frag.glsl";
 import frag5 from "~/shaders/genuary/2022/5.frag.glsl";
+import frag7 from "~/shaders/genuary/2022/7.frag.glsl";
 import frag6 from "~/shaders/genuary/2023/1.frag.glsl";
 
 export default function ShadersGrid() {
@@ -74,6 +75,14 @@ export default function ShadersGrid() {
         subtitle={"Genuary 2022 - Day 5"}
         sourceHref={
           "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/3.frag.glsl"
+        }
+      /> */}
+      {/* <ShaderCard
+        frag={frag7}
+        title={"Sol LeWitt Wall Drawing"}
+        subtitle={"Genuary 2022 - Day 7"}
+        sourceHref={
+          "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/7.frag.glsl"
         }
       /> */}
     </Box>
