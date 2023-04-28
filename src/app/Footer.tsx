@@ -21,7 +21,6 @@ export function Footer() {
       <Container>
         <Stack
           sx={{
-            flexDirection: "row",
             minHeight: 160,
             justifyContent: "center",
             alignItems: "center",

@@ -4,11 +4,7 @@ import "large-small-dynamic-viewport-units-polyfill";
 
 import { ReactNode } from "react";
 import { AppShell } from "./Shell";
-import { install } from "ga-gtag";
-
-//install GA4
-if (typeof window !== "undefined" && process.env.NODE_ENV !== "development")
-  install("G-CYYGZKHE9K");
+import "~/components/Analytics";
 
 export default function App(props: { children?: ReactNode }) {
   const { children } = props;
