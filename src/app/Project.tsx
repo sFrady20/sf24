@@ -1,6 +1,13 @@
 "use client";
 
-import { Box, Chip, Typography, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Box,
+  Chip,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { CursorContext, CursorTarget } from "~/components/Cursor";
 import { AnimatedBox } from "~/util/animated";
 import { useContext } from "react";
@@ -10,7 +17,7 @@ import Image from "next/image";
 import { projectList } from "~/data/projects";
 import { AnimatePresence } from "~/components/AnimatePresence";
 
-export function Project(props: { project: typeof projectList[number] }) {
+export function Project(props: { project: (typeof projectList)[number] }) {
   const { project } = props;
   const cursor = useContext(CursorContext);
   const theme = useTheme();
@@ -62,17 +69,30 @@ export function Project(props: { project: typeof projectList[number] }) {
               component={"div"}
               sx={{
                 marginBottom: { xs: 2, md: 0 },
-                gridColumn: { xs: "span 1 / span 1", md: "span 2 / span 2" },
+                gridColumn: { xs: "span 1 / span 1", md: "span 3 / span 3" },
               }}
             >
               {project.name}
             </Typography>
-
+            {/* 
+             <Stack
+              component={"div"}
+              sx={{
+                marginBottom: { xs: 2, md: 0 },
+                gridColumn: "span 5",
+              }}
+            >
+              <Typography fontFamily={""}>{project.description}</Typography>
+             <Stack component={"div"} direction={"row"}>
+                <Typography>Test</Typography>
+              </Stack>
+            </Stack>
+            */}
             <Box
               component={"ul"}
               sx={{
                 marginBottom: { xs: 2, md: 0 },
-                gridColumn: "span 5",
+                gridColumn: "span 6",
               }}
             >
               {project.frameworks

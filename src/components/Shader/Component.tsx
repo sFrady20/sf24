@@ -5,6 +5,7 @@ import Slice from "~/components/Slice";
 import { Box, BoxProps, CircularProgress } from "@mui/material";
 import { useIntersectionObserver } from "usehooks-ts";
 import { AnimatedBox } from "~/util/animated";
+import { useSize } from "./size";
 
 const DisableRender = () => useFrame(() => null, 1000);
 
@@ -32,12 +33,10 @@ export function Shader(props: { frag?: string; paused?: boolean } & BoxProps) {
     };
   }, [paused, obs?.isIntersecting, firstRender]);
 
-  useResize({
-    container: containerEl as any,
-    onChange: ({ value: { width, height } }) => {
-      uniforms.resolution.value = [width, height];
-    },
-  });
+  const size = useSize(containerEl);
+  useEffect(() => {
+    uniforms.resolution.value = size;
+  }, [size]);
 
   const anim = useSpring({
     fadeIn: firstRender ? 0.01 : 1,
