@@ -1,3 +1,5 @@
+//Sol LeWitt Wall Drawing.
+
 uniform float time;
 uniform float seed;
 uniform vec2 resolution;
