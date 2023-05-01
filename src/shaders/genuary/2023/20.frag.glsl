@@ -1,5 +1,5 @@
-//Perfect loop / Infinite loop / endless GIFs
-//https://giphy.com/search/perfect-loop
+//Art Deco
+//https://en.wikipedia.org/wiki/Art_Deco
 
 uniform float time;
 uniform float seed;
@@ -8,8 +8,8 @@ uniform sampler2D scene;
 uniform float enter;
 uniform float exit;
 
-void main(){
+void main() {
   vec2 uv = gl_FragCoord.xy / resolution.xy;
-  vec4 color= vec4(uv,sin(time),1.);
-  gl_FragColor=color;
+  vec4 color = vec4(uv,sin(time),1.);
+  gl_FragColor = color;
 }
