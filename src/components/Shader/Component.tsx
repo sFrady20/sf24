@@ -1,11 +1,15 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
-import { useResize, useSpring } from "@react-spring/web";
+import { useSpring } from "@react-spring/web";
 import { Canvas, useFrame } from "@react-three/fiber";
 import Slice from "~/components/Slice";
 import { Box, BoxProps, CircularProgress } from "@mui/material";
 import { useIntersectionObserver } from "usehooks-ts";
 import { AnimatedBox } from "~/util/animated";
 import { useSize } from "./size";
+import Alert from "@mui/material/Alert";
+import { ShaderMaterial } from "three";
 
 const DisableRender = () => useFrame(() => null, 1000);
 
@@ -19,6 +23,7 @@ export function Shader(props: { frag?: string; paused?: boolean } & BoxProps) {
   }).current;
   const [firstRender, setFirstRender] = useState(true);
   const obs = useIntersectionObserver(containerEl, {});
+  const [error, setError] = useState<Error>();
 
   useEffect(() => {
     if (!firstRender && (paused || !obs?.isIntersecting)) return;
@@ -65,6 +70,18 @@ export function Shader(props: { frag?: string; paused?: boolean } & BoxProps) {
         sx={{ width: "100%", height: "100%" }}
         style={{ opacity: anim.fadeIn }}
       >
+        {error && (
+          <Alert
+            severity="error"
+            sx={{
+              position: "absolute",
+              width: "100%",
+              borderRadius: 0,
+            }}
+          >
+            {error?.message}
+          </Alert>
+        )}
         <Canvas dpr={[1, 1]}>
           {!firstRender && (paused || !obs?.isIntersecting) && (
             <DisableRender />
