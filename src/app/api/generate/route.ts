@@ -1,6 +1,6 @@
 import { OPEN_AI_API_KEY } from "~/config";
 import axios from "axios";
-import prompt from "~/prompts/shader.txt";
+// import prompt from "~/prompts/shader.txt";
 // import frag from "~/shaders/test.frag.glsl";
 
 export async function GET(request: Request) {
@@ -8,7 +8,7 @@ export async function GET(request: Request) {
   // const buffer = searchParams.get("buffer") ?? frag;
   const input = searchParams.get("input") ?? "";
 
-  const query = prompt.replace(`{{{input}}}`, input);
+  //const query = prompt.replace(`{{{input}}}`, input);
   //  .replace(`{{{buffer}}}`, buffer);
 
   const data = {
@@ -16,7 +16,7 @@ export async function GET(request: Request) {
     messages: [
       {
         role: "user",
-        content: query,
+        // content: query,
       },
     ],
   };
