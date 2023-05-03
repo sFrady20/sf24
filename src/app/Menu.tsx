@@ -41,6 +41,7 @@ export function Menu(props: {
         zIndex: 50,
         paddingX: "15vw",
         boxSizing: "border-box",
+        display: "flex",
       }}
       style={{
         height: to([enter, exit], (enter, exit) => `${(enter - exit) * 100}%`),
