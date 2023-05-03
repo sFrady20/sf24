@@ -60,7 +60,9 @@ export default function Header(props: {}) {
   return (
     <>
       <AnimatePresence isPresent={isMenuOpen && isMobile}>
-        {({ enter, exit }) => <Menu enter={enter} exit={exit} />}
+        {({ enter, exit }) => (
+          <Menu enter={enter} exit={exit} onClose={() => setMenuOpen(false)} />
+        )}
       </AnimatePresence>
       <Stack
         direction={"row"}

@@ -1,6 +1,6 @@
 "use client";
 
-import { Stack, Tab, useColorScheme } from "@mui/material";
+import { Box, IconButton, Stack, Tab, useColorScheme } from "@mui/material";
 import Link from "next/link";
 import {
   AnimatedBox,
@@ -9,6 +9,10 @@ import {
   AnimatedTabs,
 } from "~/util/animated";
 import { SpringValue, to, useTrail } from "@react-spring/web";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import EmailIcon from "@mui/icons-material/Email";
 
 export function Menu(props: {
   enter: SpringValue<number>;
@@ -38,6 +42,7 @@ export function Menu(props: {
         overflow: "hidden",
         backgroundColor: "common.black",
         color: "common.white",
+        justifyContent: "center",
         zIndex: 50,
         paddingX: "15vw",
         boxSizing: "border-box",
@@ -53,7 +58,12 @@ export function Menu(props: {
       >
         <Stack></Stack>
         <Stack spacing={4}>
-          <Link href={"https://github.com/sFrady20"} target="_blank">
+          <Link
+            href={"/"}
+            onClick={() => {
+              onClose?.();
+            }}
+          >
             <AnimatedButton
               fullWidth
               size={"large"}
@@ -70,10 +80,15 @@ export function Menu(props: {
                 opacity: t(0),
               }}
             >
-              GitHub
+              Home
             </AnimatedButton>
           </Link>
-          <Link href={"https://twitter.com/slowjamsteve"} target="_blank">
+          <Link
+            href={"/shaders"}
+            onClick={() => {
+              onClose?.();
+            }}
+          >
             <AnimatedButton
               fullWidth
               size={"large"}
@@ -90,30 +105,63 @@ export function Menu(props: {
                 opacity: t(1),
               }}
             >
-              Twitter
-            </AnimatedButton>
-          </Link>
-          <Link href={"mailto:@sfrady20@gmail.com"} target="_blank">
-            <AnimatedButton
-              fullWidth
-              size={"large"}
-              sx={{
-                fontSize: "13vw",
-                lineHeight: 1.2,
-                textDecoration: "none",
-
-                ["& .MuiButton-startIcon"]: {
-                  marginRight: 5,
-                },
-              }}
-              style={{
-                opacity: t(2),
-              }}
-            >
-              Email
+              Shaders
             </AnimatedButton>
           </Link>
         </Stack>
+
+        <AnimatedStack
+          direction={"row"}
+          spacing={3}
+          alignItems={"center"}
+          justifyContent={"center"}
+          sx={{
+            flex: 1,
+            position: "absolute",
+            bottom: 0,
+            left: "5vw",
+            right: "5vw",
+            marginBottom: "calc(5vh + 80px)",
+          }}
+          style={{
+            opacity: to([t(3), enter, exit], (t, enter, exit) =>
+              Math.min(t, enter - exit)
+            ),
+          }}
+        >
+          <Box component={"div"}>
+            <Link href={"https://github.com/sFrady20"} target="_blank">
+              <IconButton sx={{ color: "inherit", cursor: "alias" }}>
+                <GitHubIcon sx={{ width: 20, height: 20 }} />
+              </IconButton>
+            </Link>
+          </Box>
+          <Box component={"div"}>
+            <Link
+              href={"https://www.linkedin.com/in/stevenfrady/"}
+              target="_blank"
+            >
+              <IconButton sx={{ color: "inherit", cursor: "alias" }}>
+                <LinkedInIcon sx={{ width: 20, height: 20 }} />
+              </IconButton>
+            </Link>
+          </Box>
+          <Box component={"div"}>
+            <Link href={"https://twitter.com/slowjamsteve"} target="_blank">
+              <IconButton sx={{ color: "inherit", cursor: "alias" }}>
+                <TwitterIcon sx={{ width: 20, height: 20 }} />
+              </IconButton>
+            </Link>
+          </Box>
+          <Box component={"div"}>
+            <Link href={"mailto:@sfrady20@gmail.com"} target="_blank">
+              <IconButton sx={{ color: "inherit" }}>
+                <EmailIcon sx={{ width: 20, height: 20 }} />
+              </IconButton>
+            </Link>
+          </Box>
+        </AnimatedStack>
+
         <AnimatedStack
           spacing={4}
           sx={{
