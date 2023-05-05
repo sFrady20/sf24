@@ -77,16 +77,14 @@ export default function ShadersGrid() {
           "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/6.frag.glsl"
         }
       />
-      {/*
-      <ShaderCard
+      {/* <ShaderCard
         frag={frag7}
         title={"Sol LeWitt Wall Drawing"}
         subtitle={"Genuary 2022 - Day 7"}
         sourceHref={
           "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/7.frag.glsl"
         }
-      />
-      */}
+      /> */}
     </Box>
   );
 }

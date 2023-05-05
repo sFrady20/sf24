@@ -1,11 +1,7 @@
 //Trade styles with a friend.
 
 uniform float time;
-uniform float seed;
 uniform vec2 resolution;
-uniform sampler2D scene;
-uniform float enter;
-uniform float exit;
 
 #pragma glslify:noise=require('../../includes/simplex3d')
 
@@ -34,23 +30,23 @@ void main(){
   float aspect=resolution.y/resolution.x;
   
   vec2 ruv=floor((gl_FragCoord.xy/resolution.xy)*(resolution.xy*.2))/(resolution.xy*.2);
-  float dd=(1.-distance(uv*vec2(1.,aspect),(ruv+vec2(.0025))*vec2(1.,aspect)));
+  vec2 d = vec2(1.) - (uv*vec2(1.,aspect) - (ruv+vec2(.0025))*vec2(1.,aspect));
   
-  float r=pow(noise(vec3(uv.x+time*.4,uv.y+time*.074,uv.x-time*.35))+.5,2.)+.3;
+  float r=pow(noise(vec3(uv.x+time*.14,uv.y+time*.14,uv.x-time*.135)),2.) + 0.8;
   
   vec3 g=gradient(
     +noise(vec3(uv,1.))
     +r*.5
-    +sin(ruv.y*200.+time)+1.
+    +sin(ruv.y*20.+time)+1.
     +sin(pow(ruv.x+.5,1.+sin(noise(vec3(time*.01,uv.y,1.))+pow(uv.x*2.,2.)))*.01)*100.+1.
     +sin(uv.x)*2.
     +sin(uv.y)*2.
-    +time
+    +time*0.2
   );
   
   vec3 bg=palette[0]/vec3(255.);
   
-  vec4 color=vec4(mix(bg,mix(bg,g,step(.997,length(dd))),r),1.);
+  vec4 color=vec4(mix(bg,mix(g,bg,step(.997,max(d.x, d.y))),r),1.);
   
   gl_FragColor=color;
 }
