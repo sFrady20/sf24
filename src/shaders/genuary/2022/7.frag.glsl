@@ -7,51 +7,55 @@
 uniform float time;
 uniform vec2 resolution;
 
-const vec3[7]palette=vec3[](
-  vec3(11.,24.,37.), //bg
-  vec3(57.,1.,248.),
-  vec3(242.,53.,157.),
-  vec3(107.,44.,233.),
-  vec3(12.,198.,111.),
-  vec3(57.,1.,248.),
-  vec3(11.,24.,37.)
+#pragma glslify:noise=require('../../includes/simplex3d')
+
+const float PI = 3.14;
+
+const int paletteSize = 7;
+const vec3[paletteSize]palette=vec3[](
+  vec3(.87, .84, .85),//bg
+  vec3(.73, .06, .16), 
+  vec3(.14, .56, .29),
+  vec3(.85, .07, .13),
+  vec3(.16, .37, .63),
+  vec3(.30, .20, .50),
+  vec3(.95, .62, .20)
 );
 
-//https://www.shadertoy.com/view/XtGfzw
-float sdCross(in vec2 p, in vec2 b, float r) {
-  p = abs(p);
-  p = (p.y > p.x) ? p.yx : p.xy;
-  vec2 q = p - b;
-  float k = max(q.y, q.x);
-  vec2 w = (k > 0.0) ? q : vec2(b.y - p.x, -k);
-  return sign(k) * length(max(w, 0.0)) + r;
+//https://www.youtube.com/watch?v=62-pRVZuS5c
+float sdBox( in vec2 p, in vec2 b ) {
+    vec2 d = abs(p)-b;
+    return length(max(d,0.0)) + min(max(d.x,d.y),0.0);
 }
 
-//https://www.shadertoy.com/view/Xl2yDW
-float sdEquilateralTriangle( in vec2 p )
-{
-    const float k = sqrt(3.0);
-    p.x = abs(p.x) - 1.0;
-    p.y = p.y + 1.0/k;
-    if( p.x+k*p.y>0.0 ) p = vec2(p.x-k*p.y,-k*p.x-p.y)/2.0;
-    p.x -= clamp( p.x, -2.0, 0.0 );
-    return -length(p)*sign(p.y);
+//https://www.shadertoy.com/view/3lVGWt
+mat2 rotationMatrix(float angle) {
+	angle *= PI / 180.0;
+    float s=sin(angle), c=cos(angle);
+    return mat2( c, -s, s, c );
 }
 
 void main() {
   vec2 uv = gl_FragCoord.xy / resolution.xy;
-  vec3 col = palette[0]/vec3(255.);
+  vec3 col = palette[0];
 
   vec2 fRes = resolution.yy;
   vec2 fUv = gl_FragCoord.xy / fRes;
 
-  vec3 crossCol = palette[1]/vec3(255.);
-  vec2 crossUv = uv;
-  crossUv -= vec2(.5);
-  crossUv *= 2.5;
-  float crossSd = sdCross(crossUv, vec2(1., 0.2), 0.);
+  float h = floor(fUv.x+time*0.1);
+  vec2 fhUv = mod(vec2(fUv.x+time*0.1, fUv.y), vec2(1.));
 
-  col = mix(col, crossCol, step(crossSd, 0.));
+  vec2 wfUv = fUv;
+  wfUv.y += sin(wfUv.x*3.)*0.2;
+  wfUv *= rotationMatrix(noise(vec3(h+15.42,5.262,21.262))*360.);
+
+  int stripeY = int(floor(wfUv.y * 10. + time * 0.5));
+  int stripeX = int(floor(wfUv.x * 5.+noise(vec3(float(stripeY)*14.3727+time*.1))));
+
+  vec3 b1Col = palette[int(mod(float(stripeY + stripeX),float(paletteSize)-1.)+1.)];
+  vec2 b1Uv = (fhUv - vec2(0.5)) * vec2(2.15, 2.25);
+  float b1Sd = sdBox( b1Uv, vec2(1.) );
+  col = mix(col, b1Col, step(b1Sd, 0.));
 
   gl_FragColor = vec4(col, 1.);
 }
