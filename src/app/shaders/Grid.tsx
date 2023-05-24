@@ -10,6 +10,7 @@ import frag5 from "~/shaders/genuary/2022/5.frag.glsl";
 import frag6 from "~/shaders/genuary/2022/6.frag.glsl";
 import frag7 from "~/shaders/genuary/2022/7.frag.glsl";
 import frag8 from "~/shaders/genuary/2022/8.frag.glsl";
+import frag9 from "~/shaders/genuary/2022/9.frag.glsl";
 
 export default function ShadersGrid() {
   return (
@@ -30,6 +31,14 @@ export default function ShadersGrid() {
         },
       }}
     >
+      <ShaderCard
+        frag={frag9}
+        title={"Architecture"}
+        subtitle={"Genuary 2022 - Day 9"}
+        sourceHref={
+          "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/9.frag.glsl"
+        }
+      />
       <ShaderCard
         frag={frag8}
         title={"Single curve only"}

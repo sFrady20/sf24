@@ -11,24 +11,35 @@ uniform float exit;
 
 const int paletteSize=7;
 const vec3[paletteSize]palette=vec3[](
-  vec3(0.05490196, 0.08235294, 0.13333333),//bg
-  vec3(0.11372549, 0.18823529, 0.1372549),
-  vec3(0.40784314, 0.41568627, 0.24313725),
-  vec3(0.40784314, 0.41568627, 0.24313725),
-  vec3(0.55686275, 0.51764706, 0.22745098),
-  vec3(0.56862745, 0.60784314, 0.18431373),
-  vec3(0.70588235, 0.71764706, 0.37647059)
+  vec3(11.,24.,37.),
+  vec3(57.,1.,248.),
+  vec3(242.,53.,157.),
+  vec3(107.,44.,233.),
+  vec3(12.,198.,111.),
+  vec3(57.,1.,248.),
+  vec3(11.,24.,37.)
 );
+
+float sdBox( in vec2 p, in vec2 b ) {
+  vec2 d = abs(p)-b;
+  return length(max(d,0.0)) + min(max(d.x,d.y),0.0);
+}
+
+float sdCircle ( in vec2 p, in float r ) {
+  return length(p);
+}
+
+void coil(in vec2 uv, inout vec3 col) {
+  uv -= vec2(0.5);
+  uv *= vec2(resolution.x/resolution.y, 1.);
+  col = vec3(step(abs(0.5 - sdCircle(uv, 0.5)), 0.01));
+}
 
 void main(){
   vec2 uv=gl_FragCoord.xy/resolution.xy;
   vec3 col=palette[0];
 
-  uv+=vec2(sin(uv.y*10.),sin(uv.x*10.))*0.1;
-  
-  float cd = 1.-(uv.x+uv.y);
-
-  col=mix(mix(palette[0], palette[2], abs(cd * 2.)),mix(palette[2], palette[0], abs(cd * 2.)),step(0.,cd));
+  coil(uv,  col);
 
   gl_FragColor=vec4(col, 1.);
 }
