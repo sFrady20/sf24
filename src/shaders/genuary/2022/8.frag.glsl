@@ -48,7 +48,6 @@ void coil(in vec2 uv,inout vec3 col){
   
   vec3 co = sdCoil(uv,uv,.5);
   float p=1.-co.y;
-  //float p=sdCoil(uv,vec2(uv),.5);
   
   col=vec3(p * (.5-co.z*0.5));
 }

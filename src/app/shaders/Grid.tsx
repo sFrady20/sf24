@@ -31,6 +31,7 @@ export default function ShadersGrid() {
         },
       }}
     >
+      {/*
       <ShaderCard
         frag={frag9}
         title={"Architecture"}
@@ -39,6 +40,7 @@ export default function ShadersGrid() {
           "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/9.frag.glsl"
         }
       />
+      */}
       <ShaderCard
         frag={frag8}
         title={"Single curve only"}
