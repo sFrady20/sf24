@@ -22,41 +22,35 @@ const vec3[paletteSize]palette=vec3[](
 
 //https://www.shadertoy.com/view/DlSXDd
 #define PI 3.14159265
-#define RHO 1.5707963268
-float atan2(in vec2 p,in float w){// :)
-  float a=abs(p.x)<1e-8?RHO:atan(abs(p.y/p.x));
-  float sy=2.*smoothstep(-w,w,p.y)-1.;
-  return abs(a+PI*min(0.,sign(p.x)))*sy;
-}
 
-#define COIL_LENGTH 10
-#define COIL_HEIGHT.25
-float sdCoil(in vec2 p,in vec2 c,in float r){
-  float d=1.;
+#define COIL_LENGTH 5
+#define COIL_HEIGHT.2
+vec3 sdCoil(in vec2 p,in vec2 c,in float r){
+  vec3 ret = vec3(1.);
   for(int i=0;i<COIL_LENGTH;i++){
-    float h=COIL_HEIGHT*float(i);
-    vec2 py=p-vec2(0.,h);
-    vec2 cy=c-vec2(0.,h);
-    vec2 yp=cy-py;
-    float a=atan2(yp,1./resolution.y);
-    //return a;
-    py+=vec2(0.,a*COIL_HEIGHT);
-    d=min(d,abs(r-length(py)));
+    float a=smoothstep(0.,1.,(0.5 + 0.5 * atan(p.y-float(i)*COIL_HEIGHT, p.x) / PI)*1.05);
+    float h=(float(i)+a)*COIL_HEIGHT;
+    vec2 ph=p-vec2(0.,h);
+    float ringDist=abs(r-length(ph));
+    float hit = step(0.013,ringDist);
+    if (hit < 1.) 
+      ret = vec3(ringDist, hit * ret.y, p.y-float(i)*COIL_HEIGHT);
   }
-  return d;
+  return ret;
 }
 
 void coil(in vec2 uv,inout vec3 col){
-  uv-=vec2(.5);
+  uv-=vec2(.5, .5);
   uv*=vec2(resolution.x/resolution.y,1.);
   
   //"tilt"
   uv*=vec2(1.,1.5);
   
-  //float p=step(sdCoil(uv,vec2(.5,.7),.5),.01);
-  float p=sdCoil(uv,vec2(uv),.5);
+  vec3 co = sdCoil(uv,uv,.5);
+  float p=1.-co.y;
+  //float p=sdCoil(uv,vec2(uv),.5);
   
-  col=vec3(p);
+  col=vec3(p * (.5-co.z*0.5));
 }
 
 void main(){
