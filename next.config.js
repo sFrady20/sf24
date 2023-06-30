@@ -3,6 +3,7 @@ const WindiCSS = require("windicss-webpack-plugin");
 const config = {
   experimental: {
     appDir: true,
+    mdxRs: true,
   },
   webpack: (config, {}) => {
     config.plugins.push(new WindiCSS());
@@ -36,4 +37,6 @@ const config = {
   },
 };
 
-module.exports = config;
+const withMDX = require("@next/mdx")();
+
+module.exports = withMDX(config);
