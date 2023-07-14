@@ -137,7 +137,7 @@ export default function Header(props: {}) {
             </Link>
           </Box>
           <Box component={"div"}>
-            <Link href={"mailto:@sfrady20@gmail.com"} target="_blank">
+            <Link href={"mailto:sfrady20@gmail.com"} target="_blank">
               <IconButton sx={{ color: "inherit" }}>
                 <EmailIcon sx={{ width: 20, height: 20 }} />
               </IconButton>
