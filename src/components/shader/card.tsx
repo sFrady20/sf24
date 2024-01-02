@@ -44,6 +44,7 @@ export function ShaderCard(props: ShaderCardProps) {
                   href={`https://github.com/sFrady20/sf24/blob/main/src/shaders/${shaderPath}.frag.glsl`}
                   target={"_blank"}
                   className="pointer-events-auto cursor-alias text-[white]"
+                  aria-label={`View souce code for shader titled "${title}"`}
                 >
                   <i className="icon-[ri--github-fill] text-lg" />
                 </Link>
@@ -52,6 +53,7 @@ export function ShaderCard(props: ShaderCardProps) {
                 <Link
                   href={`/shaders/${shaderPath}`}
                   className="pointer-events-auto cursor-zoom-in text-[white]"
+                  aria-label={`View shader titled "${title}" in fullscreen`}
                 >
                   <i className="icon-[ri--fullscreen-fill] text-lg" />
                 </Link>

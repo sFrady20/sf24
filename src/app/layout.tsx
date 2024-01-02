@@ -67,18 +67,22 @@ const socials = [
   {
     link: "https://www.linkedin.com/in/stevenfrady",
     icon: "icon-[ri--linkedin-box-fill]",
+    alt: "Connect with Steven Frady on LinkedIn",
   },
   {
     link: "https://twitter.com/slowjamsteve",
     icon: "icon-[ri--twitter-x-fill]",
+    alt: "Follow Steven Frady on X (formally Twitter)",
   },
   {
     link: "https://github.com/sFrady20",
     icon: "icon-[ri--github-fill]",
+    alt: "Follow Steven Frady on Github",
   },
   {
     link: "mailto:sfrady20@gmail.com",
     icon: "icon-[ri--mail-fill]",
+    alt: "Send Steven Frady an email",
   },
 ];
 
@@ -126,7 +130,7 @@ export default function App(props: { children?: ReactNode }) {
                       variant={"ghost"}
                       asChild
                     >
-                      <Link href={x.link} target="_blank">
+                      <Link href={x.link} target="_blank" aria-label={x.alt}>
                         <i className={cn("text-lg", x.icon)} />
                       </Link>
                     </Button>
@@ -156,7 +160,7 @@ export default function App(props: { children?: ReactNode }) {
                       variant={"ghost"}
                       asChild
                     >
-                      <Link href={x.link} target="_blank">
+                      <Link href={x.link} target="_blank" aria-label={x.alt}>
                         <i className={cn("text-lg", x.icon)} />
                       </Link>
                     </Button>
