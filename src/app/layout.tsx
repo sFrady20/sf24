@@ -1,12 +1,11 @@
 import "../globals.css";
 
+import "@/components/analytics";
 import { ReactNode } from "react";
 import { Metadata } from "next";
 import { Viewport } from "next/types";
-import "@/components/analytics";
 import { cn } from "@/utils/cn";
 import { fonts } from "@/utils/fonts";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";

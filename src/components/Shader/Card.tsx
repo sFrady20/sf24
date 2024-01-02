@@ -41,7 +41,7 @@ export function ShaderCard(props: ShaderCardProps) {
             <>
               <Button variant={"ghost"} asChild>
                 <Link
-                  href={`https://github.com/sFrady20/sf23/blob/main/src/shaders/${shaderPath}.frag.glsl`}
+                  href={`https://github.com/sFrady20/sf24/blob/main/src/shaders/${shaderPath}.frag.glsl`}
                   target={"_blank"}
                   className="pointer-events-auto cursor-alias text-[white]"
                 >

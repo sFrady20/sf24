@@ -1,6 +1,4 @@
 import { Shader } from "@/components/shader";
-import { readFileSync } from "fs";
-import { join } from "path";
 import { notFound } from "next/navigation";
 
 export default async function (props: {
