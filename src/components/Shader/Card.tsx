@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Shader } from "./Component";
+import { Shader } from "./component";
 import { Button } from "../ui/button";
 import { HTMLAttributes } from "react";
 import { cn } from "@/utils/cn";

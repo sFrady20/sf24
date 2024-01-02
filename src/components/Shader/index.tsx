@@ -1,2 +1,2 @@
-export { Shader } from "./Component";
-export { ShaderCard } from "./Card";
+export { Shader } from "./component";
+export { ShaderCard } from "./card";
