@@ -1,4 +1,4 @@
-import { OPEN_AI_API_KEY } from "@/config";
+import { OPEN_AI_API_KEY } from "@/vars";
 import axios from "axios";
 // import prompt from "@/prompts/shader.txt";
 // import frag from "@/shaders/test.frag.glsl";
