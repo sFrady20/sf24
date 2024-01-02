@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
-export const themes = ["dark", "light", "system", "christmas"] as const;
+export const themes = ["dark", "light", "system", "holiday"] as const;
 
 type Theme = (typeof themes)[number];
 
