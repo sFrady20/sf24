@@ -101,7 +101,7 @@ export default function App(props: { children?: ReactNode }) {
       >
         <AppProvider>
           <ThemeProvider>
-            <div className="fixed top-0 left-0 w-full p-10 z-[40]">
+            <div className="fixed top-0 left-0 w-full p-4 md:p-10 z-[40]">
               <header className="flex flex-row justify-between items-center h-[50px] bg-background/30 backdrop-blur-lg rounded-full px-2">
                 <div className="flex-1 flex flex-row items-center justify-start">
                   <Button
@@ -168,15 +168,19 @@ export default function App(props: { children?: ReactNode }) {
                 </>
               }
             >
-              <MenuToggle className="h-auto" variant={"ghost"} asChild>
-                <Link href={"/"} className="text-5xl">
-                  Home
-                </Link>
+              <MenuToggle
+                className="h-auto text-3xl md:text-5xl"
+                variant={"ghost"}
+                asChild
+              >
+                <Link href={"/"}>Home</Link>
               </MenuToggle>
-              <MenuToggle className="h-auto" variant={"ghost"} asChild>
-                <Link href={"/shaders"} className="text-5xl">
-                  Shaders
-                </Link>
+              <MenuToggle
+                className="h-auto text-3xl md:text-5xl"
+                variant={"ghost"}
+                asChild
+              >
+                <Link href={"/shaders"}>Shaders</Link>
               </MenuToggle>
             </Menu>
 
