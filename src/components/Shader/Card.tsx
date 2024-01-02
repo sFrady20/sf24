@@ -10,19 +10,13 @@ export interface ShaderCardProps extends HTMLAttributes<HTMLDivElement> {
   frag: string;
   title?: string;
   subtitle?: string;
-  sourceHref?: string;
+  shaderPath?: string;
   autoplay?: boolean;
 }
 
 export function ShaderCard(props: ShaderCardProps) {
-  const { frag, title, subtitle, sourceHref, autoplay, className, ...rest } =
+  const { frag, title, subtitle, shaderPath, autoplay, className, ...rest } =
     props;
-
-  // const backdropRgb = Color(theme.palette.common.black)
-  //   .rgb()
-  //   .array()
-  //   .map((x) => `${x / 2.55}%`)
-  //   .join(" ");
 
   return (
     <div
@@ -43,16 +37,26 @@ export function ShaderCard(props: ShaderCardProps) {
           <div className="text-[white]/60 leading-none">{subtitle}</div>
         </div>
         <div className="flex flex-row">
-          {sourceHref && (
-            <Button variant={"ghost"} asChild>
-              <Link
-                href={sourceHref}
-                target={"_blank"}
-                className="pointer-events-auto cursor-alias text-[white]"
-              >
-                <i className="icon-[ri--github-fill] text-lg" />
-              </Link>
-            </Button>
+          {shaderPath && (
+            <>
+              <Button variant={"ghost"} asChild>
+                <Link
+                  href={`https://github.com/sFrady20/sf23/blob/main/src/shaders/${shaderPath}.frag.glsl`}
+                  target={"_blank"}
+                  className="pointer-events-auto cursor-alias text-[white]"
+                >
+                  <i className="icon-[ri--github-fill] text-lg" />
+                </Link>
+              </Button>
+              <Button variant={"ghost"} asChild>
+                <Link
+                  href={`/shaders/${shaderPath}`}
+                  className="pointer-events-auto cursor-alias text-[white]"
+                >
+                  <i className="icon-[ri--fullscreen-fill] text-lg" />
+                </Link>
+              </Button>
+            </>
           )}
         </div>
       </div>

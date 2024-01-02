@@ -75,8 +75,8 @@ export default function App(props: { children?: ReactNode }) {
         )}
       >
         <ThemeProvider>
-          <div className="sticky top-0 left-0 w-full p-10 z-[40]">
-            <header className="flex flex-row justify-between items-center rounded-lg h-[50px] backdrop-blur-lg">
+          <div className="fixed top-0 left-0 w-full p-10 z-[40]">
+            <header className="flex flex-row justify-between items-center h-[50px] bg-background/30 backdrop-blur-lg rounded-full px-2">
               <div className="flex-1 flex flex-row items-center justify-start">
                 <Button
                   variant={"ghost"}
@@ -137,7 +137,7 @@ export default function App(props: { children?: ReactNode }) {
         </ThemeProvider>
         <footer className="py-[100px] text-center bg-foreground/5">
           <p className="opacity-60 text-sm">
-            Des. and Dev. by Steven Frady 2023
+            Des. and Dev. by Steven Frady © 2024
           </p>
         </footer>
       </body>

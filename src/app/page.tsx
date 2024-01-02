@@ -8,7 +8,7 @@ import Link from "next/link";
 export default async function () {
   return (
     <>
-      <section>
+      <section className="mt-[180px]">
         <div className="container">
           <h1 className="font-display text-center text-[20svw] uppercase leading-none -translate-x-[2svw]">
             Frady
@@ -26,26 +26,22 @@ export default async function () {
         </div>
       </section>
       <section className="py-[64px] px-10 flex flex-col gap-2">
-        <div className="grid grid-cols-3 rounded-xl overflow-hidden gap-1">
+        <div className="grid grid-cols-3 rounded-xl overflow-hidden gap-2">
           <ShaderCard
             className="col-span-1"
             autoplay
             frag={frag3}
             title={"Destroy a square"}
-            subtitle={"Genuary 2022 - Day 5"}
-            sourceHref={
-              "https://github.com/sFrady20/sf24/blob/main/src/shaders/genuary/2022/3.frag.glsl"
-            }
+            subtitle={"Genuary 2022 - Day 3"}
+            shaderPath="genuary/2022/3"
           />
           <ShaderCard
             className="col-span-1"
             autoplay
             frag={frag4}
             title={"Destroy a square"}
-            subtitle={"Genuary 2022 - Day 5"}
-            sourceHref={
-              "https://github.com/sFrady20/sf24/blob/main/src/shaders/genuary/2022/3.frag.glsl"
-            }
+            subtitle={"Genuary 2022 - Day 4"}
+            shaderPath="genuary/2022/4"
           />
           <ShaderCard
             className="col-span-1"
@@ -53,9 +49,7 @@ export default async function () {
             frag={frag5}
             title={"Destroy a square"}
             subtitle={"Genuary 2022 - Day 5"}
-            sourceHref={
-              "https://github.com/sFrady20/sf24/blob/main/src/shaders/genuary/2022/3.frag.glsl"
-            }
+            shaderPath="genuary/2022/5"
           />
         </div>
         <div className="flex flex-row items-center justify-end">

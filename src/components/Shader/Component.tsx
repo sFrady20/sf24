@@ -25,7 +25,6 @@ export function Shader(props: ShaderProps) {
   }).current;
   const [firstRender, setFirstRender] = useState(true);
   const obs = useIntersectionObserver(containerEl, {});
-  const [error, setError] = useState<Error>();
 
   useEffect(() => {
     if (!firstRender && (paused || !obs?.isIntersecting)) return;
@@ -45,12 +44,12 @@ export function Shader(props: ShaderProps) {
     uniforms.resolution.value = size;
   }, [size]);
 
-  const anim = useSpring({
-    fadeIn: firstRender ? 0.01 : 1,
-  });
-
   return (
-    <div ref={containerEl} {...rest} className={cn("bg-black", className)}>
+    <div
+      ref={containerEl}
+      {...rest}
+      className={cn("bg-black relative", className)}
+    >
       {firstRender && (
         <i className="icon-[svg-spinners--90-ring-with-bg] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 color-[white]" />
       )}
