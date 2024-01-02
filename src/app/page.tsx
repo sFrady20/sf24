@@ -8,16 +8,14 @@ import Link from "next/link";
 export default async function () {
   return (
     <>
-      <section className="mt-[180px]">
-        <div className="container">
-          <h1 className="font-display text-center text-[20svw] uppercase leading-none -translate-x-[2svw]">
+      <section className="mt-[180px] flex flex-col gap-10 md:gap-0">
+        <div className="md:container">
+          <h1 className="font-display text-center text-[25vw] md:text-[20svw] uppercase leading-none -translate-x-[2svw]">
             Frady
           </h1>
         </div>
-      </section>
-      <section>
         <div className="container max-w-[600px]">
-          <p className="text-sm leading-loose">
+          <p className="text-left text-xs md:text-sm leading-loose">
             I am a creative full-stack developer with over 8 years of
             experience. I specialize in building elegant solutions and I'm
             constantly crafting new features with a focus on simplicity and
@@ -28,23 +26,23 @@ export default async function () {
       <section className="py-[64px] px-10 flex flex-col gap-2">
         <div className="grid grid-cols-3 rounded-xl overflow-hidden gap-2">
           <ShaderCard
-            className="col-span-1"
+            className="col-span-3 lg:col-span-1"
             autoplay
             frag={frag3}
-            title={"Destroy a square"}
+            title={"Spacetime"}
             subtitle={"Genuary 2022 - Day 3"}
             shaderPath="genuary/2022/3"
           />
           <ShaderCard
-            className="col-span-1"
+            className="col-span-3 lg:col-span-1"
             autoplay
             frag={frag4}
-            title={"Destroy a square"}
+            title={"The Next Fidenza"}
             subtitle={"Genuary 2022 - Day 4"}
             shaderPath="genuary/2022/4"
           />
           <ShaderCard
-            className="col-span-1"
+            className="col-span-3 lg:col-span-1"
             autoplay
             frag={frag5}
             title={"Destroy a square"}

@@ -51,7 +51,7 @@ export function ShaderCard(props: ShaderCardProps) {
               <Button variant={"ghost"} asChild>
                 <Link
                   href={`/shaders/${shaderPath}`}
-                  className="pointer-events-auto cursor-alias text-[white]"
+                  className="pointer-events-auto cursor-zoom-in text-[white]"
                 >
                   <i className="icon-[ri--fullscreen-fill] text-lg" />
                 </Link>

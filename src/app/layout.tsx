@@ -11,6 +11,9 @@ import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import Link from "next/link";
 import { ThemeProvider } from "@/components/theme-provider";
+import { AppProvider } from "./context";
+import MenuToggle from "@/components/menu-toggle";
+import Menu from "@/components/menu";
 
 export const metadata: Metadata = {
   title: "Steven Frady - Creative Full-Stack Developer",
@@ -60,6 +63,25 @@ export const viewport: Viewport = {
 />
 */
 
+const socials = [
+  {
+    link: "https://www.linkedin.com/in/stevenfrady",
+    icon: "icon-[ri--linkedin-box-fill]",
+  },
+  {
+    link: "https://twitter.com/slowjamsteve",
+    icon: "icon-[ri--twitter-x-fill]",
+  },
+  {
+    link: "https://github.com/sFrady20",
+    icon: "icon-[ri--github-fill]",
+  },
+  {
+    link: "mailto:sfrady20@gmail.com",
+    icon: "icon-[ri--mail-fill]",
+  },
+];
+
 export default function App(props: { children?: ReactNode }) {
   const { children } = props;
 
@@ -73,72 +95,96 @@ export default function App(props: { children?: ReactNode }) {
           "bg-background text-foreground font-body selection:bg-foreground selection:text-background"
         )}
       >
-        <ThemeProvider>
-          <div className="fixed top-0 left-0 w-full p-10 z-[40]">
-            <header className="flex flex-row justify-between items-center h-[50px] bg-background/30 backdrop-blur-lg rounded-full px-2">
-              <div className="flex-1 flex flex-row items-center justify-start">
-                <Button
-                  variant={"ghost"}
-                  className="gap-3 pl-1 rounded-full"
-                  asChild
-                >
-                  <Link href={"/"}>
-                    <Image
-                      src={"/avatar.webp"}
-                      width={32}
-                      height={32}
-                      className="rounded-full"
-                      alt="Steven Frady"
-                    />
-                    <h1>SF24</h1>
-                  </Link>
-                </Button>
-              </div>
-              <div className="flex flex-row justify-center items-center gap-6 flex-1">
-                {[
-                  {
-                    link: "https://www.linkedin.com/in/stevenfrady",
-                    icon: "icon-[ri--linkedin-box-fill]",
-                  },
-                  {
-                    link: "https://twitter.com/slowjamsteve",
-                    icon: "icon-[ri--twitter-x-fill]",
-                  },
-                  {
-                    link: "https://github.com/sFrady20",
-                    icon: "icon-[ri--github-fill]",
-                  },
-                  {
-                    link: "mailto:sfrady20@gmail.com",
-                    icon: "icon-[ri--mail-fill]",
-                  },
-                ].map((x, i) => (
+        <AppProvider>
+          <ThemeProvider>
+            <div className="fixed top-0 left-0 w-full p-10 z-[40]">
+              <header className="flex flex-row justify-between items-center h-[50px] bg-background/30 backdrop-blur-lg rounded-full px-2">
+                <div className="flex-1 flex flex-row items-center justify-start">
                   <Button
-                    key={i}
-                    size={"icon"}
-                    className="rounded-full"
                     variant={"ghost"}
+                    className="gap-3 pl-1 rounded-full"
                     asChild
                   >
-                    <Link href={x.link} target="_blank">
-                      <i className={cn("text-lg", x.icon)} />
+                    <Link href={"/"}>
+                      <Image
+                        src={"/avatar.webp"}
+                        width={32}
+                        height={32}
+                        className="rounded-full"
+                        alt="Steven Frady"
+                      />
+                      <h1>SF24</h1>
                     </Link>
                   </Button>
-                ))}
-              </div>
-              <div className="flex-1 flex flex-row items-center justify-end">
-                <ModeToggle />
-              </div>
-            </header>
-          </div>
+                </div>
+                <div className="flex-row justify-center items-center gap-6 flex-1 hidden md:flex">
+                  {socials.map((x, i) => (
+                    <Button
+                      key={i}
+                      size={"icon"}
+                      className="rounded-full"
+                      variant={"ghost"}
+                      asChild
+                    >
+                      <Link href={x.link} target="_blank">
+                        <i className={cn("text-lg", x.icon)} />
+                      </Link>
+                    </Button>
+                  ))}
+                </div>
+                <div className="flex-1 flex flex-row items-center justify-end">
+                  <ModeToggle />
+                  <MenuToggle
+                    variant={"ghost"}
+                    size={"icon"}
+                    className="md:hidden"
+                  >
+                    <i className="icon-[ri--menu-fill]" />
+                  </MenuToggle>
+                </div>
+              </header>
+            </div>
 
-          {children}
-        </ThemeProvider>
-        <footer className="py-[100px] text-center bg-foreground/5">
-          <p className="opacity-60 text-sm">
-            Des. and Dev. by Steven Frady © 2024
-          </p>
-        </footer>
+            <Menu
+              socials={
+                <>
+                  {socials.map((x, i) => (
+                    <Button
+                      key={i}
+                      size={"icon"}
+                      className="rounded-full"
+                      variant={"ghost"}
+                      asChild
+                    >
+                      <Link href={x.link} target="_blank">
+                        <i className={cn("text-lg", x.icon)} />
+                      </Link>
+                    </Button>
+                  ))}
+                </>
+              }
+            >
+              <MenuToggle className="h-auto" variant={"ghost"} asChild>
+                <Link href={"/"} className="text-5xl">
+                  Home
+                </Link>
+              </MenuToggle>
+              <MenuToggle className="h-auto" variant={"ghost"} asChild>
+                <Link href={"/shaders"} className="text-5xl">
+                  Shaders
+                </Link>
+              </MenuToggle>
+            </Menu>
+
+            {children}
+
+            <footer className="py-[100px] text-center bg-foreground/5">
+              <p className="opacity-60 text-sm">
+                Des. and Dev. by Steven Frady © 2024
+              </p>
+            </footer>
+          </ThemeProvider>
+        </AppProvider>
       </body>
     </html>
   );

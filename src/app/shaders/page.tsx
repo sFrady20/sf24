@@ -28,6 +28,7 @@ export default async function () {
         subtitle={"Genuary 2022 - Day 8"}
         autoplay
         shaderPath="genuary/2022/8"
+        className="col-span-3 md:col-span-1"
       />
       <ShaderCard
         frag={frag7}
@@ -35,6 +36,7 @@ export default async function () {
         subtitle={"Genuary 2022 - Day 7"}
         autoplay
         shaderPath="genuary/2022/7"
+        className="col-span-3 md:col-span-1"
       />
       <ShaderCard
         frag={frag6}
@@ -42,6 +44,7 @@ export default async function () {
         subtitle={"Genuary 2022 - Day 6"}
         autoplay
         shaderPath="genuary/2022/6"
+        className="col-span-3 md:col-span-1"
       />
       <ShaderCard
         frag={frag5}
@@ -49,6 +52,7 @@ export default async function () {
         subtitle={"Genuary 2022 - Day 5"}
         autoplay
         shaderPath="genuary/2022/5"
+        className="col-span-3 md:col-span-1"
       />
       <ShaderCard
         frag={frag4}
@@ -56,6 +60,7 @@ export default async function () {
         subtitle={"Genuary 2022 - Day 4"}
         autoplay
         shaderPath="genuary/2022/4"
+        className="col-span-3 md:col-span-1"
       />
       <ShaderCard
         frag={frag3}
@@ -63,6 +68,7 @@ export default async function () {
         subtitle={"Genuary 2022 - Day 3"}
         autoplay
         shaderPath="genuary/2022/3"
+        className="col-span-3 md:col-span-1"
       />
       <ShaderCard
         frag={frag2}
@@ -70,6 +76,7 @@ export default async function () {
         subtitle={"Genuary 2022 - Day 2"}
         autoplay
         shaderPath="genuary/2022/2"
+        className="col-span-3 md:col-span-1"
       />
       <ShaderCard
         frag={frag1}
@@ -77,6 +84,7 @@ export default async function () {
         subtitle={"Genuary 2022 - Day 1"}
         autoplay
         shaderPath="genuary/2022/1"
+        className="col-span-3 md:col-span-1"
       />
     </div>
   );
