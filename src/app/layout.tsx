@@ -14,6 +14,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { AppProvider } from "./context";
 import MenuToggle from "@/components/menu-toggle";
 import Menu from "@/components/menu";
+import Frady from "./frady.svg";
 
 export const metadata: Metadata = {
   title: "Steven Frady - Creative Full-Stack Developer",
@@ -180,16 +181,127 @@ export default function App(props: { children?: ReactNode }) {
                 variant={"ghost"}
                 asChild
               >
+                <Link href={"/"}>Startups</Link>
+              </MenuToggle>
+              <MenuToggle
+                className="h-auto text-3xl md:text-5xl"
+                variant={"ghost"}
+                asChild
+              >
+                <Link href={"/"}>Freelance</Link>
+              </MenuToggle>
+              <MenuToggle
+                className="h-auto text-3xl md:text-5xl"
+                variant={"ghost"}
+                asChild
+              >
+                <Link href={"/"}>OSS</Link>
+              </MenuToggle>
+              <MenuToggle
+                className="h-auto text-3xl md:text-5xl"
+                variant={"ghost"}
+                asChild
+              >
+                <Link href={"/"}>Solo</Link>
+              </MenuToggle>
+              <MenuToggle
+                className="h-auto text-3xl md:text-5xl"
+                variant={"ghost"}
+                asChild
+              >
                 <Link href={"/shaders"}>Shaders</Link>
               </MenuToggle>
             </Menu>
 
             {children}
 
-            <footer className="py-[100px] text-center bg-foreground/5">
-              <p className="opacity-60 text-sm">
-                Des. and Dev. by Steven Frady © 2024
-              </p>
+            <footer className="py-[100px] bg-foreground/5">
+              <div className="container flex flex-col gap-10">
+                <div className="grid grid-cols-6 gap-4 gap-y-10 w-full">
+                  <div className="col-span-6 lg:col-span-3 h-full flex flex-col justify-center gap-4">
+                    <Frady className={"w-[100px] h-[30px]"} />
+                    <p className="opacity-60 text-sm">
+                      Des. and Dev. by Steven Frady
+                    </p>
+                    <div className="text-sm">© 2024</div>
+                  </div>
+                  <div className="col-span-6 sm:col-span-2 lg:col-span-1 flex flex-col">
+                    {[
+                      { link: "/", label: "Home" },
+                      { link: "/startups", label: "Startups" },
+                      { link: "/oss", label: "OSS" },
+                      { link: "/freelance", label: "Freelance" },
+                      { link: "/solo", label: "Solo" },
+                      { link: "/shaders", label: "Shaders" },
+                    ].map((x, i) => (
+                      <div className=" col-span-1">
+                        <Link href={x.link} className="hover:underline">
+                          {x.label}
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="col-span-6 sm:col-span-2 lg:col-span-1 flex flex-col">
+                    {[
+                      {
+                        link: "https://www.linkedin.com/in/stevenfrady/",
+                        label: "LinkedIn",
+                      },
+                      { link: "https://twitter.com/slowjamsteve", label: "X" },
+                      { link: "https://github.com/sFrady20", label: "Github" },
+                      {
+                        link: "https://www.producthunt.com/@sfrady20",
+                        label: "Product Hunt",
+                      },
+                      {
+                        link: "https://leetcode.com/sfrady20/",
+                        label: "Leet Code",
+                      },
+                    ].map((x, i) => (
+                      <div className=" col-span-1">
+                        <Link
+                          href={x.link}
+                          className="hover:underline"
+                          target="_blank"
+                        >
+                          {x.label}
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="col-span-6 sm:col-span-2 lg:col-span-1 flex flex-col">
+                    <div className=" col-span-1 opacity-60">
+                      <Link
+                        href={"mailto:sfrady20@gmail.com"}
+                        download
+                        className="hover:underline flex flex-row items-center gap-2"
+                        target="_blank"
+                      >
+                        <i className="icon-[ri--mail-fill]" />
+                        <div>Email me</div>
+                      </Link>
+                      <Link
+                        href={"/resume.pdf"}
+                        download
+                        className="hover:underline flex flex-row items-center gap-2"
+                        target="_blank"
+                      >
+                        <i className="icon-[ri--download-cloud-fill]" />
+                        <div>Download Resume</div>
+                      </Link>
+                      <Link
+                        href={"https://venmo.com/?txn=pay&recipients=sfrady"}
+                        download
+                        className="hover:underline flex flex-row items-center gap-2"
+                        target="_blank"
+                      >
+                        <i className="icon-[ri--cup-fill]" />
+                        <div>Buy me a coffee</div>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </footer>
           </ThemeProvider>
         </AppProvider>

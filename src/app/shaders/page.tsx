@@ -11,7 +11,7 @@ import frag9 from "@/shaders/genuary/2022/9.frag.glsl";
 
 export default async function () {
   return (
-    <div className="grid grid-cols-3 w-full gap-3 mt-[200px] mb-[100px] px-[5vw] rrounded-md overflow-hidden">
+    <div className="grid grid-cols-3 w-full gap-3 mt-[100px] md:mt-[200px] mb-[100px] px-[5vw] rrounded-md overflow-hidden">
       {/*
       <ShaderCard
         frag={frag9}
