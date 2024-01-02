@@ -28,6 +28,7 @@ export default function ShadersGrid() {
         frag={frag8}
         title={"Single curve only"}
         subtitle={"Genuary 2022 - Day 8"}
+        autoplay
         sourceHref={
           "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/8.frag.glsl"
         }
@@ -36,6 +37,7 @@ export default function ShadersGrid() {
         frag={frag7}
         title={"Sol LeWitt Wall Drawing"}
         subtitle={"Genuary 2022 - Day 7"}
+        autoplay
         sourceHref={
           "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/7.frag.glsl"
         }
@@ -44,6 +46,7 @@ export default function ShadersGrid() {
         frag={frag6}
         title={"Trade styles with a friend. (Feels)"}
         subtitle={"Genuary 2022 - Day 6"}
+        autoplay
         sourceHref={
           "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/6.frag.glsl"
         }
@@ -52,6 +55,7 @@ export default function ShadersGrid() {
         frag={frag5}
         title={"Destroy a square"}
         subtitle={"Genuary 2022 - Day 5"}
+        autoplay
         sourceHref={
           "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/5.frag.glsl"
         }
@@ -60,6 +64,7 @@ export default function ShadersGrid() {
         frag={frag4}
         title={"The next fidenza"}
         subtitle={"Genuary 2022 - Day 4"}
+        autoplay
         sourceHref={
           "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/4.frag.glsl"
         }
@@ -68,6 +73,7 @@ export default function ShadersGrid() {
         frag={frag3}
         title={"SpaceTime"}
         subtitle={"Genuary 2022 - Day 3"}
+        autoplay
         sourceHref={
           "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/3.frag.glsl"
         }
@@ -76,6 +82,7 @@ export default function ShadersGrid() {
         frag={frag2}
         title={"Dithering"}
         subtitle={"Genuary 2022 - Day 2"}
+        autoplay
         sourceHref={
           "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/2.frag.glsl"
         }
@@ -84,6 +91,7 @@ export default function ShadersGrid() {
         frag={frag1}
         title={"Draw 10,000 of something"}
         subtitle={"Genuary 2022 - Day 1"}
+        autoplay
         sourceHref={
           "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/1.frag.glsl"
         }

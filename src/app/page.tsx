@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button";
 import frag3 from "@/shaders/genuary/2022/3.frag.glsl";
 import frag4 from "@/shaders/genuary/2022/4.frag.glsl";
 import frag5 from "@/shaders/genuary/2022/5.frag.glsl";
+import Link from "next/link";
 
-export default async function (props: {}) {
+export default async function () {
   return (
     <>
       <section>
@@ -58,8 +59,11 @@ export default async function (props: {}) {
           />
         </div>
         <div className="flex flex-row items-center justify-end">
-          <Button variant={"ghost"} className="gap-2">
-            More Shaders
+          <Button variant={"ghost"} className="gap-1" asChild>
+            <Link href={"/shaders"}>
+              <div>More Shaders</div>
+              <i className="icon-[ri--arrow-right-up-line] text-lg" />
+            </Link>
           </Button>
         </div>
       </section>
