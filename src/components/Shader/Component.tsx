@@ -1,20 +1,22 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { HTMLAttributes, useEffect, useRef, useState } from "react";
 import { useSpring } from "@react-spring/web";
 import { Canvas, useFrame } from "@react-three/fiber";
-import Slice from "~/components/Slice";
-import { Box, BoxProps, CircularProgress } from "@mui/material";
+import Slice from "@/components/slice";
 import { useIntersectionObserver } from "usehooks-ts";
-import { AnimatedBox } from "~/util/animated";
 import { useSize } from "./size";
-import Alert from "@mui/material/Alert";
-import { ShaderMaterial } from "three";
+import { cn } from "@/utils/cn";
 
 const DisableRender = () => useFrame(() => null, 1000);
 
-export function Shader(props: { frag?: string; paused?: boolean } & BoxProps) {
-  const { frag, paused, ...rest } = props;
+export interface ShaderProps extends HTMLAttributes<HTMLDivElement> {
+  frag?: string;
+  paused?: boolean;
+}
+
+export function Shader(props: ShaderProps) {
+  const { frag, paused, className, ...rest } = props;
   const containerEl = useRef<HTMLDivElement>(null);
   const uniforms = useRef({
     resolution: { value: [100, 100] },
@@ -48,40 +50,11 @@ export function Shader(props: { frag?: string; paused?: boolean } & BoxProps) {
   });
 
   return (
-    <Box
-      ref={containerEl}
-      {...rest}
-      sx={{ backgroundColor: "black", ...rest.sx }}
-    >
+    <div ref={containerEl} {...rest} className={cn("bg-black", className)}>
       {firstRender && (
-        <CircularProgress
-          sx={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%, -50%)",
-            color: "rgba(255,255,255,0.5)",
-          }}
-          size={16}
-          thickness={8}
-        />
+        <i className="icon-[svg-spinners--90-ring-with-bg] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 color-[white]" />
       )}
-      <AnimatedBox
-        sx={{ width: "100%", height: "100%" }}
-        style={{ opacity: anim.fadeIn }}
-      >
-        {error && (
-          <Alert
-            severity="error"
-            sx={{
-              position: "absolute",
-              width: "100%",
-              borderRadius: 0,
-            }}
-          >
-            {error?.message}
-          </Alert>
-        )}
+      <div className="w-full h-full">
         <Canvas dpr={[1, 1]}>
           {!firstRender && (paused || !obs?.isIntersecting) && (
             <DisableRender />
@@ -98,7 +71,7 @@ export function Shader(props: { frag?: string; paused?: boolean } & BoxProps) {
             </Slice>
           )}
         </Canvas>
-      </AnimatedBox>
-    </Box>
+      </div>
+    </div>
   );
 }

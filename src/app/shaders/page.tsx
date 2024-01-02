@@ -1,5 +1,5 @@
 import ShadersGrid from "./Grid";
 
-export default function ShadersPage() {
+export default async function () {
   return <ShadersGrid />;
 }

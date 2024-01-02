@@ -1,9 +1,0 @@
-@font-face {
-  font-family: Zighead;
-  src: url(/Zighead.otf) format("opentype");
-}
-@font-face {
-  font-family: Optician;
-  src: url(/Optiker-K.woff) format("woff");
-}
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");

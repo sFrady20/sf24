@@ -1,310 +1,68 @@
-"use client";
+import { ShaderCard } from "@/components/shader";
+import { Button } from "@/components/ui/button";
+import frag3 from "@/shaders/genuary/2022/3.frag.glsl";
+import frag4 from "@/shaders/genuary/2022/4.frag.glsl";
+import frag5 from "@/shaders/genuary/2022/5.frag.glsl";
 
-import {
-  Avatar,
-  Box,
-  Button,
-  Container,
-  Divider,
-  Stack,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
-import Link from "next/link";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import DownloadIcon from "@mui/icons-material/Download";
-import WorkIcon from "@mui/icons-material/Work";
-import ScienceIcon from "@mui/icons-material/Science";
-import DesignServicesIcon from "@mui/icons-material/DesignServices";
-import { projectList } from "~/data/projects";
-import frag3 from "~/shaders/genuary/2022/3.frag.glsl";
-import frag4 from "~/shaders/genuary/2022/4.frag.glsl";
-import frag5 from "~/shaders/genuary/2022/5.frag.glsl";
-import { experienceList } from "~/data/experience";
-import { Project } from "./Project";
-import { ShaderCard } from "~/components/Shader";
-
-export default function HomePage(props: {}) {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-
+export default async function (props: {}) {
   return (
     <>
-      <Typography
-        component={"h1"}
-        sx={{
-          fontFamily: "Zighead",
-          fontSize: "min(calc(31.3vw), 45vh)",
-          textTransform: "uppercase",
-          textAlign: "center",
-          cursor: "default",
-          lineHeight: 1,
-          transform: "translateX(-2vw)",
-          mt: { xs: "calc(5vh + 90px)", md: "calc(5vh + 130px)" },
-        }}
-      >
-        Frady
-      </Typography>
-
-      <Typography
-        component={"div"}
-        sx={{
-          fontSize: { xs: 13, sm: 14, md: 14.5 },
-          textAlign: "justify",
-          width: 530,
-          maxWidth: "90vw",
-          margin: { xs: "0 auto 40px", md: "0 auto 80px" },
-        }}
-      >
-        I am a creative full-stack developer with over 8 years of experience. I
-        specialize in building elegant solutions and I'm constantly crafting new
-        features with a focus on simplicity and scalability.
-      </Typography>
-
-      <Container
-        sx={{
-          marginTop: {
-            xs: "60px",
-            md: "100px",
-          },
-          marginBottom: {
-            xs: "60px",
-            md: "100px",
-          },
-        }}
-      >
-        <Stack spacing={4}>
-          <Stack direction={"row"} alignItems={"center"} spacing={2}>
-            <DesignServicesIcon sx={{ height: 20, width: 20 }} />
-            <Typography variant={"h5"}>Projects</Typography>
-          </Stack>
-          <Stack>
-            <Divider />
-            {projectList
-              .sort((a, b) =>
-                a.score > b.score ? -1 : a.score < b.score ? 1 : 0
-              )
-              .slice(0, isMobile ? 5 : 8)
-              .flatMap((project, i) => [
-                <Project key={i} project={project} />,
-                <Divider key={`divider-${i}`} />,
-              ])
-              .slice(0, -1)}
-          </Stack>
-          {/*
-          <Stack direction={"row"} justifyContent={"flex-end"}>
-            <Link href={"/projects"}>
-              <Button
-                size={"small"}
-                endIcon={
-                  <ArrowForwardIcon sx={{ transform: "rotate(-45deg)" }} />
-                }
-              >
-                More projects
-              </Button>
-            </Link>
-          </Stack>
-          */}
-        </Stack>
-      </Container>
-
-      {/* 
-      <Container
-        sx={{
-          marginTop: {
-            xs: "60px",
-            md: "100px",
-          },
-          marginBottom: {
-            xs: "60px",
-            md: "100px",
-          },
-        }}
-      >
-        <Stack spacing={6}>
-          <Stack direction={"row"} alignItems={"center"} spacing={2}>
-            <WorkIcon sx={{ height: 20, width: 20 }} />
-            <Typography variant={"h5"}>Experience</Typography>
-          </Stack>
-
-          <Box
-            component={"div"}
-            sx={{
-              display: "grid",
-              gap: { xs: "32px", md: "60px" },
-              gridTemplateColumns: {
-                xs: "repeat(1, minmax(0, 1fr))",
-                md: "repeat(8, minmax(0, 1fr))",
-                lg: "repeat(12, minmax(0, 1fr))",
-              },
-            }}
-          >
-            {experienceList
-              .sort((a, b) =>
-                a.years[0] > b.years[0] ? -1 : a.years[0] < b.years[0] ? 1 : 0
-              )
-              .slice(0, 8)
-              .map((experience, i) => (
-                <Stack
-                  key={i}
-                  direction={"row"}
-                  className={"col-span-4"}
-                  spacing={3}
-                >
-                  <Avatar src={experience.avatar} />
-                  <Stack>
-                    <Stack direction={"row"} alignItems={"center"} spacing={1}>
-                      <Typography
-                        sx={{
-                          fontSize: "16px",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        {`${experience.years[0]}`}
-                      </Typography>
-                      {experience.years[1] && (
-                        <>
-                          <ArrowForwardIcon sx={{ width: 16, height: 16 }} />
-                          <Typography
-                            sx={{
-                              fontSize: "16px",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            {` ${experience.years[1]}`}
-                          </Typography>
-                        </>
-                      )}
-                    </Stack>
-                    <Typography
-                      variant={"subtitle1"}
-                      sx={{
-                        lineHeight: 1.2,
-                        display: "-webkit-box",
-                        WebkitBoxOrient: "vertical",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        lineClamp: { xs: 2, md: 1 },
-                        WebkitLineClamp: { xs: 2, md: 1 },
-                      }}
-                    >
-                      {experience.place}
-                    </Typography>
-                    <Typography
-                      variant={"subtitle2"}
-                      sx={{
-                        display: "-webkit-box",
-                        WebkitBoxOrient: "vertical",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        lineClamp: { xs: 2, md: 1 },
-                        WebkitLineClamp: { xs: 2, md: 1 },
-                      }}
-                    >
-                      {experience.position}
-                    </Typography>
-                    <Typography
-                      variant={"caption"}
-                      sx={{
-                        marginTop: { xs: 0, md: 2 },
-                      }}
-                    >
-                      {experience.location}
-                    </Typography>
-                  </Stack>
-                </Stack>
-              ))}
-          </Box>
-
-          <Stack direction={"row"} justifyContent={"flex-end"}>
-            <Link download href={"/resume.pdf"} target={"_blank"}>
-              <Button size={"small"} startIcon={<DownloadIcon />}>
-                Download Resume
-              </Button>
-            </Link>
-          </Stack>
-        </Stack>
-      </Container>
-      */}
-
-      <Stack
-        sx={{
-          marginTop: {
-            xs: "60px",
-            md: "100px",
-          },
-          marginBottom: {
-            xs: "60px",
-            md: "100px",
-          },
-          marginX: {
-            xs: "5vw",
-          },
-        }}
-        spacing={3}
-      >
-        <Stack direction={"row"} alignItems={"center"} spacing={2}>
-          <ScienceIcon sx={{ height: 20, width: 20 }} />
-          <Typography variant={"h5"}>Shaders</Typography>
-        </Stack>
-
-        <Box
-          component={"div"}
-          sx={{
-            display: "grid",
-            width: "100%",
-            gap: "10px",
-            borderRadius: 2,
-            overflow: "hidden",
-            gridTemplateColumns: {
-              xs: "repeat(1, minmax(0, 1fr))",
-              md: "repeat(3, minmax(0, 1fr))",
-            },
-          }}
-        >
+      <section>
+        <div className="container">
+          <h1 className="font-display text-center text-[20svw] uppercase leading-none -translate-x-[2svw]">
+            Frady
+          </h1>
+        </div>
+      </section>
+      <section>
+        <div className="container max-w-[600px]">
+          <p className="text-sm leading-loose">
+            I am a creative full-stack developer with over 8 years of
+            experience. I specialize in building elegant solutions and I'm
+            constantly crafting new features with a focus on simplicity and
+            scalability.
+          </p>
+        </div>
+      </section>
+      <section className="py-[64px] px-10 flex flex-col gap-2">
+        <div className="grid grid-cols-3 rounded-xl overflow-hidden gap-1">
           <ShaderCard
+            className="col-span-1"
             autoplay
             frag={frag3}
-            title={"SpaceTime"}
-            subtitle={"Genuary 2022 - Day 3"}
+            title={"Destroy a square"}
+            subtitle={"Genuary 2022 - Day 5"}
             sourceHref={
-              "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/3.frag.glsl"
+              "https://github.com/sFrady20/sf24/blob/main/src/shaders/genuary/2022/3.frag.glsl"
             }
           />
           <ShaderCard
+            className="col-span-1"
             autoplay
             frag={frag4}
-            title={"The next fidenza"}
-            subtitle={"Genuary 2022 - Day 4"}
+            title={"Destroy a square"}
+            subtitle={"Genuary 2022 - Day 5"}
             sourceHref={
-              "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/3.frag.glsl"
+              "https://github.com/sFrady20/sf24/blob/main/src/shaders/genuary/2022/3.frag.glsl"
             }
           />
           <ShaderCard
+            className="col-span-1"
             autoplay
             frag={frag5}
             title={"Destroy a square"}
             subtitle={"Genuary 2022 - Day 5"}
             sourceHref={
-              "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/3.frag.glsl"
+              "https://github.com/sFrady20/sf24/blob/main/src/shaders/genuary/2022/3.frag.glsl"
             }
           />
-        </Box>
-
-        <Stack direction={"row"} justifyContent={"flex-end"}>
-          <Link href={"/shaders"}>
-            <Button
-              size={"small"}
-              endIcon={
-                <ArrowForwardIcon sx={{ transform: "rotate(-45deg)" }} />
-              }
-            >
-              More shaders
-            </Button>
-          </Link>
-        </Stack>
-      </Stack>
+        </div>
+        <div className="flex flex-row items-center justify-end">
+          <Button variant={"ghost"} className="gap-2">
+            More Shaders
+          </Button>
+        </div>
+      </section>
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { useContext, useRef } from "react";
 import { BoxProps, useTheme, useMediaQuery } from "@mui/material";
 import { CursorContext } from "./Provider";
-import { AnimatedBox } from "~/util/animated";
+import { AnimatedBox } from "@/util/animated";
 import { useSpring } from "@react-spring/web";
 import { useAtom } from "jotai/react";
 

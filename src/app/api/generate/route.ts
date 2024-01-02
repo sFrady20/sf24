@@ -1,7 +1,7 @@
-import { OPEN_AI_API_KEY } from "~/config";
+import { OPEN_AI_API_KEY } from "@/config";
 import axios from "axios";
-// import prompt from "~/prompts/shader.txt";
-// import frag from "~/shaders/test.frag.glsl";
+// import prompt from "@/prompts/shader.txt";
+// import frag from "@/shaders/test.frag.glsl";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

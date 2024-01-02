@@ -1,36 +1,19 @@
 "use client";
 
-import { Box } from "@mui/material";
-import { ShaderCard } from "~/components/Shader";
-import frag1 from "~/shaders/genuary/2022/1.frag.glsl";
-import frag2 from "~/shaders/genuary/2022/2.frag.glsl";
-import frag3 from "~/shaders/genuary/2022/3.frag.glsl";
-import frag4 from "~/shaders/genuary/2022/4.frag.glsl";
-import frag5 from "~/shaders/genuary/2022/5.frag.glsl";
-import frag6 from "~/shaders/genuary/2022/6.frag.glsl";
-import frag7 from "~/shaders/genuary/2022/7.frag.glsl";
-import frag8 from "~/shaders/genuary/2022/8.frag.glsl";
-import frag9 from "~/shaders/genuary/2022/9.frag.glsl";
+import { ShaderCard } from "@/components/shader";
+import frag1 from "@/shaders/genuary/2022/1.frag.glsl";
+import frag2 from "@/shaders/genuary/2022/2.frag.glsl";
+import frag3 from "@/shaders/genuary/2022/3.frag.glsl";
+import frag4 from "@/shaders/genuary/2022/4.frag.glsl";
+import frag5 from "@/shaders/genuary/2022/5.frag.glsl";
+import frag6 from "@/shaders/genuary/2022/6.frag.glsl";
+import frag7 from "@/shaders/genuary/2022/7.frag.glsl";
+import frag8 from "@/shaders/genuary/2022/8.frag.glsl";
+import frag9 from "@/shaders/genuary/2022/9.frag.glsl";
 
 export default function ShadersGrid() {
   return (
-    <Box
-      component={"div"}
-      sx={{
-        display: "grid",
-        width: "100%",
-        gap: "10px",
-        mt: "200px",
-        mb: "100px",
-        px: "5vw",
-        borderRadius: 2,
-        overflow: "hidden",
-        gridTemplateColumns: {
-          xs: "repeat(1, minmax(0, 1fr))",
-          md: "repeat(3, minmax(0, 1fr))",
-        },
-      }}
-    >
+    <div className="grid grid-cols-3 w-full gap-3 mt-[200px] mb-[100px] px-[5vw] rrounded-md overflow-hidden">
       {/*
       <ShaderCard
         frag={frag9}
@@ -105,6 +88,6 @@ export default function ShadersGrid() {
           "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/1.frag.glsl"
         }
       />
-    </Box>
+    </div>
   );
 }
