@@ -7,8 +7,8 @@ export const holiday = DateTime.fromISO("2024-02-14");
 
 export const themes =
   holiday.hasSame(DateTime.now(), "day") && "holiday"
-    ? (["dark", "light", "system", "holiday"] as const)
-    : (["dark", "light", "system"] as const);
+    ? (["dark", "light", "system", "favorite", "holiday"] as const)
+    : (["dark", "light", "system", "favorite"] as const);
 
 type Theme = (typeof themes)[number];
 

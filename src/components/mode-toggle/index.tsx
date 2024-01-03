@@ -56,6 +56,15 @@ export function ModeToggle(props: ComponentProps<typeof Button>) {
               className="icon-[ri--computer-fill] text-lg col-start-1 row-start-1"
             />
           )}
+          {theme === "favorite" && (
+            <motion.i
+              key="system"
+              initial={{ rotate: "-90deg", opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: "90deg", opacity: 0 }}
+              className="icon-[ri--aliens-fill] text-lg col-start-1 row-start-1"
+            />
+          )}
           {theme === "holiday" && (
             <motion.i
               key="holiday"

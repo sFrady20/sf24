@@ -16,6 +16,12 @@
     --ring: 0 0% 89%;
   }
 
+  .favorite {
+    --background: 170 60% 3%;
+    --foreground: 170 40% 60%;
+    --ring: 0 0% 89%;
+  }
+
   .holiday {
     --background: 5 95% 20%;
     --foreground: 5.75 0% 90%;
