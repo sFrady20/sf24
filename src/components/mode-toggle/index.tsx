@@ -4,11 +4,14 @@ import { Button } from "@/components/ui/button";
 import { themes, useTheme } from "@/components/theme-provider";
 import { ComponentProps, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { cn } from "@/utils/cn";
 
 export function ModeToggle(props: ComponentProps<typeof Button>) {
+  const { className, children, ...rest } = props;
+
   const { theme, setTheme } = useTheme();
 
-  const [mode, setMode] = useState(themes.indexOf(theme));
+  const [mode, setMode] = useState(themes.indexOf(theme as any));
 
   useEffect(() => {
     setTheme(themes[mode]);
@@ -18,10 +21,11 @@ export function ModeToggle(props: ComponentProps<typeof Button>) {
     <Button
       size="icon"
       variant="ghost"
+      {...rest}
       onClick={() => {
         setMode((mode + 1) % themes.length);
       }}
-      className="grid rounded-full"
+      className={cn("grid rounded-full", className)}
     >
       {typeof window !== "undefined" && (
         <AnimatePresence initial>
@@ -60,7 +64,7 @@ export function ModeToggle(props: ComponentProps<typeof Button>) {
               exit={{ rotate: "90deg", opacity: 0 }}
               className="text-lg col-start-1 row-start-1"
             >
-              🎅
+              💘
             </motion.i>
           )}
         </AnimatePresence>

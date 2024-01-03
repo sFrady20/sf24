@@ -1,8 +1,14 @@
 "use client";
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { DateTime } from "luxon";
 
-export const themes = ["dark", "light", "system", "holiday"] as const;
+export const holiday = DateTime.fromISO("2024-02-14");
+
+export const themes =
+  holiday.hasSame(DateTime.now(), "day") && "holiday"
+    ? (["dark", "light", "system", "holiday"] as const)
+    : (["dark", "light", "system"] as const);
 
 type Theme = (typeof themes)[number];
 
@@ -34,6 +40,7 @@ export function ThemeProvider({
     () =>
       (typeof window !== "undefined" &&
         (localStorage.getItem(storageKey) as Theme)) ||
+      (holiday.hasSame(DateTime.now(), "day") && "holiday") ||
       defaultTheme
   );
 
@@ -42,7 +49,9 @@ export function ThemeProvider({
       typeof window === "undefined"
         ? "light"
         : theme === "system"
-        ? window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? holiday.hasSame(DateTime.now(), "day") && "holiday"
+          ? "holiday"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches
           ? "dark"
           : "light"
         : theme,

@@ -17,8 +17,8 @@
   }
 
   .holiday {
-    --background: 120 45% 8%;
-    --foreground: 5.75 62.76% 45.2%;
+    --background: 5 95% 20%;
+    --foreground: 5.75 0% 90%;
     --ring: 0 0% 89%;
   }
 }

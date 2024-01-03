@@ -181,28 +181,28 @@ export default function App(props: { children?: ReactNode }) {
                 variant={"ghost"}
                 asChild
               >
-                <Link href={"/"}>Startups</Link>
+                <Link href={"/#startups"}>Startups</Link>
               </MenuToggle>
               <MenuToggle
                 className="h-auto text-3xl md:text-5xl"
                 variant={"ghost"}
                 asChild
               >
-                <Link href={"/"}>Freelance</Link>
+                <Link href={"/#solo"}>Solo</Link>
               </MenuToggle>
               <MenuToggle
                 className="h-auto text-3xl md:text-5xl"
                 variant={"ghost"}
                 asChild
               >
-                <Link href={"/"}>OSS</Link>
+                <Link href={"/#oss"}>OSS</Link>
               </MenuToggle>
               <MenuToggle
                 className="h-auto text-3xl md:text-5xl"
                 variant={"ghost"}
                 asChild
               >
-                <Link href={"/"}>Solo</Link>
+                <Link href={"/#freelance"}>Freelance</Link>
               </MenuToggle>
               <MenuToggle
                 className="h-auto text-3xl md:text-5xl"
@@ -218,7 +218,7 @@ export default function App(props: { children?: ReactNode }) {
             <footer className="py-[100px] bg-foreground/5">
               <div className="container flex flex-col gap-10">
                 <div className="grid grid-cols-6 gap-4 gap-y-10 w-full">
-                  <div className="col-span-6 lg:col-span-3 h-full flex flex-col justify-center gap-4">
+                  <div className="col-span-6 lg:col-span-3 h-full flex flex-col gap-4">
                     <Frady className={"w-[100px] h-[30px]"} />
                     <p className="opacity-60 text-sm">
                       Des. and Dev. by Steven Frady
@@ -228,10 +228,10 @@ export default function App(props: { children?: ReactNode }) {
                   <div className="col-span-6 sm:col-span-2 lg:col-span-1 flex flex-col">
                     {[
                       { link: "/", label: "Home" },
-                      { link: "/startups", label: "Startups" },
-                      { link: "/oss", label: "OSS" },
-                      { link: "/freelance", label: "Freelance" },
-                      { link: "/solo", label: "Solo" },
+                      { link: "/#startups", label: "Startups" },
+                      { link: "/#solo", label: "Solo" },
+                      { link: "/#oss", label: "OSS" },
+                      { link: "/#freelance", label: "Freelance" },
                       { link: "/shaders", label: "Shaders" },
                     ].map((x, i) => (
                       <div className=" col-span-1">

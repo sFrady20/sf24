@@ -14,7 +14,7 @@ export default function (props: { children?: ReactNode; socials?: ReactNode }) {
     <AnimatePresence>
       {isOpen && (
         <motion.menu
-          className="fixed top-0 left-0 w-full bg-[black] text-[white] z-[30] flex flex-col items-center"
+          className="fixed top-0 left-0 w-full bg-[black] text-[white] z-[30] flex flex-col items-center overflow-hidden"
           initial="inital"
           animate="animate"
           exit="exit"
@@ -39,7 +39,7 @@ export default function (props: { children?: ReactNode; socials?: ReactNode }) {
           }}
         >
           <motion.nav
-            className="flex-1 flex flex-col items-center justify-center gap-10"
+            className="flex-1 flex flex-col items-center justify-center gap-4 pt-[80px]"
             variants={{
               initial: { opacity: 0, scale: 0.9 },
               animate: { opacity: 1, scale: 1 },
