@@ -218,14 +218,14 @@ export default function App(props: { children?: ReactNode }) {
             <footer className="py-[100px] bg-foreground/5">
               <div className="container flex flex-col gap-10">
                 <div className="grid grid-cols-6 gap-4 gap-y-10 w-full">
-                  <div className="col-span-6 lg:col-span-3 h-full flex flex-col gap-4">
+                  <div className="col-span-6 xl:col-span-3 h-full flex flex-col gap-4">
                     <Frady className={"w-[100px] h-[30px]"} />
                     <p className="opacity-60 text-sm">
                       Des. and Dev. by Steven Frady
                     </p>
                     <div className="text-sm">© 2024</div>
                   </div>
-                  <div className="col-span-6 sm:col-span-2 lg:col-span-1 flex flex-col">
+                  <div className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col">
                     {[
                       { link: "/", label: "Home" },
                       { link: "/#startups", label: "Startups" },
@@ -234,14 +234,14 @@ export default function App(props: { children?: ReactNode }) {
                       { link: "/#freelance", label: "Freelance" },
                       { link: "/shaders", label: "Shaders" },
                     ].map((x, i) => (
-                      <div className=" col-span-1">
+                      <div key={i} className=" col-span-1">
                         <Link href={x.link} className="hover:underline">
                           {x.label}
                         </Link>
                       </div>
                     ))}
                   </div>
-                  <div className="col-span-6 sm:col-span-2 lg:col-span-1 flex flex-col">
+                  <div className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col">
                     {[
                       {
                         link: "https://www.linkedin.com/in/stevenfrady/",
@@ -258,7 +258,7 @@ export default function App(props: { children?: ReactNode }) {
                         label: "Leet Code",
                       },
                     ].map((x, i) => (
-                      <div className=" col-span-1">
+                      <div key={i} className=" col-span-1">
                         <Link
                           href={x.link}
                           className="hover:underline"
@@ -269,7 +269,7 @@ export default function App(props: { children?: ReactNode }) {
                       </div>
                     ))}
                   </div>
-                  <div className="col-span-6 sm:col-span-2 lg:col-span-1 flex flex-col">
+                  <div className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col">
                     <div className=" col-span-1 opacity-60">
                       <Link
                         href={"mailto:sfrady20@gmail.com"}

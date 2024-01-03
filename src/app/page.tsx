@@ -24,9 +24,7 @@ const categories = [
     title: "Startups",
     intro: `Startups showcase the process of turning concepts into concrete
     results. Here, you'll see projects where my skills and those of my
-    peers come together to build practical, impactful solutions. It's
-    about straightforward innovation and the hands-on effort to make
-    ideas work in the real world.`,
+    peers come together to build practical, impactful solutions.`,
     projects: [
       {
         id: "griddy",
@@ -83,9 +81,7 @@ const categories = [
     title: "Solopreneur Journey",
     intro: `Solopreneurship is the canvas for my personal and professional
     ethos. This space is dedicated to projects that are solely mine,
-    from initial concept to final execution. It's a showcase of
-    self-driven ventures, where my unique blend of skills, philosophy,
-    and individuality come to the forefront.`,
+    from initial concept to final execution.`,
     projects: [
       {
         id: "landinggenius",
@@ -104,10 +100,7 @@ const categories = [
   {
     id: "oss",
     title: "Open-source Software",
-    intro: `Open-source is where ideas breathe freely. This section is a nod
-    to the power of collaboration, featuring projects that thrive on
-    community wisdom. It's about creating something bigger, something
-    that echoes in the halls of digital innovation.`,
+    intro: `Open-source is where I'm laying the foundations for future collaboration. This section features projects in their initial phases, ripe for community input and collective development.`,
     projects: [
       {
         id: "earthling-ui",
@@ -163,7 +156,7 @@ const categories = [
     id: "freelance",
     title: "Freelance",
     intro:
-      "Freelancing is the art of turning diverse visions into digital reality. Here, each project is a unique story, a blend of client aspirations and my craft. It's where challenges are met with tailored solutions, each leaving a distinct digital footprint.",
+      "In the freelance world, versatility is key. Here, you'll find projects that showcase my ability to meet diverse client needs with precision and creativity.",
     projects: [
       {
         id: "homerunderby",
@@ -279,7 +272,7 @@ export default async function () {
 
       {categories
         .flatMap((x, i) => [
-          <section className="py-[60px]" id={x.id}>
+          <section key={i} className="py-[60px]" id={x.id}>
             <div className="max-lg:container md:px-14 flex flex-col lg:grid grid-cols-12 gap-10">
               <div className="col-span-5 xl:col-span-4 xl:col-start-2 row-start-1">
                 <div className="sticky top-[160px] flex flex-col gap-6">
@@ -292,7 +285,7 @@ export default async function () {
               <div className="max-xl:col-span-6 col-span-5 max-xl:col-start-7 col-start-7 row-start-1">
                 <Accordion type="single" collapsible value="">
                   {x.projects.map((x, i) => (
-                    <AccordionItem key={x.id} value={x.id}>
+                    <AccordionItem key={i} value={x.id}>
                       <HoverCard openDelay={0} closeDelay={0}>
                         <HoverCardTrigger asChild>
                           <AccordionTrigger className="text-left justify-start flex-1 flex flex-row gap-6">
@@ -342,6 +335,7 @@ export default async function () {
                               muted
                               autoPlay
                               playsInline
+                              loop
                               src={`/projects/${x.id}.webm`}
                               className="absolute left-0 top-0 w-full h-full z-[2] object-cover"
                             />

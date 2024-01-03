@@ -1,7 +1,6 @@
 "use client";
 
 import { HTMLAttributes, useEffect, useRef, useState } from "react";
-import { useSpring } from "@react-spring/web";
 import { Canvas, useFrame } from "@react-three/fiber";
 import Slice from "@/components/slice";
 import { useIntersectionObserver } from "usehooks-ts";
