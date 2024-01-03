@@ -11,8 +11,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Badge } from "@/components/ui/badge";
 import { cn } from "@/utils/cn";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 const categories = [
   {
@@ -165,12 +169,14 @@ const categories = [
         id: "homerunderby",
         label: "Truist Home Run Derby",
         year: "2023",
+        hasVideo: true,
         keywords: ["Unity", "C#"],
       },
       {
         id: "meteor-game",
         label: "Meteor Game",
         year: "2023",
+        hasVideo: true,
         keywords: ["Unity", "C#"],
       },
       {
@@ -185,22 +191,24 @@ const categories = [
           },
         ],
       },
-      {
-        id: "coke-juggle",
-        label: "Coca-Cola Kick Ups",
-        year: "2022",
-        keywords: ["React", "Typescript", "Vite", "Electron"],
-      },
+      // {
+      //   id: "coke-juggle",
+      //   label: "Coca-Cola Kick Ups",
+      //   year: "2022",
+      //   keywords: ["React", "Typescript", "Vite", "Electron"],
+      // },
       {
         id: "road-to-greatness",
         label: "Road to Greatness",
         year: "2022",
+        hasVideo: true,
         keywords: ["Unity", "C#"],
       },
       {
         id: "juggle",
         label: "Verizon Kick Ups",
         year: "2022",
+        hasVideo: true,
         keywords: ["React", "Typescript", "Vite", "Electron", "Unity", "C#"],
       },
       {
@@ -221,20 +229,20 @@ const categories = [
           },
         ],
       },
+      // {
+      //   id: "phonetopia",
+      //   label: "Phonetopia",
+      //   year: "2021",
+      //   keywords: ["Unity", "C#"],
+      //   links: [
+      //     {
+      //       link: "https://www.sbx.agency/visible-phonetopia",
+      //       icon: "icon-[ri--external-link-fill]",
+      //     },
+      //   ],
+      // },
       {
-        id: "phonetopia",
-        label: "Phonetopia",
-        year: "2021",
-        keywords: ["Unity", "C#"],
-        links: [
-          {
-            link: "https://www.sbx.agency/visible-phonetopia",
-            icon: "icon-[ri--external-link-fill]",
-          },
-        ],
-      },
-      {
-        id: "downstairs-gallery",
+        id: "thedownstairsgallery",
         label: "The Downstairs Gallery",
         year: "2012",
         keywords: ["PHP", "Wordpress"],
@@ -273,7 +281,7 @@ export default async function () {
         .flatMap((x, i) => [
           <section className="py-[60px]" id={x.id}>
             <div className="max-lg:container md:px-14 flex flex-col lg:grid grid-cols-12 gap-10">
-              <div className="col-span-4 col-start-2 row-start-1">
+              <div className="col-span-5 xl:col-span-4 xl:col-start-2 row-start-1">
                 <div className="sticky top-[160px] flex flex-col gap-6">
                   <h3 className="text-xl">{x.title}</h3>
                   <p className="text-sm md:text-md leading-loose opacity-80">
@@ -281,42 +289,65 @@ export default async function () {
                   </p>
                 </div>
               </div>
-              <div className="col-span-6 col-start-7 row-start-1">
+              <div className="max-xl:col-span-6 col-span-5 max-xl:col-start-7 col-start-7 row-start-1">
                 <Accordion type="single" collapsible value="">
                   {x.projects.map((x, i) => (
                     <AccordionItem key={x.id} value={x.id}>
-                      <AccordionTrigger className="text-left justify-start flex-1 flex flex-row gap-6">
-                        <div className="flex flex-row items-center opacity-60 text-xs">
-                          {(i + 1)
-                            .toString()
-                            .padStart(2, "0")
-                            .split("")
-                            .map((x, i) => (
-                              <div key={i}>{x}</div>
-                            ))}
-                        </div>
-                        <div className="w-[40px]">{x.year}</div>
-                        <div className="col-span-2 flex-1">{x.label}</div>
-                        <div className="opacity-60 hidden lg:block">
-                          {x.keywords.map((x, i) => (
-                            <Badge key={i}>{x}</Badge>
-                          ))}
-                        </div>
-                        <div className="text-right w-[40px]">
-                          {x.links?.map((x, i) => (
-                            <Button
-                              key={i}
-                              variant={"ghost"}
-                              size={"icon"}
-                              asChild
-                            >
-                              <Link href={x.link} target="_blank">
-                                <i className={cn(x.icon)} />
-                              </Link>
-                            </Button>
-                          ))}
-                        </div>
-                      </AccordionTrigger>
+                      <HoverCard openDelay={0} closeDelay={0}>
+                        <HoverCardTrigger asChild>
+                          <AccordionTrigger className="text-left justify-start flex-1 flex flex-row gap-6">
+                            <div className="flex flex-row items-center opacity-60 text-xs">
+                              {(i + 1)
+                                .toString()
+                                .padStart(2, "0")
+                                .split("")
+                                .map((x, i) => (
+                                  <div key={i}>{x}</div>
+                                ))}
+                            </div>
+                            <div className="w-[40px]">{x.year}</div>
+                            <div className="col-span-2 flex-1">{x.label}</div>
+                            <div className="text-right w-[40px]">
+                              {x.links?.map((x, i) => (
+                                <Button
+                                  key={i}
+                                  variant={"ghost"}
+                                  size={"icon"}
+                                  asChild
+                                >
+                                  <Link href={x.link} target="_blank">
+                                    <i className={cn(x.icon)} />
+                                  </Link>
+                                </Button>
+                              ))}
+                            </div>
+                          </AccordionTrigger>
+                        </HoverCardTrigger>
+                        <HoverCardContent
+                          side="right"
+                          align="center"
+                          sideOffset={-550}
+                          className="w-[400px] h-[400px] overflow-hidden hidden xl:block"
+                          avoidCollisions={false}
+                        >
+                          <img
+                            src={`/projects/${x.id}.webp`}
+                            width={400}
+                            height={400}
+                            alt={`${x.label}`}
+                            className="absolute left-0 top-0 w-full h-full z-[1] object-cover"
+                          />
+                          {x.hasVideo && (
+                            <video
+                              muted
+                              autoPlay
+                              playsInline
+                              src={`/projects/${x.id}.webm`}
+                              className="absolute left-0 top-0 w-full h-full z-[2] object-cover"
+                            />
+                          )}
+                        </HoverCardContent>
+                      </HoverCard>
                       <AccordionContent className="h-[500px]"></AccordionContent>
                     </AccordionItem>
                   ))}
