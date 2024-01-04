@@ -36,6 +36,8 @@ export function AppProvider(props: { children?: ReactNode }) {
     };
     window.addEventListener("mousemove", moveListener);
     window.addEventListener("resize", sizeListener);
+
+    sizeListener();
     return () => {
       window.removeEventListener("mousemove", moveListener);
       window.removeEventListener("resize", sizeListener);

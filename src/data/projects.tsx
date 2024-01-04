@@ -68,7 +68,7 @@ export const categories = [
     projects: [
       {
         id: "landinggenius",
-        label: "Landinggeni.us",
+        label: "Landing Genius",
         year: "2024",
         keywords: ["OpenAI", "React", "Typescript", "Next.js", "Supabase"],
         links: [
@@ -107,10 +107,10 @@ export const categories = [
             link: "https://brainwavebroadcasting.tv/",
             icon: "icon-[ri--external-link-fill]",
           },
-          {
-            link: "https://www.youtube.com/@BrainwaveBroadcasting",
-            icon: "icon-[ri--youtube-fill]",
-          },
+          // {
+          //   link: "https://www.youtube.com/@BrainwaveBroadcasting",
+          //   icon: "icon-[ri--youtube-fill]",
+          // },
         ],
       },
       {
@@ -123,10 +123,10 @@ export const categories = [
             link: "https://easy-mesh-gradient.stevenfrady.com/",
             icon: "icon-[ri--external-link-fill]",
           },
-          {
-            link: "https://github.com/sFrady20/easy-mesh-gradient",
-            icon: "icon-[ri--github-fill]",
-          },
+          // {
+          //   link: "https://github.com/sFrady20/easy-mesh-gradient",
+          //   icon: "icon-[ri--github-fill]",
+          // },
         ],
       },
       {

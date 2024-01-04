@@ -11,6 +11,7 @@ import {
   forwardRef,
 } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useApp } from "@/app/context";
 
 type HoverCardState = {
   isOpen?: boolean;
@@ -76,6 +77,10 @@ export const HoverCardContent = forwardRef<
   const hoverCard = useHoverCard();
   const isOpen = hoverCard((x) => x.isOpen);
 
+  const app = useApp();
+  const xMove = app((x) => x.mouse.x / x.window.width - 0.5);
+  const yMove = app((x) => x.mouse.y / x.window.height - 0.5);
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -89,6 +94,11 @@ export const HoverCardContent = forwardRef<
           initial={"initial"}
           animate={"animate"}
           exit={"exit"}
+          style={{
+            transform: `translate(${-50 + xMove * 100}%, ${
+              -50 + yMove * 100
+            }%)`,
+          }}
           {...rest}
           className={cn(
             "absolute pointer-events-none overflow-hidden",

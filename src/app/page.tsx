@@ -58,7 +58,7 @@ export default async function () {
                     <AccordionItem key={i} value={x.id}>
                       <HoverCard>
                         <HoverCardTrigger asChild>
-                          <AccordionTrigger className="text-left justify-start flex-1 flex flex-row gap-6 hover:bg-foreground/5 cursor-pointer">
+                          <AccordionTrigger className="text-left justify-start flex-1 flex flex-row gap-6 hover:bg-foreground/5">
                             <div className="flex flex-row items-center opacity-60 text-xs">
                               {(i + 1)
                                 .toString()
@@ -69,7 +69,9 @@ export default async function () {
                                 ))}
                             </div>
                             <div className="w-[40px]">{x.year}</div>
-                            <div className="col-span-2 flex-1">{x.label}</div>
+                            <div className="col-span-2 flex-1 text-sm sm:text-md">
+                              {x.label}
+                            </div>
                             <div className="text-right flex flex-row items-center">
                               {x.links?.map((x, i) => (
                                 <Button
@@ -86,7 +88,7 @@ export default async function () {
                             </div>
                           </AccordionTrigger>
                         </HoverCardTrigger>
-                        <HoverCardContent className="w-[400px] h-[400px] overflow-hidden hidden xl:block z-[10] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <HoverCardContent className="w-[400px] h-[400px] overflow-hidden hidden xl:block z-[10] left-[40%] top-1/2 ">
                           <HoverCardInner
                             className="absolute left-0 top-0 w-full h-full"
                             variants={{

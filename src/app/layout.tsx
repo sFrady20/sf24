@@ -19,7 +19,7 @@ import Frady from "./frady.svg";
 export const metadata: Metadata = {
   title: "Steven Frady - Creative Full-Stack Developer",
   description:
-    "I began teaching myself to code as a teenager, starting with video games and discovering how programming could bring creative ideas to life. I later pursued a Bachelor of Fine Arts from Savannah College of Art and Design to complement those burgeoning technical skills with visual artistry. Over 8 years as a developer, I’ve combined design and programming to craft digital experiences for global clients. At NCR Corporation, I built an intuitive React component library for cross-platform use. Through freelance and collaborative projects, I continuously hone abilities across the web and mobile stack to create unified solutions. Each endeavor reveals new opportunities to better serve users and evolve as a developer.",
+    "I am a developer with over 9 years of experience, specializing in web and mobile development. My work is focused on creating user-centric solutions, with a commitment to continuous learning and innovation in the tech field.",
   manifest: "/site.webmanifest",
   icons: {
     icon: "/favicon/favicon-32x32.png",
