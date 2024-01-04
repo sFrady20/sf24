@@ -18,6 +18,7 @@ import {
   HoverCardInner,
   HoverCardTrigger,
 } from "@/components/hover-card";
+import { Badge } from "@/components/ui/badge";
 
 const categories = [
   {
@@ -125,6 +126,10 @@ const categories = [
             link: "https://brainwavebroadcasting.tv/",
             icon: "icon-[ri--external-link-fill]",
           },
+          {
+            link: "https://www.youtube.com/@BrainwaveBroadcasting",
+            icon: "icon-[ri--youtube-fill]",
+          },
         ],
       },
       {
@@ -136,6 +141,10 @@ const categories = [
           {
             link: "https://easy-mesh-gradient.stevenfrady.com/",
             icon: "icon-[ri--external-link-fill]",
+          },
+          {
+            link: "https://github.com/sFrady20/easy-mesh-gradient",
+            icon: "icon-[ri--github-fill]",
           },
         ],
       },
@@ -156,8 +165,28 @@ const categories = [
   {
     id: "freelance",
     title: "Freelance",
-    intro:
-      "In the freelance world, versatility is key. Here, you'll find projects that showcase my ability to meet diverse client needs with precision and creativity.",
+    intro: (
+      <>
+        <p>
+          In the freelance world, versatility is key. Here, you'll find projects
+          that showcase my ability to meet diverse client needs with precision
+          and creativity.
+        </p>
+        <div className="mt-10 flex flex-row items-center justify-start gap-3">
+          <Badge className="flex flex-row items-center gap-4">
+            <div className="shadow-xl shadow-[#00FF00] w-2 h-2 bg-[#00FF00] rounded-full" />
+            <div>Open for work</div>
+          </Badge>
+          <Link
+            className="underline"
+            href="mailto:sfrady20@gmail.com"
+            target="_blank"
+          >
+            Email Me
+          </Link>
+        </div>
+      </>
+    ),
     projects: [
       {
         id: "homerunderby",
@@ -224,18 +253,18 @@ const categories = [
           },
         ],
       },
-      // {
-      //   id: "phonetopia",
-      //   label: "Phonetopia",
-      //   year: "2021",
-      //   keywords: ["Unity", "C#"],
-      //   links: [
-      //     {
-      //       link: "https://www.sbx.agency/visible-phonetopia",
-      //       icon: "icon-[ri--external-link-fill]",
-      //     },
-      //   ],
-      // },
+      {
+        id: "phonetopia",
+        label: "Phonetopia Keyboard Game",
+        year: "2020",
+        keywords: ["Unity", "C#"],
+        links: [
+          {
+            link: "https://www.madwell.com/project/phonetopia",
+            icon: "icon-[ri--external-link-fill]",
+          },
+        ],
+      },
       {
         id: "thedownstairsgallery",
         label: "The Downstairs Gallery",
@@ -302,7 +331,7 @@ export default async function () {
                             </div>
                             <div className="w-[40px]">{x.year}</div>
                             <div className="col-span-2 flex-1">{x.label}</div>
-                            <div className="text-right w-[40px]">
+                            <div className="text-right flex flex-row items-center">
                               {x.links?.map((x, i) => (
                                 <Button
                                   key={i}
@@ -342,7 +371,7 @@ export default async function () {
                               alt={`${x.label}`}
                               className="absolute left-0 top-0 w-full h-full z-[1] object-cover"
                             />
-                            {x.hasVideo && (
+                            {(x as any).hasVideo && (
                               <video
                                 muted
                                 autoPlay

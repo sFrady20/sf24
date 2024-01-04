@@ -257,6 +257,10 @@ export default function App(props: { children?: ReactNode }) {
                         link: "https://leetcode.com/sfrady20/",
                         label: "Leet Code",
                       },
+                      {
+                        link: "https://dribbble.com/sfrady20",
+                        label: "Dribbble",
+                      },
                     ].map((x, i) => (
                       <div key={i} className=" col-span-1">
                         <Link
