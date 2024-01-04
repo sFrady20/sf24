@@ -26,6 +26,19 @@ export const metadata: Metadata = {
     shortcut: "/favicon/favicon-16x16.png",
     apple: "/favicon/apple-touch-icon.png",
   },
+  openGraph: {
+    title: "Steven Frady - Creative Full-Stack Developer",
+    url: "https://www.stevenfrady.com/",
+    type: "website",
+    images: [
+      "http://stevenfrady.com/social.webp",
+      "http://stevenfrady.com/social.png",
+    ],
+    videos: [
+      "http://stevenfrady.com/social.webm",
+      "http://stevenfrady.com/social.mp4",
+    ],
+  },
 };
 
 export const viewport: Viewport = {
@@ -34,35 +47,6 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
   ],
 };
-
-/*
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://www.stevenfrady.com/" />
-<meta
-  property="og:title"
-  content="Steven Frady - Creative Full-Stack Developer"
-/>
-<meta
-  property="og:description"
-  content="I am a creative full-stack developer with over 8 years of experience. I specialize in building elegant solutions and I'm constantly crafting new features with a focus on simplicity and scalability."
-/>
-<meta property="og:image" content="http://stevenfrady.com/social.jpg" />
-
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://www.stevenfrady.com/" />
-<meta
-  property="twitter:title"
-  content="Steven Frady - Creative Full-Stack Developer"
-/>
-<meta
-  property="twitter:description"
-  content="I am a creative full-stack developer with over 8 years of experience. I specialize in building elegant solutions and I'm constantly crafting new features with a focus on simplicity and scalability."
-/>
-<meta
-  property="twitter:image"
-  content="http://stevenfrady.com/social.jpg"
-/>
-*/
 
 const socials = [
   {
