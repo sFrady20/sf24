@@ -15,8 +15,9 @@ import { cn } from "@/utils/cn";
 import {
   HoverCard,
   HoverCardContent,
+  HoverCardInner,
   HoverCardTrigger,
-} from "@/components/ui/hover-card";
+} from "@/components/hover-card";
 
 const categories = [
   {
@@ -160,7 +161,7 @@ const categories = [
     projects: [
       {
         id: "homerunderby",
-        label: "Truist Home Run Derby",
+        label: "Capital One Home Run Derby",
         year: "2023",
         hasVideo: true,
         keywords: ["Unity", "C#"],
@@ -173,23 +174,12 @@ const categories = [
         keywords: ["Unity", "C#"],
       },
       {
-        id: "drrandyross",
-        label: "Dr. Randy Ross",
+        id: "coke-juggle",
+        label: "Coca-Cola Kick Ups",
         year: "2023",
-        keywords: ["React", "Typescript", "Next.js"],
-        links: [
-          {
-            link: "https://drrandyross.com",
-            icon: "icon-[ri--external-link-fill]",
-          },
-        ],
+        hasVideo: true,
+        keywords: ["React", "Typescript", "Vite", "Electron"],
       },
-      // {
-      //   id: "coke-juggle",
-      //   label: "Coca-Cola Kick Ups",
-      //   year: "2022",
-      //   keywords: ["React", "Typescript", "Vite", "Electron"],
-      // },
       {
         id: "road-to-greatness",
         label: "Road to Greatness",
@@ -209,6 +199,18 @@ const categories = [
         label: "Abundant Staffing Portal",
         year: "2022",
         keywords: ["React", "Typescript", "Next.js", "Prisma"],
+      },
+      {
+        id: "drrandyross",
+        label: "Dr. Randy Ross",
+        year: "2021",
+        keywords: ["React", "Typescript", "Next.js"],
+        links: [
+          {
+            link: "https://drrandyross.com",
+            icon: "icon-[ri--external-link-fill]",
+          },
+        ],
       },
       {
         id: "drexls",
@@ -286,7 +288,7 @@ export default async function () {
                 <Accordion type="single" collapsible value="">
                   {x.projects.map((x, i) => (
                     <AccordionItem key={i} value={x.id}>
-                      <HoverCard openDelay={0} closeDelay={0}>
+                      <HoverCard>
                         <HoverCardTrigger asChild>
                           <AccordionTrigger className="text-left justify-start flex-1 flex flex-row gap-6">
                             <div className="flex flex-row items-center opacity-60 text-xs">
@@ -316,30 +318,41 @@ export default async function () {
                             </div>
                           </AccordionTrigger>
                         </HoverCardTrigger>
-                        <HoverCardContent
-                          side="right"
-                          align="center"
-                          sideOffset={-550}
-                          className="w-[400px] h-[400px] overflow-hidden hidden xl:block"
-                          avoidCollisions={false}
-                        >
-                          <img
-                            src={`/projects/${x.id}.webp`}
-                            width={400}
-                            height={400}
-                            alt={`${x.label}`}
-                            className="absolute left-0 top-0 w-full h-full z-[1] object-cover"
-                          />
-                          {x.hasVideo && (
-                            <video
-                              muted
-                              autoPlay
-                              playsInline
-                              loop
-                              src={`/projects/${x.id}.webm`}
-                              className="absolute left-0 top-0 w-full h-full z-[2] object-cover"
+                        <HoverCardContent className="w-[400px] h-[400px] overflow-hidden hidden xl:block z-[10] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                          <HoverCardInner
+                            className="absolute left-0 top-0 w-full h-full"
+                            variants={{
+                              initial: { translateX: "-100%", opacity: 0 },
+                              animate: {
+                                translateX: 0,
+                                opacity: 1,
+                                transition: { ease: "easeOut" },
+                              },
+                              exit: {
+                                translateX: "100%",
+                                opacity: 0,
+                                transition: { ease: "easeIn" },
+                              },
+                            }}
+                          >
+                            <img
+                              src={`/projects/${x.id}.webp`}
+                              width={400}
+                              height={400}
+                              alt={`${x.label}`}
+                              className="absolute left-0 top-0 w-full h-full z-[1] object-cover"
                             />
-                          )}
+                            {x.hasVideo && (
+                              <video
+                                muted
+                                autoPlay
+                                playsInline
+                                loop
+                                src={`/projects/${x.id}.webm`}
+                                className="absolute left-0 top-0 w-full h-full z-[2] object-cover"
+                              />
+                            )}
+                          </HoverCardInner>
                         </HoverCardContent>
                       </HoverCard>
                       <AccordionContent className="h-[500px]"></AccordionContent>

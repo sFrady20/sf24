@@ -23,7 +23,7 @@ export default function (props: { children?: ReactNode; socials?: ReactNode }) {
             animate: {
               height: "100%",
               transition: {
-                when: "before",
+                when: "beforeChildren",
                 staggerDirection: 1,
                 staggerChildren: 0.1,
               },
@@ -31,7 +31,7 @@ export default function (props: { children?: ReactNode; socials?: ReactNode }) {
             exit: {
               height: "0%",
               transition: {
-                when: "after",
+                when: "afterChildren",
                 staggerDirection: -1,
                 staggerChildren: 0.1,
               },
