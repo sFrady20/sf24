@@ -14,6 +14,12 @@ import {
 } from "@/components/hover-card";
 import { categories } from "@/data/projects";
 import { RouterLink } from "./components";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export default async function () {
   return (
@@ -43,91 +49,167 @@ export default async function () {
                 <div className="sticky top-[160px] flex flex-col gap-6">
                   <h3 className="text-xl">{x.title}</h3>
                   {typeof x.intro === "string" ? (
-                    <p className="text-sm md:text-md leading-loose opacity-80">
+                    <p className="text-sm md:text-md lg:leading-loose opacity-80">
                       {x.intro}
                     </p>
                   ) : (
-                    x.intro
+                    <div className="text-sm md:text-md lg:leading-loose opacity-80">
+                      {x.intro}
+                    </div>
                   )}
                 </div>
               </div>
-              <div className="max-xl:col-span-6 col-span-5 max-xl:col-start-7 col-start-7 row-start-1">
+              <Accordion
+                type="single"
+                collapsible={true}
+                className="max-xl:col-span-6 col-span-5 max-xl:col-start-7 col-start-7 row-start-1"
+              >
                 {x.projects.map((x, i) => (
-                  <HoverCard key={x.id}>
-                    <HoverCardTrigger asChild>
-                      <RouterLink
-                        href={`/${x.id}`}
-                        scroll={false}
-                        className="text-left justify-start flex-1 flex flex-row gap-6 hover:bg-foreground/5 rounded-md items-center p-4 -mx-4 cursor-pointer"
-                      >
-                        <div className="flex flex-row items-center opacity-60 text-xs">
-                          {(i + 1)
-                            .toString()
-                            .padStart(2, "0")
-                            .split("")
-                            .map((x, i) => (
-                              <div key={i}>{x}</div>
-                            ))}
-                        </div>
-                        <div className="w-[40px]">{x.year}</div>
-                        <div className="col-span-2 flex-1 text-sm sm:text-md">
-                          {x.label}
-                        </div>
-                        <div className="text-right flex flex-row items-center">
-                          {x.links?.map((x, i) => (
-                            <Button
-                              key={i}
-                              variant={"ghost"}
-                              size={"icon"}
-                              asChild
-                            >
-                              <Link href={x.link} target="_blank">
-                                <i className={cn(x.icon)} />
-                              </Link>
-                            </Button>
-                          ))}
-                        </div>
-                      </RouterLink>
-                    </HoverCardTrigger>
-                    <HoverCardContent className="w-[400px] h-[400px] overflow-hidden hidden xl:block z-[10] left-[40%] top-1/2 ">
-                      <HoverCardInner
-                        className="absolute left-0 top-0 w-full h-full"
-                        variants={{
-                          initial: { translateX: "-100%", opacity: 0 },
-                          animate: {
-                            translateX: 0,
-                            opacity: 1,
-                            transition: { ease: "easeOut" },
-                          },
-                          exit: {
-                            translateX: "100%",
-                            opacity: 0,
-                            transition: { ease: "easeIn" },
-                          },
-                        }}
-                      >
-                        <img
-                          src={`/projects/${x.id}.webp`}
-                          width={400}
-                          height={400}
-                          alt={`${x.label}`}
-                          className="absolute left-0 top-0 w-full h-full z-[1] object-cover"
+                  <AccordionItem value={x.id} key={x.id}>
+                    <div className="relative w-full aspect-square md:hidden rounded-lg overflow-hidden">
+                      <img
+                        src={`/projects/${x.id}.webp`}
+                        width={400}
+                        height={400}
+                        alt={`${x.label}`}
+                        className="absolute left-0 top-0 w-full h-full z-[1] object-cover"
+                      />
+                      {(x as any).hasVideo && (
+                        <video
+                          muted
+                          autoPlay
+                          playsInline
+                          loop
+                          src={`/projects/${x.id}.webm`}
+                          className="absolute left-0 top-0 w-full h-full z-[2] object-cover"
                         />
-                        {(x as any).hasVideo && (
-                          <video
-                            muted
-                            autoPlay
-                            playsInline
-                            loop
-                            src={`/projects/${x.id}.webm`}
-                            className="absolute left-0 top-0 w-full h-full z-[2] object-cover"
+                      )}
+                    </div>
+                    <HoverCard>
+                      <HoverCardTrigger asChild>
+                        <AccordionTrigger className="text-left justify-start flex-1 flex flex-row gap-6 hover:bg-foreground/5 rounded-md items-center p-4 -mx-4 cursor-default">
+                          <div className="flex flex-row items-center opacity-60 text-xs">
+                            {(i + 1)
+                              .toString()
+                              .padStart(2, "0")
+                              .split("")
+                              .map((x, i) => (
+                                <div key={i}>{x}</div>
+                              ))}
+                          </div>
+                          <div className="w-[40px]">{x.year}</div>
+                          <div className="col-span-2 flex-1 text-sm sm:text-md">
+                            {x.label}
+                          </div>
+                          <div className="text-right flex flex-row items-center">
+                            {x.links?.map((x, i) => (
+                              <Button
+                                key={i}
+                                variant={"ghost"}
+                                size={"icon"}
+                                asChild
+                              >
+                                <Link href={x.link} target="_blank">
+                                  <i className={cn(x.icon)} />
+                                </Link>
+                              </Button>
+                            ))}
+                          </div>
+                        </AccordionTrigger>
+                      </HoverCardTrigger>
+                      <HoverCardContent className="w-[400px] h-[400px] overflow-hidden hidden lg:block z-[10] left-[40%] top-1/2">
+                        <HoverCardInner
+                          className="absolute left-0 top-0 w-full h-full"
+                          variants={{
+                            initial: { translateX: "-100%", opacity: 0 },
+                            animate: {
+                              translateX: 0,
+                              opacity: 1,
+                              transition: { ease: "easeOut" },
+                            },
+                            exit: {
+                              translateX: "100%",
+                              opacity: 0,
+                              transition: { ease: "easeIn" },
+                            },
+                          }}
+                        >
+                          <img
+                            src={`/projects/${x.id}.webp`}
+                            width={400}
+                            height={400}
+                            alt={`${x.label}`}
+                            className="absolute left-0 top-0 w-full h-full z-[1] object-cover"
                           />
-                        )}
-                      </HoverCardInner>
-                    </HoverCardContent>
-                  </HoverCard>
+                          {(x as any).hasVideo && (
+                            <video
+                              muted
+                              autoPlay
+                              playsInline
+                              loop
+                              src={`/projects/${x.id}.webm`}
+                              className="absolute left-0 top-0 w-full h-full z-[2] object-cover"
+                            />
+                          )}
+                        </HoverCardInner>
+                      </HoverCardContent>
+                    </HoverCard>
+                    <AccordionContent className="lg:hidden">
+                      <div className="py-4 flex flex-col gap-6">
+                        <p className="leading-relaxed text-xs md:text-xs">
+                          {x.description}
+                        </p>
+                        <div className="grid grid-cols-3 gap-4">
+                          <div className="flex flex-col col-span-4 md:col-span-1">
+                            <div className="text-xs opacity-60">Languages</div>
+                            <div className="text-xs">
+                              {x.languages?.join(", ")}
+                            </div>
+                          </div>
+                          <div className="flex flex-col col-span-4 md:col-span-1">
+                            <div className="text-xs opacity-60">Frameworks</div>
+                            <div className="text-xs">
+                              {x.frameworks?.join(", ")}
+                            </div>
+                          </div>
+                          <div className="flex flex-col col-span-4 md:col-span-1">
+                            <div className="text-xs opacity-60">Platforms</div>
+                            <div className="flex flex-row items-center gap-2">
+                              {x.platforms?.includes("web") && (
+                                <>
+                                  <i
+                                    className="icon-[ri--global-fill] text-xl"
+                                    title="Web"
+                                  />
+                                  <div className="sr-only">Web</div>
+                                </>
+                              )}
+                              {x.platforms?.includes("desktop") && (
+                                <>
+                                  <i
+                                    className="icon-[ri--computer-fill] text-xl"
+                                    title="Desktop"
+                                  />
+                                  <div className="sr-only">Desktop</div>
+                                </>
+                              )}
+                              {x.platforms?.includes("mobile") && (
+                                <>
+                                  <i
+                                    className="icon-[ri--smartphone-fill] text-xl"
+                                    title="Mobile"
+                                  />
+                                  <div className="sr-only">Mobile</div>
+                                </>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
                 ))}
-              </div>
+              </Accordion>
             </div>
           </section>,
           <div className="container w-full h-[1px] bg-foreground/10" />,
