@@ -1,11 +1,10 @@
 import Link from "next/link";
-import Welcome from "./welcome.mdx";
 
 export default function () {
   return (
     <div className="w-full min-h-100vh py-40 flex items-center justify-center ">
       <div className="grid grid-cols-1 gap-4 max-w-[1080px] md:grid-cols-3">
-        {Array(12)
+        {Array(0)
           .fill("")
           .map((x, i) => (
             <Link

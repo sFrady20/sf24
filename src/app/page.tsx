@@ -4,13 +4,7 @@ import frag3 from "@/shaders/genuary/2022/3.frag.glsl";
 import frag4 from "@/shaders/genuary/2022/4.frag.glsl";
 import frag5 from "@/shaders/genuary/2022/5.frag.glsl";
 import Link from "next/link";
-import Frady from "./frady.svg";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import Frady from "@/app/frady.svg";
 import { cn } from "@/utils/cn";
 import {
   HoverCard,
@@ -19,6 +13,7 @@ import {
   HoverCardTrigger,
 } from "@/components/hover-card";
 import { categories } from "@/data/projects";
+import { RouterLink } from "./components";
 
 export default async function () {
   return (
@@ -30,12 +25,12 @@ export default async function () {
       </section>
 
       <section className="md:pb-[60px]">
-        <div className="container md:max-w-[600px]">
+        <div className="container md:max-w-[620px]">
           <p className="text-left text-xs md:text-sm leading-loose">
-            I am a creative full-stack developer with over 9 years of
-            experience. I specialize in building elegant solutions and I'm
-            constantly crafting new features with a focus on simplicity and
-            scalability.
+            I am a developer with over 9 years of experience, specializing in
+            web and mobile development. My work is focused on creating
+            user-centric solutions, with a commitment to continuous learning and
+            innovation in the tech field.
           </p>
         </div>
       </section>
@@ -47,88 +42,91 @@ export default async function () {
               <div className="col-span-5 xl:col-span-4 xl:col-start-2 row-start-1">
                 <div className="sticky top-[160px] flex flex-col gap-6">
                   <h3 className="text-xl">{x.title}</h3>
-                  <p className="text-sm md:text-md leading-loose opacity-80">
-                    {x.intro}
-                  </p>
+                  {typeof x.intro === "string" ? (
+                    <p className="text-sm md:text-md leading-loose opacity-80">
+                      {x.intro}
+                    </p>
+                  ) : (
+                    x.intro
+                  )}
                 </div>
               </div>
               <div className="max-xl:col-span-6 col-span-5 max-xl:col-start-7 col-start-7 row-start-1">
-                <Accordion type="single" collapsible value="">
-                  {x.projects.map((x, i) => (
-                    <AccordionItem key={i} value={x.id}>
-                      <HoverCard>
-                        <HoverCardTrigger asChild>
-                          <AccordionTrigger className="text-left justify-start flex-1 flex flex-row gap-6 hover:bg-foreground/5">
-                            <div className="flex flex-row items-center opacity-60 text-xs">
-                              {(i + 1)
-                                .toString()
-                                .padStart(2, "0")
-                                .split("")
-                                .map((x, i) => (
-                                  <div key={i}>{x}</div>
-                                ))}
-                            </div>
-                            <div className="w-[40px]">{x.year}</div>
-                            <div className="col-span-2 flex-1 text-sm sm:text-md">
-                              {x.label}
-                            </div>
-                            <div className="text-right flex flex-row items-center">
-                              {x.links?.map((x, i) => (
-                                <Button
-                                  key={i}
-                                  variant={"ghost"}
-                                  size={"icon"}
-                                  asChild
-                                >
-                                  <Link href={x.link} target="_blank">
-                                    <i className={cn(x.icon)} />
-                                  </Link>
-                                </Button>
-                              ))}
-                            </div>
-                          </AccordionTrigger>
-                        </HoverCardTrigger>
-                        <HoverCardContent className="w-[400px] h-[400px] overflow-hidden hidden xl:block z-[10] left-[40%] top-1/2 ">
-                          <HoverCardInner
-                            className="absolute left-0 top-0 w-full h-full"
-                            variants={{
-                              initial: { translateX: "-100%", opacity: 0 },
-                              animate: {
-                                translateX: 0,
-                                opacity: 1,
-                                transition: { ease: "easeOut" },
-                              },
-                              exit: {
-                                translateX: "100%",
-                                opacity: 0,
-                                transition: { ease: "easeIn" },
-                              },
-                            }}
-                          >
-                            <img
-                              src={`/projects/${x.id}.webp`}
-                              width={400}
-                              height={400}
-                              alt={`${x.label}`}
-                              className="absolute left-0 top-0 w-full h-full z-[1] object-cover"
-                            />
-                            {(x as any).hasVideo && (
-                              <video
-                                muted
-                                autoPlay
-                                playsInline
-                                loop
-                                src={`/projects/${x.id}.webm`}
-                                className="absolute left-0 top-0 w-full h-full z-[2] object-cover"
-                              />
-                            )}
-                          </HoverCardInner>
-                        </HoverCardContent>
-                      </HoverCard>
-                      <AccordionContent className="h-[500px]"></AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
+                {x.projects.map((x, i) => (
+                  <HoverCard key={x.id}>
+                    <HoverCardTrigger asChild>
+                      <RouterLink
+                        href={`/${x.id}`}
+                        scroll={false}
+                        className="text-left justify-start flex-1 flex flex-row gap-6 hover:bg-foreground/5 rounded-md items-center p-4 -mx-4 cursor-pointer"
+                      >
+                        <div className="flex flex-row items-center opacity-60 text-xs">
+                          {(i + 1)
+                            .toString()
+                            .padStart(2, "0")
+                            .split("")
+                            .map((x, i) => (
+                              <div key={i}>{x}</div>
+                            ))}
+                        </div>
+                        <div className="w-[40px]">{x.year}</div>
+                        <div className="col-span-2 flex-1 text-sm sm:text-md">
+                          {x.label}
+                        </div>
+                        <div className="text-right flex flex-row items-center">
+                          {x.links?.map((x, i) => (
+                            <Button
+                              key={i}
+                              variant={"ghost"}
+                              size={"icon"}
+                              asChild
+                            >
+                              <Link href={x.link} target="_blank">
+                                <i className={cn(x.icon)} />
+                              </Link>
+                            </Button>
+                          ))}
+                        </div>
+                      </RouterLink>
+                    </HoverCardTrigger>
+                    <HoverCardContent className="w-[400px] h-[400px] overflow-hidden hidden xl:block z-[10] left-[40%] top-1/2 ">
+                      <HoverCardInner
+                        className="absolute left-0 top-0 w-full h-full"
+                        variants={{
+                          initial: { translateX: "-100%", opacity: 0 },
+                          animate: {
+                            translateX: 0,
+                            opacity: 1,
+                            transition: { ease: "easeOut" },
+                          },
+                          exit: {
+                            translateX: "100%",
+                            opacity: 0,
+                            transition: { ease: "easeIn" },
+                          },
+                        }}
+                      >
+                        <img
+                          src={`/projects/${x.id}.webp`}
+                          width={400}
+                          height={400}
+                          alt={`${x.label}`}
+                          className="absolute left-0 top-0 w-full h-full z-[1] object-cover"
+                        />
+                        {(x as any).hasVideo && (
+                          <video
+                            muted
+                            autoPlay
+                            playsInline
+                            loop
+                            src={`/projects/${x.id}.webm`}
+                            className="absolute left-0 top-0 w-full h-full z-[2] object-cover"
+                          />
+                        )}
+                      </HoverCardInner>
+                    </HoverCardContent>
+                  </HoverCard>
+                ))}
               </div>
             </div>
           </section>,

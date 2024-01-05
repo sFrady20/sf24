@@ -1,7 +1,7 @@
-import "../globals.css";
+import "@/globals.css";
 
 import "@/components/analytics";
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import { Metadata } from "next";
 import { Viewport } from "next/types";
 import { cn } from "@/utils/cn";
@@ -14,7 +14,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { AppProvider } from "./context";
 import MenuToggle from "@/components/menu-toggle";
 import Menu from "@/components/menu";
-import Frady from "./frady.svg";
+import Frady from "@/app/frady.svg";
 
 export const metadata: Metadata = {
   title: "Steven Frady - Creative Full-Stack Developer",
@@ -71,8 +71,11 @@ const socials = [
   },
 ];
 
-export default function App(props: { children?: ReactNode }) {
-  const { children } = props;
+export default function App(props: {
+  children?: ReactNode;
+  modal?: ReactNode;
+}) {
+  const { children, modal } = props;
 
   return (
     <html lang="en">
@@ -86,7 +89,7 @@ export default function App(props: { children?: ReactNode }) {
       >
         <AppProvider>
           <ThemeProvider>
-            <div className="fixed top-0 left-0 w-full p-4 md:p-10 z-[40]">
+            <div className="fixed top-0 left-0 w-full p-4 md:p-10 z-[40] pointer-events-auto">
               <header className="flex flex-row justify-between items-center h-[50px] bg-background/30 backdrop-blur-lg rounded-full px-2">
                 <div className="flex-1 flex flex-row items-center justify-start">
                   <Button
@@ -198,6 +201,8 @@ export default function App(props: { children?: ReactNode }) {
             </Menu>
 
             {children}
+
+            {modal}
 
             <footer className="py-[100px] bg-foreground/5">
               <div className="container flex flex-col gap-10">
