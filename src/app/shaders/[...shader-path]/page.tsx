@@ -11,17 +11,22 @@ export default async function (props: {
   try {
     frag = (
       await import(
-        `raw-loader!@/shaders/${params["shader-path"].join("/")}.frag.glsl`
+        `raw-loader!glslify-loader!@/shaders/${params["shader-path"].join(
+          "/"
+        )}.frag.glsl`
       )
     ).default;
   } catch (err: any) {
+    console.error(err);
     return notFound();
   }
 
   return (
-    <Shader
-      frag={typeof frag === "string" ? frag : ""}
-      className="h-[100svh]"
-    />
+    <>
+      <Shader
+        frag={typeof frag === "string" ? frag : ""}
+        className="h-[100svh]"
+      />
+    </>
   );
 }

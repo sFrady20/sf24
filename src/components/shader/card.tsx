@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Shader } from "./component";
 import { Button } from "../ui/button";
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, useState } from "react";
 import { cn } from "@/utils/cn";
 
 export interface ShaderCardProps extends HTMLAttributes<HTMLDivElement> {
@@ -15,8 +15,19 @@ export interface ShaderCardProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export function ShaderCard(props: ShaderCardProps) {
-  const { frag, title, subtitle, shaderPath, autoplay, className, ...rest } =
-    props;
+  const {
+    frag,
+    title,
+    subtitle,
+    shaderPath,
+    autoplay,
+    className,
+    onPointerEnter,
+    onPointerLeave,
+    ...rest
+  } = props;
+
+  const [isHovering, setHovering] = useState(false);
 
   return (
     <div
@@ -25,10 +36,18 @@ export function ShaderCard(props: ShaderCardProps) {
         "col-span-1 cursor-crosshair overflow-hidden h-0 pb-[72%] relative rounded-none",
         className
       )}
+      onPointerEnter={(e) => {
+        setHovering(true);
+        onPointerEnter?.(e as any);
+      }}
+      onPointerLeave={(e) => {
+        setHovering(false);
+        onPointerLeave?.(e as any);
+      }}
     >
       <Shader
         frag={frag}
-        paused={!autoplay}
+        paused={!autoplay && !isHovering}
         className="absolute left-0 top-0 w-full h-full"
       />
       <div className="flex flex-row absolute left-0 bottom-0 w-full items-center justify-between pointer-events-none p-4">

@@ -41,6 +41,7 @@
     "ga-gtag": "^1.2.0",
     "glsl-film-grain": "^1.0.4",
     "glsl-noise": "^0.0.0",
+    "glslify": "^7.1.1",
     "glslify-loader": "^2.0.0",
     "immer": "^10.0.3",
     "luxon": "^3.4.4",
