@@ -66,11 +66,11 @@ void main(){
   
   int c=int(ceil(lineLength/boxSize)+1.);//max neighbor distance
   
-  int xs=max(0,mx-c);
-  int xe=min(cols,mx+c);
+  int xs=max(-c,mx-c);
+  int xe=min(cols+c,mx+c);
   
-  int ys=max(0,my-c);
-  int ye=min(cols,my+c);
+  int ys=max(-c,my-c);
+  int ye=min(cols+c,my+c);
   
   vec4 col=vec4(0.);
   float curD=0.;
