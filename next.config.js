@@ -31,7 +31,10 @@ const config = {
     config.module.rules.push({
       test: /\.glsl$/i,
       issuer: /\.[jt]sx?$/,
-      use: ["raw-loader", "glslify-loader"],
+      use: [
+        "raw-loader",
+        { loader: "glslify-loader", options: { baseDir: __dirname } },
+      ],
     });
 
     //txt loading (for ai prompts)
