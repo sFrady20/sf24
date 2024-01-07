@@ -7,7 +7,7 @@
 uniform float time;
 uniform vec2 resolution;
 
-#pragma glslify:noise=require('../../includes/simplex3d')
+#pragma glslify:noise=require('../../includes/noise/simplex-3d')
 
 const float PI=3.14;
 

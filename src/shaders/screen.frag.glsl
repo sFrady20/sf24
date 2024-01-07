@@ -5,7 +5,7 @@ uniform float enter;
 uniform float exit;
 uniform sampler2D scene;
 
-#pragma glslify:smoke=require(./includes/smoke.glsl)
+#pragma glslify:smoke=require(./includes/noise/smoke.glsl)
 
 void main(){
     vec2 uv=gl_FragCoord.xy/resolution.xy;

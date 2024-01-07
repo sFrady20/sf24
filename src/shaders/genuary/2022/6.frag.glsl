@@ -3,7 +3,7 @@
 uniform float time;
 uniform vec2 resolution;
 
-#pragma glslify:noise=require('../../includes/simplex3d')
+#pragma glslify:noise=require('../../includes/noise/simplex-3d')
 
 const int paletteSize=7;
 const vec3[paletteSize]palette=vec3[](

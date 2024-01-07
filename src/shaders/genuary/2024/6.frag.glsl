@@ -7,7 +7,7 @@ uniform sampler2D scene;
 uniform float enter;
 uniform float exit;
 
-#pragma glslify:noise=require('../../includes/simplex3d')
+#pragma glslify:noise=require('../../includes/noise/simplex-3d')
 #pragma glslify:sdOrientedBox=require('../../includes/sdf/2d/oriented-box')
 
 const int paletteSize=12;
@@ -27,7 +27,7 @@ const vec3[paletteSize]palette=vec3[](
 );
 
 const float lineLength=90.;
-const float lineThiccness=1.;
+const float lineThiccness=1.5;
 const float boxSize=25.;
 const float nScale=.06;
 const float rSpeed=.06;
@@ -42,7 +42,7 @@ vec4 sdBoxLine(in int x,in int y){
   float d=max(1.-(sdOrientedBox(gl_FragCoord.xy,a,b,0.)-lineThiccness),0.);
   
   if(d==0.){
-    return vec4(0.,d,1.,0.);
+    return vec4(0.);
   }
   
   float colN=noise(vec3(float(x)*nScale*.5676+time*rSpeed,float(y)*nScale*.26457+time*rSpeed,float(y)*nScale*.1535-time*rSpeed))*.5+.5;
@@ -51,7 +51,9 @@ vec4 sdBoxLine(in int x,in int y){
   int colA=int(floor(sColN));
   int colB=int(floor(mod(float(colA+1),float(paletteSize+1))));
   
-  return vec4(mix(palette[colA]/255.,palette[colB]/255.,colF),1.);
+  float ld=distance(gl_FragCoord.xy,a)/lineLength;
+  
+  return vec4(mix(palette[colA]/255.,palette[colB]/255.,colF),pow(ld,1.));
 }
 
 void main(){
@@ -85,6 +87,6 @@ void main(){
     }
   }
   
-  vec4 color=vec4(col.rgb,1.);
+  vec4 color=vec4(mix(vec3(0.),col.rgb,col.a),1.);
   gl_FragColor=color;
 }

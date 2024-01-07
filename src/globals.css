@@ -38,3 +38,19 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+/* Scroll bars */
+
+body::-webkit-scrollbar {
+  width: 7px; /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: hsl(var(--background)); /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: hsla(var(--foreground)); /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 1px solid hsl(var(--background)); /* creates padding around scroll thumb */
+}

@@ -4,7 +4,7 @@ uniform vec2 resolution;
 uniform float enter;
 uniform sampler2D scene;
 
-#pragma glslify:smoke=require(./includes/smoke.glsl)
+#pragma glslify:smoke=require(./includes/noise/smoke.glsl)
 #pragma glslify:grain=require(glsl-film-grain)
 
 void main(){

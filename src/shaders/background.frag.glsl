@@ -4,7 +4,7 @@ uniform vec2 cursor;
 uniform vec2 resolution;
 uniform sampler2D scene;
 
-#pragma glslify:smoke=require(./includes/smoke.glsl)
+#pragma glslify:smoke=require(./includes/noise/smoke.glsl)
 
 void main(){
     vec4 color=vec4(0.);
