@@ -1,3 +1,8 @@
+/*
+Droste effect.
+Wikipedia: Droste effect(https://en.wikipedia.org/wiki/Droste_effect)
+*/
+
 uniform float time;
 uniform float seed;
 uniform vec2 resolution;

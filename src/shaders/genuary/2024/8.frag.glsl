@@ -18,13 +18,12 @@ void main(){
   
   //normalize uv
   uv-=vec2(.5);
-  uv*=vec2(1.,resolution.y/resolution.x);
+  uv*=min(vec2(resolution.x/resolution.y,1.),vec2(1.,resolution.y/resolution.x));
   
   float a=40.;
   mat2 rot=mat2(cos(a),sin(a),-sin(a),cos(a));
   
   float ot=1.;
-  
   float l=length(uv);
   
   vec2 r=vec2(0.);
