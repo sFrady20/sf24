@@ -1,6 +1,8 @@
 
 #define PI 3.1415926535897932384626433832795
 
+//http://dev.thi.ng/gradients/
+
 vec3 palette(float t){
     const int paletteSize=7;
     

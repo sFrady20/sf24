@@ -2,7 +2,7 @@ import { ShaderCard } from "@/components/shader";
 import { Button } from "@/components/ui/button";
 import frag3 from "@/shaders/genuary/2022/3.frag.glsl";
 import frag4 from "@/shaders/genuary/2022/4.frag.glsl";
-import frag5 from "@/shaders/genuary/2022/5.frag.glsl";
+import frag5 from "@/shaders/genuary/2024/10.frag.glsl";
 import Link from "next/link";
 import Frady from "@/app/frady.svg";
 import { cn } from "@/utils/cn";
@@ -13,7 +13,6 @@ import {
   HoverCardTrigger,
 } from "@/components/hover-card";
 import { categories } from "@/data/projects";
-import { RouterLink } from "./components";
 import {
   Accordion,
   AccordionContent,
@@ -239,9 +238,9 @@ export default async function () {
               className="col-span-3 lg:col-span-1"
               autoplay
               frag={frag5}
-              title={"Destroy a square"}
-              subtitle={"Genuary 2022 - Day 5"}
-              shaderPath="genuary/2022/5"
+              title={"Hexagonal Scales"}
+              subtitle={"Genuary 2024 - Day 10"}
+              shaderPath="genuary/2024/10"
             />
           </div>
           <div className="flex flex-row items-center justify-end lg:px-10">

@@ -250,6 +250,10 @@ export default function App(props: {
                         link: "https://dribbble.com/sfrady20",
                         label: "Dribbble",
                       },
+                      {
+                        link: "https://calendly.com/sfrady20",
+                        label: "Calendly",
+                      },
                     ].map((x, i) => (
                       <div key={i} className=" col-span-1">
                         <Link
