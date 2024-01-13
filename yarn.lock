@@ -4823,6 +4823,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"highlight.js@npm:^11.9.0":
+  version: 11.9.0
+  resolution: "highlight.js@npm:11.9.0"
+  checksum: 44b3e42bc096a2e5207e514826a10ff7671de315a7216ebaeba76593d4f16dfe3f7078390cb5c2b08eae657694fef4fb65d775376db48480c829c83fbc4f157a
+  languageName: node
+  linkType: hard
+
 "http-cache-semantics@npm:^4.1.1":
   version: 4.1.1
   resolution: "http-cache-semantics@npm:4.1.1"
@@ -7016,6 +7023,7 @@ __metadata:
     glsl-noise: "npm:^0.0.0"
     glslify: "npm:^7.1.1"
     glslify-loader: "npm:^2.0.0"
+    highlight.js: "npm:^11.9.0"
     immer: "npm:^10.0.3"
     luxon: "npm:^3.4.4"
     next: "npm:^14.0.4"

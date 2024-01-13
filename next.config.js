@@ -2,7 +2,7 @@ const config = {
   experimental: {
     mdxRs: true,
   },
-  webpack: (config, {}) => {
+  webpack: (config, { isServer }) => {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) =>
       rule.test?.test?.(".svg")
@@ -40,6 +40,12 @@ const config = {
       issuer: /\.[jt]sx?$/,
       use: "raw-loader",
     });
+
+    if (!isServer) {
+      config.resolve.fallback = {
+        fs: false,
+      };
+    }
 
     return config;
   },

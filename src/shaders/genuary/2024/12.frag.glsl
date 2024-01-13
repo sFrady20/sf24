@@ -21,7 +21,7 @@ const vec3 waxColor=vec3(1.,0.,0);
 const float blobRate=.2;
 const float blobFreq=3.;
 const float blobAmp=.02;
-const int blobCount=5;
+const int blobCount=3;
 const float blobScaleVariance=.05;
 
 const float moveRate=.1;
@@ -52,10 +52,11 @@ float sdScene(vec3 p){
   float bd=0.,bm=float(blobCount-1);
   float ix,is,fi;
   
-  vec3 nx=vec3(sin(time*moveRate*.01489198)),
-  ny=vec3(sin(time*moveRate*.01612878)),
-  nz=vec3(sin(time*moveRate*.011232245)),
-  ns=vec3(sin(time*moveRate*.0070712));
+  vec3 nx=vec3(sin(time*moveRate*.01489198)+seed*24.1581),
+  ny=vec3(sin(time*moveRate*.01612878)-seed*15.15918),
+  nz=vec3(sin(time*moveRate*.011232245)+seed*51.1491),
+  ns=vec3(sin(time*moveRate*.0070712)-seed*14.187),
+  center;
   
   vec3 id;
   
@@ -64,13 +65,15 @@ float sdScene(vec3 p){
     id=vec3(i*16,i*32,i*25);
     ix=(fi/bm)-.5;
     
+    center=vec3(
+      noise(nx+id*13.1384)*.35+sin(id.x*11.418+time*moveRate)*.15,
+      noise(ny+id*10.11424)*.16+sin(id.y*4.127-fi*14.19+time*moveRate)*.28,
+      1.+noise(nz+id*12.35172)*.02+sin(id.z*1.1487+time*moveRate)*.02
+    );
+    
     bd=sdBlob(
-      vec3(
-        noise(nx+id*13.1384)*.35+sin(id.x*11.418+time*moveRate)*.15,
-        noise(ny+id*10.11424)*.16+sin(id.y*4.127-fi*14.19+time*moveRate)*.28,
-        1.+noise(nz+id*12.35172)*.02+sin(id.z*1.1487+time*moveRate)*.02
-      )-p,
-      .08+noise(ns+id)*blobScaleVariance,
+      center-p,
+      .1+noise(ns+id)*blobScaleVariance,
       fi*5.13816
     );
     d=opSmooth(bd,d,K);
@@ -103,7 +106,7 @@ void main(){
   uv*=min(vec2(resolution.x/resolution.y,1.),vec2(1.,resolution.y/resolution.x));
   
   //water effect (sorta)
-  uv+=vec2(noise(vec3(uv*3.,time*.28257))*.01,noise(vec3(uv*3.,time*.11248))*.01);
+  //uv+=vec2(noise(vec3(uv*3.,time*.28257))*.01,noise(vec3(uv*3.,time*.11248))*.01);
   
   light l=light(normalize(vec3(1.,1.,1.)),1.);
   ray r=ray(vec3(uv,0.),normalize(vec3(uv,4.)));

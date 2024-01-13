@@ -1,4 +1,4 @@
-import { Shader, ShaderCard } from "@/components/shader";
+import { ShaderCard } from "@/components/shader";
 import frag1 from "@/shaders/genuary/2022/1.frag.glsl";
 import frag2 from "@/shaders/genuary/2022/2.frag.glsl";
 import frag3 from "@/shaders/genuary/2022/3.frag.glsl";
@@ -6,8 +6,6 @@ import frag4 from "@/shaders/genuary/2022/4.frag.glsl";
 import frag5 from "@/shaders/genuary/2022/5.frag.glsl";
 import frag6 from "@/shaders/genuary/2022/6.frag.glsl";
 import frag7 from "@/shaders/genuary/2022/7.frag.glsl";
-import frag8 from "@/shaders/genuary/2022/8.frag.glsl";
-import frag9 from "@/shaders/genuary/2022/9.frag.glsl";
 
 import frag_24_6 from "@/shaders/genuary/2024/6.frag.glsl";
 import frag_24_7 from "@/shaders/genuary/2024/7.frag.glsl";
@@ -18,25 +16,6 @@ import frag_24_12 from "@/shaders/genuary/2024/12.frag.glsl";
 export default async function () {
   return (
     <div className="grid grid-cols-3 w-full mt-[100px] md:mt-[132px]">
-      {/*
-      <ShaderCard
-        frag={frag9}
-        title={"Architecture"}
-        subtitle={"Genuary 2022 - Day 9"}
-        sourceHref={
-          "https://github.com/sFrady20/sf23/blob/main/src/shaders/genuary/2022/9.frag.glsl"
-        }
-      />
-      */}
-      {/* 
-      <ShaderCard
-        frag={frag8}
-        title={"Single curve only"}
-        subtitle={"Genuary 2022 - Day 8"}
-        shaderPath="genuary/2022/8"
-        className="col-span-3 md:col-span-1"
-      />
-      */}
       <ShaderCard
         frag={frag_24_12}
         title={"Lava lamp"}

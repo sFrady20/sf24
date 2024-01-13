@@ -1,7 +1,7 @@
 import "@/globals.css";
 
 import "@/components/analytics";
-import { ReactNode, Suspense } from "react";
+import { ReactNode } from "react";
 import { Metadata } from "next";
 import { Viewport } from "next/types";
 import { cn } from "@/utils/cn";

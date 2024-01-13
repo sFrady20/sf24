@@ -12,15 +12,17 @@ const DisableRender = () => useFrame(() => null, 1000);
 export interface ShaderProps extends HTMLAttributes<HTMLDivElement> {
   frag?: string;
   paused?: boolean;
+  seed?: number;
 }
 
 export function Shader(props: ShaderProps) {
-  const { frag, paused, className, ...rest } = props;
+  const { frag, paused, className, seed, ...rest } = props;
   const containerEl = useRef<HTMLDivElement>(null);
   const uniforms = useRef({
     resolution: { value: [100, 100] },
     time: { value: 0 },
     cursor: { value: [0, 0] },
+    seed: { value: seed || Math.random() },
   }).current;
   const [firstRender, setFirstRender] = useState(true);
   const obs = useIntersectionObserver(containerEl, {});
