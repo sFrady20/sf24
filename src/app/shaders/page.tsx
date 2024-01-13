@@ -13,6 +13,7 @@ import frag_24_6 from "@/shaders/genuary/2024/6.frag.glsl";
 import frag_24_7 from "@/shaders/genuary/2024/7.frag.glsl";
 import frag_24_8 from "@/shaders/genuary/2024/8.frag.glsl";
 import frag_24_10 from "@/shaders/genuary/2024/10.frag.glsl";
+import frag_24_12 from "@/shaders/genuary/2024/12.frag.glsl";
 
 export default async function () {
   return (
@@ -36,6 +37,13 @@ export default async function () {
         className="col-span-3 md:col-span-1"
       />
       */}
+      <ShaderCard
+        frag={frag_24_12}
+        title={"Lava lamp"}
+        subtitle={"Genuary 2024 - Day 12"}
+        shaderPath="genuary/2024/12"
+        className="col-span-3 md:col-span-1"
+      />
       <ShaderCard
         frag={frag_24_10}
         title={"Hexagonal"}
