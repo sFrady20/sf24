@@ -12,10 +12,18 @@ import frag_24_7 from "@/shaders/genuary/2024/7.frag.glsl";
 import frag_24_8 from "@/shaders/genuary/2024/8.frag.glsl";
 import frag_24_10 from "@/shaders/genuary/2024/10.frag.glsl";
 import frag_24_12 from "@/shaders/genuary/2024/12.frag.glsl";
+import frag_24_13 from "@/shaders/genuary/2024/13.frag.glsl";
 
 export default async function () {
   return (
     <div className="grid grid-cols-3 w-full mt-[100px] md:mt-[132px]">
+      <ShaderCard
+        frag={frag_24_13}
+        title={"Lava lamp"}
+        subtitle={"Genuary 2024 - Day 13"}
+        shaderPath="genuary/2024/13"
+        className="col-span-3 md:col-span-1"
+      />
       <ShaderCard
         frag={frag_24_12}
         title={"Lava lamp"}

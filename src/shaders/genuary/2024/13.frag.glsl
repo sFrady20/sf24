@@ -12,8 +12,36 @@ uniform sampler2D scene;
 uniform float enter;
 uniform float exit;
 
+#pragma glslify:palette=require('../../includes/palettes/iq-1')
+
+const float timeScale=.05;
+
+// exponential smooth min by Inigo Quilez
+// https://iquilezles.org/articles/smin/
+float smin(float a,float b){
+  float k=10.;
+  float res=exp2(-k*a)+exp2(-k*b);
+  return-log2(res)/k;
+}
+
 void main(){
   vec2 uv=gl_FragCoord.xy/resolution.xy;
-  vec4 color=vec4(uv,sin(time),1.);
-  gl_FragColor=color;
+  float st=time*timeScale+seed*1000.;
+  
+  //normalize uv
+  uv-=vec2(.5);
+  uv*=min(vec2(resolution.x/resolution.y,1.),vec2(1.,resolution.y/resolution.x));
+  
+  vec3 color=vec3(0.);
+  
+  float t=sin(1.23636*st+1.23675*sin(1.236*uv.y)+10.3243256*uv.x-1.2672*sin(.245847*uv.x-1.12451*st+1.134516*uv.y+1.1435*sin(1.2385*uv.y+1.8157*uv.y)));
+  
+  vec3 wobble=vec3(
+    sin(1.1837*st-.82184*sin(.62626*uv.x+st*3.3198-sin(st*.4138+uv.y*.591))-.32578*uv.x-2.1847*sin(1.245847*uv.x+1.182467*st+.23872*uv.y+1.239*sin(-1.59*st+.15534*uv.y)-1.1248*sin(.1848*uv.y+st*.19518)+1.43726*sin(.145*uv.x+.8157*st)+1.43726*sin(.8217*uv.y+4.8157*st))),
+    sin(-.91957*st+1.15136*sin(2.2158*uv.x+st*5.1259)+1.15131*sin(5.37683*uv.x-1.26574*sin(1.1257*uv.x)+1.425642*st-1.32156*sin(7.9372*uv.x+st*.92784)+sin(1.58127*st)+1.1237*sin(7.62161*uv.y-3.43616*st))),
+    sin(.9145*st-.598*sin(1.15418*uv.x+sin(4.2184*st))+1.29847*sin(3.245847*uv.x-5.1215*uv.x+1.582467*st+1.23872*sin(1.148*uv.y+.9127*st)+1.43726+1.2536*sin(1.5827*uv.y-1.3581*st)*sin(1.8217*uv.x+1.8157*st)))
+  );
+  color=max(palette(smin(wobble.r,wobble.b)),max(palette(smin(wobble.b,wobble.g)),palette(smin(wobble.g,wobble.r))));
+  
+  gl_FragColor=vec4(color,1.);
 }
