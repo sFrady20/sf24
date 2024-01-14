@@ -1,7 +1,7 @@
 import { ShaderCard } from "@/components/shader";
 import { Button } from "@/components/ui/button";
 import frag3 from "@/shaders/genuary/2022/3.frag.glsl";
-import frag4 from "@/shaders/genuary/2022/4.frag.glsl";
+import frag4 from "@/shaders/genuary/2024/13.frag.glsl";
 import frag5 from "@/shaders/genuary/2024/10.frag.glsl";
 import Link from "next/link";
 import Frady from "@/app/frady.svg";
@@ -230,9 +230,9 @@ export default async function () {
               className="col-span-3 lg:col-span-1"
               autoplay
               frag={frag4}
-              title={"The Next Fidenza"}
-              subtitle={"Genuary 2022 - Day 4"}
-              shaderPath="genuary/2022/4"
+              title={"Wobble Function"}
+              subtitle={"Genuary 2024 - Day 13"}
+              shaderPath="genuary/2024/13"
             />
             <ShaderCard
               className="col-span-3 lg:col-span-1"

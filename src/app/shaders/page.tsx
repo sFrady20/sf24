@@ -19,7 +19,7 @@ export default async function () {
     <div className="grid grid-cols-3 w-full mt-[100px] md:mt-[132px]">
       <ShaderCard
         frag={frag_24_13}
-        title={"Lava lamp"}
+        title={"Wobble Function"}
         subtitle={"Genuary 2024 - Day 13"}
         shaderPath="genuary/2024/13"
         className="col-span-3 md:col-span-1"
