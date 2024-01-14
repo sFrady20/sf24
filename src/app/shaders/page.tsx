@@ -13,6 +13,7 @@ import frag_24_8 from "@/shaders/genuary/2024/8.frag.glsl";
 import frag_24_10 from "@/shaders/genuary/2024/10.frag.glsl";
 import frag_24_12 from "@/shaders/genuary/2024/12.frag.glsl";
 import frag_24_13 from "@/shaders/genuary/2024/13.frag.glsl";
+import frag_24_14 from "@/shaders/genuary/2024/14.frag.glsl";
 
 export default async function () {
   return (
@@ -66,6 +67,7 @@ export default async function () {
         shaderPath="genuary/2022/7"
         className="col-span-3 md:col-span-1"
       />
+      {/*
       <ShaderCard
         frag={frag6}
         title={"Trade styles with a friend. (Feels)"}
@@ -73,6 +75,7 @@ export default async function () {
         shaderPath="genuary/2022/6"
         className="col-span-3 md:col-span-1"
       />
+      */}
       <ShaderCard
         frag={frag5}
         title={"Destroy a square"}
