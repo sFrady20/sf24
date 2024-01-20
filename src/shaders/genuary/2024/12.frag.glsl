@@ -3,8 +3,6 @@
 uniform float time;
 uniform float seed;
 uniform vec2 resolution;
-uniform float enter;
-uniform float exit;
 
 #pragma glslify:noise=require('../../includes/noise/simplex-3d')
 #pragma glslify:sdSphere=require('../../includes/sdf/3d/sphere')
@@ -21,7 +19,7 @@ const vec3 waxColor=vec3(1.,0.,0);
 const float blobRate=.2;
 const float blobFreq=3.;
 const float blobAmp=.02;
-const int blobCount=3;
+const int blobCount=5;
 const float blobScaleVariance=.05;
 
 const float moveRate=.1;

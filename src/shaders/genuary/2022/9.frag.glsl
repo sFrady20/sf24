@@ -3,9 +3,6 @@
 uniform float time;
 uniform float seed;
 uniform vec2 resolution;
-uniform sampler2D scene;
-uniform float enter;
-uniform float exit;
 
 float getDist(vec3 p){
   return 1.;

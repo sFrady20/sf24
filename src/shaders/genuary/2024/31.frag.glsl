@@ -8,9 +8,6 @@ that uses generative techniques. Check out e.g. Dash Glitch on YouTube(https://w
 uniform float time;
 uniform float seed;
 uniform vec2 resolution;
-uniform sampler2D scene;
-uniform float enter;
-uniform float exit;
 
 void main(){
   vec2 uv=gl_FragCoord.xy/resolution.xy;

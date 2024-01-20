@@ -3,9 +3,6 @@
 uniform float time;
 uniform float seed;
 uniform vec2 resolution;
-uniform sampler2D scene;
-uniform float enter;
-uniform float exit;
 
 #pragma glslify:noise=require('../../includes/noise/simplex-3d')
 #pragma glslify:grain=require(glsl-film-grain)

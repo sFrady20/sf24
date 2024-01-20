@@ -8,9 +8,6 @@ Or something along those lines. Don’t worry about angles or trigonometric iden
 uniform float time;
 uniform float seed;
 uniform vec2 resolution;
-uniform sampler2D scene;
-uniform float enter;
-uniform float exit;
 
 #pragma glslify:palette=require('../../includes/palettes/iq-1')
 

@@ -1,7 +1,5 @@
 /*
-Bauhaus.
-
-Wikipedia: Bauhaus(https://en.wikipedia.org/wiki/Bauhaus)
+Flocking.
 */
 
 uniform float time;
@@ -10,6 +8,6 @@ uniform vec2 resolution;
 
 void main(){
   vec2 uv=gl_FragCoord.xy/resolution.xy;
-  vec4 color=vec4(uv,sin(time),1.);
+  vec4 color=vec3(sin(time+uv.x*10.)),1.);
   gl_FragColor=color;
 }
