@@ -1,6 +1,7 @@
 "use client";
 
 import { CastReceiverProvider } from "@/components/cast/receiver";
+import type { LoadRequestData } from "chromecast-caf-receiver/cast.framework.messages";
 import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 
@@ -11,8 +12,10 @@ export function MainCastReceiverProvider(props: { children: ReactNode }) {
 
   return (
     <CastReceiverProvider
-      handler={async (e: any) => {
-        router.push(e.media.entity || e.media.contentId);
+      handler={async (e) => {
+        const shaderPath = e.media.contentId || e.media.entity;
+        console.log(`going to /shaders/${shaderPath}`);
+        router.push(`/shaders/${shaderPath}`);
       }}
     >
       {children}

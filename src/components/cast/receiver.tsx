@@ -1,5 +1,6 @@
 "use client";
 
+import type { LoadRequestData } from "chromecast-caf-receiver/cast.framework.messages";
 import Script from "next/script";
 import { ReactNode, createContext, useContext, useEffect } from "react";
 import { create } from "zustand";
@@ -14,7 +15,7 @@ const CastReceiverContext =
 
 export function CastReceiverProvider(props: {
   children?: ReactNode;
-  handler?: (message: any) => Promise<void>;
+  handler?: (e: LoadRequestData) => Promise<void>;
 }) {
   const { handler, children } = props;
 
@@ -26,8 +27,7 @@ export function CastReceiverProvider(props: {
 
     manager.setMessageInterceptor(
       receiver.messages.MessageType.LOAD,
-      async (e: any) => {
-        console.log("EV", e);
+      async (e: LoadRequestData) => {
         try {
           await handler?.(e);
         } catch (err: any) {
