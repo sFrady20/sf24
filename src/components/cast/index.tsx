@@ -8,7 +8,6 @@ import { immer } from "zustand/middleware/immer";
 
 const isReceiver =
   typeof window !== "undefined" && window.navigator.userAgent.includes(`CrKey`);
-const receiver: any = isReceiver ? cast : undefined;
 
 export interface CastState {
   initialized: boolean;
@@ -66,9 +65,11 @@ export function CastProvider(props: {
 
   useEffect(() => {
     if (!isReceiver) return;
-    const ctx = receiver.CastReceiverContext.getInstance();
+    console.log("HERE");
+    const ctx = (window.cast as any).CastReceiverContext.getInstance();
+    console.log("THERE");
     handlers.forEach((x) => {
-      ctx.addCustomMessageListener(`urn:x-cast:com.frady.steven`, x);
+      ctx.addCustomMessageListener(`urn:x-cast:${CAST_NAMESPACE}`, x);
     });
     ctx.start();
   }, []);
