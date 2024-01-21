@@ -71,10 +71,11 @@ export function CastButton(props: {
       variant={"ghost"}
       className="gap-2"
       onClick={async (e) => {
-        await sender.requestSession();
+        const session = await sender.refreshSession();
+        if (!session) await sender.requestSession();
         await sender.sendMessage({
           action: `NAVIGATE`,
-          path: `/cast/shader/${shaderPath}`,
+          href: `/cast/shader/${shaderPath}`,
         });
       }}
     >

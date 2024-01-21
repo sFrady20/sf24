@@ -12,9 +12,9 @@ export function MainCastReceiverProvider(props: { children: ReactNode }) {
   return (
     <CastReceiverProvider
       handlers={[
-        async (message: { type: "NAVIGATE"; href: string }) => {
+        async (message: { action: "NAVIGATE"; href: string }) => {
           console.log(message);
-          switch (message.type) {
+          switch (message.action) {
             case "NAVIGATE":
               router.push(message.href);
               break;
