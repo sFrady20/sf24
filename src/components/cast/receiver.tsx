@@ -6,20 +6,9 @@ import { ReactNode, createContext, useContext, useEffect } from "react";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
-export interface CastRecieverState {
-  initialized: boolean;
-}
+export interface CastRecieverState {}
 
-const castReceiverStore = create(
-  immer<CastRecieverState>(() => ({ initialized: false }))
-);
-
-if (typeof window !== "undefined") {
-  window["__onGCastApiAvailable"] = async function (isAvailable) {
-    console.log("ON AVAILABLE");
-    castReceiverStore.setState({ initialized: true });
-  };
-}
+const castReceiverStore = create(immer<CastRecieverState>(() => ({})));
 
 const CastReceiverContext =
   createContext<typeof castReceiverStore>(castReceiverStore);
@@ -30,26 +19,12 @@ export function CastReceiverProvider(props: {
 }) {
   const { handlers = [], children } = props;
 
-  const receiver = castReceiverStore();
-
   useEffect(() => {
-    if (!receiver.initialized) return;
-    const ctx = (window.cast as any).CastReceiverContext.getInstance();
+    const ctx = (cast as any).CastReceiverContext.getInstance();
     handlers.forEach((x) => {
       ctx.addCustomMessageListener(`urn:x-cast:${CAST_NAMESPACE}`, x);
     });
     ctx.start();
-  }, [receiver.initialized]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      console.log("TIMER");
-      const ctx = (window.cast as any).CastReceiverContext.getInstance();
-      handlers.forEach((x) => {
-        ctx.addCustomMessageListener(`urn:x-cast:${CAST_NAMESPACE}`, x);
-      });
-      ctx.start();
-    }, 10000);
   }, []);
 
   return (
