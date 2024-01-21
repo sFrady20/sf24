@@ -1,14 +1,30 @@
 "use client";
 
-import { CAST_NAMESPACE } from "@/vars";
+import { CAST_APP_ID, CAST_NAMESPACE } from "@/vars";
 import Script from "next/script";
 import { ReactNode, createContext, useContext, useEffect } from "react";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
-export interface CastRecieverState {}
+export interface CastRecieverState {
+  initialized: boolean;
+}
 
-const castReceiverStore = create(immer<CastRecieverState>((set, get) => ({})));
+const castReceiverStore = create(
+  immer<CastRecieverState>(() => ({ initialized: false }))
+);
+
+if (typeof window !== "undefined") {
+  window["__onGCastApiAvailable"] = async function (isAvailable) {
+    if (isAvailable) {
+      cast.framework.CastContext.getInstance().setOptions({
+        receiverApplicationId: CAST_APP_ID,
+        autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED,
+      });
+      castReceiverStore.setState({ initialized: true });
+    }
+  };
+}
 
 const CastReceiverContext =
   createContext<typeof castReceiverStore>(castReceiverStore);
@@ -19,13 +35,16 @@ export function CastReceiverProvider(props: {
 }) {
   const { handlers = [], children } = props;
 
+  const receiver = castReceiverStore();
+
   useEffect(() => {
+    if (!receiver.initialized) return;
     const ctx = (window.cast as any).CastReceiverContext.getInstance();
     handlers.forEach((x) => {
       ctx.addCustomMessageListener(`urn:x-cast:${CAST_NAMESPACE}`, x);
     });
     ctx.start();
-  }, []);
+  }, [receiver.initialized]);
 
   return (
     <CastReceiverContext.Provider value={castReceiverStore}>
