@@ -6,10 +6,7 @@ import { ReactNode, createContext, useContext, useEffect } from "react";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
-const isReceiver =
-  typeof window !== "undefined" && window.navigator.userAgent.includes(`CrKey`);
-
-export interface CastState {
+export interface CastSenderState {
   initialized: boolean;
   session?: cast.framework.CastSession | null;
   refreshSession: () => Promise<cast.framework.CastSession | null>;
@@ -17,8 +14,8 @@ export interface CastState {
   sendMessage: (data: any) => Promise<void>;
 }
 
-const castStore = create(
-  immer<CastState>((set, get) => ({
+const castSenderStore = create(
+  immer<CastSenderState>((set, get) => ({
     initialized: false,
 
     refreshSession: async () => {
@@ -50,43 +47,29 @@ if (typeof window !== "undefined") {
         receiverApplicationId: CAST_APP_ID,
         autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED,
       });
-      castStore.setState({ initialized: true });
+      castSenderStore.setState({ initialized: true });
     }
   };
 }
 
-const CastContext = createContext<typeof castStore>(castStore);
+const CastSenderContext =
+  createContext<typeof castSenderStore>(castSenderStore);
 
-export function CastProvider(props: {
+export function CastSenderProvider(props: {
   children?: ReactNode;
   handlers?: ((message: any) => PromiseLike<void>)[];
 }) {
   const { handlers = [], children } = props;
 
-  useEffect(() => {
-    if (!isReceiver) return;
-    console.log("HERE");
-    const ctx = (window.cast as any).CastReceiverContext.getInstance();
-    console.log("THERE");
-    handlers.forEach((x) => {
-      ctx.addCustomMessageListener(`urn:x-cast:${CAST_NAMESPACE}`, x);
-    });
-    ctx.start();
-  }, []);
-
   return (
-    <CastContext.Provider value={castStore}>
+    <CastSenderContext.Provider value={castSenderStore}>
       <Script
         src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"
         strategy="beforeInteractive"
       />
-      <Script
-        src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"
-        strategy="beforeInteractive"
-      />
       {children}
-    </CastContext.Provider>
+    </CastSenderContext.Provider>
   );
 }
 
-export const useCast = () => useContext(CastContext);
+export const useCastSender = () => useContext(CastSenderContext);

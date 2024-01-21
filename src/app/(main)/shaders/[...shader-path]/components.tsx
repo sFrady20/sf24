@@ -3,7 +3,7 @@
 import { cn } from "@/utils/cn";
 import { HTMLAttributes, ReactNode, forwardRef, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { useCast } from "@/components/cast";
+import { useCastSender } from "@/components/cast/sender";
 
 export interface CodeExpanderProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -61,9 +61,9 @@ export function CastButton(props: {
 
   const ref = useRef<HTMLButtonElement>(null);
 
-  const cast = useCast()();
+  const sender = useCastSender()();
 
-  if (!cast.initialized) return null;
+  if (!sender.initialized) return null;
 
   return (
     <Button
@@ -71,8 +71,8 @@ export function CastButton(props: {
       variant={"ghost"}
       className="gap-2"
       onClick={async (e) => {
-        await cast.requestSession();
-        await cast.sendMessage({
+        await sender.requestSession();
+        await sender.sendMessage({
           action: `NAVIGATE`,
           path: `/cast/shader/${shaderPath}`,
         });

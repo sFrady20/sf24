@@ -66,14 +66,7 @@ export default async function () {
                 {x.projects.map((x, i) => (
                   <AccordionItem value={x.id} key={x.id}>
                     <div className="relative w-full aspect-square md:hidden rounded-lg overflow-hidden">
-                      <img
-                        src={`/projects/${x.id}.webp`}
-                        width={400}
-                        height={400}
-                        alt={`${x.label}`}
-                        className="absolute left-0 top-0 w-full h-full z-[1] object-cover"
-                      />
-                      {(x as any).hasVideo && (
+                      {(x as any).hasVideo ? (
                         <video
                           muted
                           autoPlay
@@ -81,6 +74,14 @@ export default async function () {
                           loop
                           src={`/projects/${x.id}.webm`}
                           className="absolute left-0 top-0 w-full h-full z-[2] object-cover"
+                        />
+                      ) : (
+                        <img
+                          src={`/projects/${x.id}.webp`}
+                          width={400}
+                          height={400}
+                          alt={`${x.label}`}
+                          className="absolute left-0 top-0 w-full h-full z-[1] object-cover"
                         />
                       )}
                     </div>

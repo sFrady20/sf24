@@ -5,7 +5,6 @@ import { Metadata } from "next";
 import { Viewport } from "next/types";
 import { cn } from "@/utils/cn";
 import { fonts } from "@/utils/fonts";
-import { CastProviderWithHanders } from "./components";
 
 export const metadata: Metadata = {
   title: "Steven Frady - Creative Full-Stack Developer",
@@ -52,7 +51,7 @@ export default function App(props: { children?: ReactNode }) {
           "bg-background text-foreground font-body selection:bg-foreground selection:text-background"
         )}
       >
-        <CastProviderWithHanders>{children}</CastProviderWithHanders>
+        {children}
       </body>
     </html>
   );
