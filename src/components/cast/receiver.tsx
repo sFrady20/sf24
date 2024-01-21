@@ -20,6 +20,8 @@ export function CastReceiverProvider(props: {
   const { handlers = [], children } = props;
 
   useEffect(() => {
+    console.log("WIN", window);
+    console.log("WINCAST", window.cast);
     const ctx = (cast as any).CastReceiverContext.getInstance();
     handlers.forEach((x) => {
       ctx.addCustomMessageListener(`urn:x-cast:${CAST_NAMESPACE}`, x);
