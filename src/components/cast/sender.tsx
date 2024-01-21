@@ -2,7 +2,7 @@
 
 import { CAST_APP_ID, CAST_NAMESPACE } from "@/vars";
 import Script from "next/script";
-import { ReactNode, createContext, useContext, useEffect } from "react";
+import { ReactNode, createContext, useContext } from "react";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
@@ -55,11 +55,8 @@ if (typeof window !== "undefined") {
 const CastSenderContext =
   createContext<typeof castSenderStore>(castSenderStore);
 
-export function CastSenderProvider(props: {
-  children?: ReactNode;
-  handlers?: ((message: any) => PromiseLike<void>)[];
-}) {
-  const { handlers = [], children } = props;
+export function CastSenderProvider(props: { children?: ReactNode }) {
+  const { children } = props;
 
   return (
     <CastSenderContext.Provider value={castSenderStore}>

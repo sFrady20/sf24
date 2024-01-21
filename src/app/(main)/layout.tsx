@@ -10,7 +10,7 @@ import { AppProvider } from "./context";
 import MenuToggle from "@/components/menu-toggle";
 import Menu from "@/components/menu";
 import Frady from "@/app/frady.svg";
-import { MainCastSenderProvider } from "./components";
+import { CastSenderProvider } from "@/components/cast/sender";
 
 const socials = [
   {
@@ -35,14 +35,14 @@ const socials = [
   },
 ];
 
-export default function App(props: {
+export default async function (props: {
   children?: ReactNode;
   modal?: ReactNode;
 }) {
   const { children, modal } = props;
 
   return (
-    <MainCastSenderProvider>
+    <CastSenderProvider>
       <AppProvider>
         <ThemeProvider>
           <div className="fixed top-0 left-0 w-full p-4 md:p-10 z-[40] pointer-events-auto">
@@ -264,6 +264,6 @@ export default function App(props: {
           </footer>
         </ThemeProvider>
       </AppProvider>
-    </MainCastSenderProvider>
+    </CastSenderProvider>
   );
 }
