@@ -1,8 +1,8 @@
 import "@/components/analytics";
 import { ReactNode } from "react";
-import { CastReceiverProvider } from "@/components/cast/receiver";
+import { MainCastReceiverProvider } from "./components";
 
 export default async function (props: { children?: ReactNode }) {
   const { children } = props;
-  return <CastReceiverProvider>{children}</CastReceiverProvider>;
+  return <MainCastReceiverProvider>{children}</MainCastReceiverProvider>;
 }
