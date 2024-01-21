@@ -1,7 +1,6 @@
 "use client";
 
 import { CastReceiverProvider } from "@/components/cast/receiver";
-import type { LoadRequestData } from "chromecast-caf-receiver/cast.framework.messages";
 import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 

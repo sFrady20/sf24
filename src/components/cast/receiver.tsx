@@ -29,8 +29,10 @@ export function CastReceiverProvider(props: {
       receiver.messages.MessageType.LOAD,
       async (e: LoadRequestData) => {
         try {
+          console.log("calling handler", e);
           await handler?.(e);
         } catch (err: any) {
+          console.log("load err", err);
           new receiver.messages.ErrorData(err.message);
         }
       }
