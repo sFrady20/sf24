@@ -12,8 +12,6 @@ const castReceiverStore = create(immer<CastRecieverState>(() => ({})));
 const CastReceiverContext =
   createContext<typeof castReceiverStore>(castReceiverStore);
 
-const receiver = (cast as any).framework;
-
 export function CastReceiverProvider(props: {
   children?: ReactNode;
   handler?: (message: any) => Promise<void>;
@@ -21,6 +19,8 @@ export function CastReceiverProvider(props: {
   const { handler, children } = props;
 
   useEffect(() => {
+    const receiver = (cast as any).framework;
+
     const context = receiver.CastReceiverContext.getInstance();
     const manager = context.getPlayerManager();
 
