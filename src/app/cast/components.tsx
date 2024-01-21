@@ -12,9 +12,7 @@ export function MainCastReceiverProvider(props: { children: ReactNode }) {
   return (
     <CastReceiverProvider
       handler={async (e) => {
-        const shaderPath = e.media.contentId || e.media.entity;
-        console.log(`going to /shaders/${shaderPath}`);
-        router.push(`/shaders/${shaderPath}`);
+        router.push(`/cast/${e.media.contentId || e.media.entity}`);
       }}
     >
       {children}

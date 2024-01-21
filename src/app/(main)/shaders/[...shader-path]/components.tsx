@@ -74,7 +74,7 @@ export function CastButton(props: {
         const session = await sender.refreshSession();
         if (!session) await sender.requestSession();
         await sender.sendMessage(
-          new chrome.cast.media.MediaInfo(shaderPath, "video/mp4")
+          new chrome.cast.media.MediaInfo(`shader/${shaderPath}`, "video/mp4")
         );
       }}
     >
