@@ -11,7 +11,7 @@ export interface CastSenderState {
   session?: cast.framework.CastSession | null;
   refreshSession: () => Promise<cast.framework.CastSession | null>;
   requestSession: () => Promise<cast.framework.CastSession | null>;
-  sendMessage: (data: any) => Promise<void>;
+  sendMessage: (info: chrome.cast.media.MediaInfo) => Promise<void>;
 }
 
 const castSenderStore = create(
@@ -32,10 +32,11 @@ const castSenderStore = create(
       return await get().refreshSession();
     },
 
-    sendMessage: async (message: unknown) => {
-      const session = await get().refreshSession();
+    sendMessage: async (info: chrome.cast.media.MediaInfo) => {
+      const session = get().session;
       if (!session) throw new Error("No cast session");
-      session.sendMessage(`urn:x-cast:${CAST_NAMESPACE}`, message);
+      var request = new chrome.cast.media.LoadRequest(info);
+      await session.loadMedia(request);
     },
   }))
 );
@@ -43,7 +44,8 @@ const castSenderStore = create(
 if (typeof window !== "undefined") {
   window["__onGCastApiAvailable"] = async function (isAvailable) {
     if (isAvailable) {
-      cast.framework.CastContext.getInstance().setOptions({
+      const ctx = cast.framework.CastContext.getInstance();
+      ctx.setOptions({
         receiverApplicationId: CAST_APP_ID,
         autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED,
       });

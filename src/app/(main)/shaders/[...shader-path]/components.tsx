@@ -73,10 +73,9 @@ export function CastButton(props: {
       onClick={async (e) => {
         const session = await sender.refreshSession();
         if (!session) await sender.requestSession();
-        await sender.sendMessage({
-          action: `NAVIGATE`,
-          href: `/cast/shader/${shaderPath}`,
-        });
+        await sender.sendMessage(
+          new chrome.cast.media.MediaInfo(shaderPath, "video/mp4")
+        );
       }}
     >
       <div

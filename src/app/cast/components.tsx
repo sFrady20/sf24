@@ -11,16 +11,9 @@ export function MainCastReceiverProvider(props: { children: ReactNode }) {
 
   return (
     <CastReceiverProvider
-      handlers={[
-        async (message: { action: "NAVIGATE"; href: string }) => {
-          console.log(message);
-          switch (message.action) {
-            case "NAVIGATE":
-              router.push(message.href);
-              break;
-          }
-        },
-      ]}
+      handler={async (e: any) => {
+        router.push(e.media.entity || e.media.contentId);
+      }}
     >
       {children}
     </CastReceiverProvider>

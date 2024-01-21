@@ -1,6 +1,5 @@
 "use client";
 
-import { CAST_NAMESPACE } from "@/vars";
 import Script from "next/script";
 import { ReactNode, createContext, useContext, useEffect } from "react";
 import { create } from "zustand";
@@ -13,20 +12,31 @@ const castReceiverStore = create(immer<CastRecieverState>(() => ({})));
 const CastReceiverContext =
   createContext<typeof castReceiverStore>(castReceiverStore);
 
+const receiver = (cast as any).framework;
+
 export function CastReceiverProvider(props: {
   children?: ReactNode;
-  handlers?: ((message: any) => PromiseLike<void>)[];
+  handler?: (message: any) => Promise<void>;
 }) {
-  const { handlers = [], children } = props;
+  const { handler, children } = props;
 
   useEffect(() => {
-    const ctx = (
-      window.cast as any
-    ).framework.CastReceiverContext.getInstance();
-    handlers.forEach((x) => {
-      ctx.addCustomMessageListener(`urn:x-cast:${CAST_NAMESPACE}`, x);
-    });
-    ctx.start();
+    const context = receiver.CastReceiverContext.getInstance();
+    const manager = context.getPlayerManager();
+
+    manager.setMessageInterceptor(
+      receiver.messages.MessageType.LOAD,
+      async (e: any) => {
+        console.log("EV", e);
+        try {
+          await handler?.(e);
+        } catch (err: any) {
+          new receiver.messages.ErrorData(err.message);
+        }
+      }
+    );
+
+    context.start();
   }, []);
 
   return (
