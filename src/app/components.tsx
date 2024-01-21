@@ -1,22 +1,28 @@
 "use client";
 
+import { CastProvider } from "@/components/cast";
 import { useRouter } from "next/navigation";
-import { HTMLAttributes } from "react";
+import { ReactNode } from "react";
 
-export interface RouterLinkProps extends HTMLAttributes<HTMLDivElement> {
-  href: string;
-  scroll?: boolean;
-}
+export function CastProviderWithHanders(props: { children: ReactNode }) {
+  const { children } = props;
 
-export function RouterLink(props: RouterLinkProps) {
-  const { href, scroll, ...rest } = props;
   const router = useRouter();
+
   return (
-    <div
-      {...rest}
-      onClick={() => {
-        router.push(href, { scroll });
-      }}
-    />
+    <CastProvider
+      handlers={[
+        async (message: { type: "NAVIGATE"; href: string }) => {
+          console.log(message);
+          switch (message.type) {
+            case "NAVIGATE":
+              router.push(message.href);
+              break;
+          }
+        },
+      ]}
+    >
+      {children}
+    </CastProvider>
   );
 }

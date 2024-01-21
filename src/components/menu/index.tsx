@@ -1,6 +1,6 @@
 "use client";
 
-import { useApp } from "@/app/context";
+import { useApp } from "@/app/(main)/context";
 import { AnimatePresence, motion } from "framer-motion";
 import { ReactNode } from "react";
 

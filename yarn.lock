@@ -2877,6 +2877,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/chrome@npm:*":
+  version: 0.0.258
+  resolution: "@types/chrome@npm:0.0.258"
+  dependencies:
+    "@types/filesystem": "npm:*"
+    "@types/har-format": "npm:*"
+  checksum: 301f60ba009832f8eff232159234a4b73db2d7925eae1b67a1a4687da80d56022430bc722e8c4effc0a12c1868c0bb380e981ef8b6ba744bbe52bf47591a8198
+  languageName: node
+  linkType: hard
+
+"@types/chromecast-caf-receiver@npm:^6.0.13":
+  version: 6.0.13
+  resolution: "@types/chromecast-caf-receiver@npm:6.0.13"
+  checksum: 4e2fb8628985cd61f206de5dfe6f3bcbcb2527024f03e36c6cad844fe7672ecd1c2b14cd2b91987f3ab0f67a8b6430008e2a567cfa6b5df8cb09b204e7b72094
+  languageName: node
+  linkType: hard
+
+"@types/chromecast-caf-sender@npm:^1.0.8":
+  version: 1.0.8
+  resolution: "@types/chromecast-caf-sender@npm:1.0.8"
+  dependencies:
+    "@types/chrome": "npm:*"
+  checksum: 68a2d7c7e4668756e7895c81c4edf59bfbd58be30196dd73bac411d56b2fa60c33eac0afdda9b6219ca2512fb7ef93d9cc86c18064465e22e6e3bd0907b09199
+  languageName: node
+  linkType: hard
+
 "@types/color-convert@npm:*":
   version: 2.0.0
   resolution: "@types/color-convert@npm:2.0.0"
@@ -2931,6 +2957,29 @@ __metadata:
   version: 1.0.1
   resolution: "@types/estree@npm:1.0.1"
   checksum: f252569c002506c61ad913e778aa69415908078c46c78c901ccad77bc66cd34f1e1b9babefb8ff0d27c07a15fb0824755edd7bb3fa7ea828f32ae0fe5faa9962
+  languageName: node
+  linkType: hard
+
+"@types/filesystem@npm:*":
+  version: 0.0.35
+  resolution: "@types/filesystem@npm:0.0.35"
+  dependencies:
+    "@types/filewriter": "npm:*"
+  checksum: d8eb6c2b28601c5eacf8b48464bc48f060c2a7194e2c8e493e943f3a8543e35da9c706987665356ed67b11587cc94819fd8262037bf56945c6a38569a0e260f1
+  languageName: node
+  linkType: hard
+
+"@types/filewriter@npm:*":
+  version: 0.0.32
+  resolution: "@types/filewriter@npm:0.0.32"
+  checksum: fe2f19239c23c63c009c6d422227d692bc2a0cd1113f8ce31b0fb7048f32ec018003172199949843fdbb1c5988551c29e1e9e2238b9c160969b5e5edbfb76424
+  languageName: node
+  linkType: hard
+
+"@types/har-format@npm:*":
+  version: 1.2.15
+  resolution: "@types/har-format@npm:1.2.15"
+  checksum: fcb397741076ed1095ef8dcccd408c9ef4e20fcfeef0d3fe700f837cc015fe72ee2a3c081cc9c03d73c115005b38ba7b1c563d27e050fa612d60bc2049f309ca
   languageName: node
   linkType: hard
 
@@ -7005,6 +7054,8 @@ __metadata:
     "@react-three/fiber": "npm:^8.15.12"
     "@svgr/webpack": "npm:^8.1.0"
     "@types/axios": "npm:^0.14.0"
+    "@types/chromecast-caf-receiver": "npm:^6.0.13"
+    "@types/chromecast-caf-sender": "npm:^1.0.8"
     "@types/color": "npm:^3.0.6"
     "@types/luxon": "npm:^3"
     "@types/mdx": "npm:^2.0.10"

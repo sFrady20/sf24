@@ -25,6 +25,8 @@
     "@react-three/fiber": "^8.15.12",
     "@svgr/webpack": "^8.1.0",
     "@types/axios": "^0.14.0",
+    "@types/chromecast-caf-receiver": "^6.0.13",
+    "@types/chromecast-caf-sender": "^1.0.8",
     "@types/color": "^3.0.6",
     "@types/luxon": "^3",
     "@types/mdx": "^2.0.10",

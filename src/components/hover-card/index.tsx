@@ -10,7 +10,7 @@ import {
   forwardRef,
 } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useApp } from "@/app/context";
+import { useApp } from "@/app/(main)/context";
 
 type HoverCardState = {
   isOpen?: boolean;

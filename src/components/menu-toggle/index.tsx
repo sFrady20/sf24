@@ -2,7 +2,7 @@
 
 import { ReactNode } from "react";
 import { Button, ButtonProps } from "../ui/button";
-import { useApp } from "@/app/context";
+import { useApp } from "@/app/(main)/context";
 
 export default function (props: { children: ReactNode } & ButtonProps) {
   const { children, ...rest } = props;

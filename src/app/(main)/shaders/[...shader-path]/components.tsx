@@ -1,12 +1,13 @@
 "use client";
 
 import { cn } from "@/utils/cn";
-import { HTMLAttributes, forwardRef, useState } from "react";
+import { HTMLAttributes, ReactNode, forwardRef, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useCast } from "@/components/cast";
 
-export interface ExpandableProps extends HTMLAttributes<HTMLDivElement> {}
+export interface CodeExpanderProps extends HTMLAttributes<HTMLDivElement> {}
 
-export const CodeExpander = forwardRef<HTMLDivElement, ExpandableProps>(
+export const CodeExpander = forwardRef<HTMLDivElement, CodeExpanderProps>(
   (props, ref) => {
     const { children, className, ...rest } = props;
 
@@ -51,3 +52,39 @@ export const CodeExpander = forwardRef<HTMLDivElement, ExpandableProps>(
     );
   }
 );
+
+export function CastButton(props: {
+  children?: ReactNode;
+  shaderPath: string;
+}) {
+  const { children, shaderPath } = props;
+
+  const ref = useRef<HTMLButtonElement>(null);
+
+  const cast = useCast()();
+
+  if (!cast.initialized) return null;
+
+  return (
+    <Button
+      ref={ref}
+      variant={"ghost"}
+      className="gap-2"
+      onClick={async (e) => {
+        await cast.requestSession();
+        await cast.sendMessage({
+          action: `NAVIGATE`,
+          path: `/cast/shader/${shaderPath}`,
+        });
+      }}
+    >
+      <div
+        className="w-[1em] h-[1em]"
+        dangerouslySetInnerHTML={{
+          __html: `<google-cast-launcher></google-cast-launcher>`,
+        }}
+      />
+      {children}
+    </Button>
+  );
+}

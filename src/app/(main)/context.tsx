@@ -7,6 +7,7 @@ type AppState = {
   isMenuOpen: boolean;
   mouse: { x: number; y: number };
   window: { width: number; height: number };
+  cast: { initialized: boolean };
 };
 
 export const { Context: AppContext, hook: useApp } =
@@ -14,6 +15,9 @@ export const { Context: AppContext, hook: useApp } =
     isMenuOpen: false,
     mouse: { x: 0, y: 0 },
     window: { width: 0, height: 0 },
+    cast: {
+      initialized: false,
+    },
   });
 
 export function AppProvider(props: { children?: ReactNode }) {
@@ -23,6 +27,7 @@ export function AppProvider(props: { children?: ReactNode }) {
     isMenuOpen: false,
     mouse: { x: 0, y: 0 },
     window: { width: 0, height: 0 },
+    cast: { initialized: false },
   });
 
   useEffect(() => {
