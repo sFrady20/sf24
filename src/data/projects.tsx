@@ -3,9 +3,9 @@ import Link from "next/link";
 
 export const categories = [
   {
-    id: "startups",
-    title: "Startups",
-    intro: `Startups showcase the process of turning concepts into concrete
+    id: "apps",
+    title: "Apps",
+    intro: `Apps showcase the process of turning concepts into concrete
       results. Here, you'll see projects where my skills and those of my
       peers come together to build practical, impactful solutions.`,
     projects: [
@@ -72,9 +72,9 @@ export const categories = [
     ],
   },
   {
-    id: "solo",
-    title: "Solopreneur Journey",
-    intro: `Solopreneurship is the canvas for my personal and professional
+    id: "tools",
+    title: "Tools",
+    intro: `These tools are the canvas for my personal and professional
       ethos. This space is dedicated to projects that are solely mine,
       from initial concept to final execution.`,
     projects: [

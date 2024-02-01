@@ -124,14 +124,14 @@ export default async function (props: {
               variant={"ghost"}
               asChild
             >
-              <Link href={"/#startups"}>Startups</Link>
+              <Link href={"/#apps"}>Apps</Link>
             </MenuToggle>
             <MenuToggle
               className="h-auto text-3xl md:text-5xl"
               variant={"ghost"}
               asChild
             >
-              <Link href={"/#solo"}>Solo</Link>
+              <Link href={"/#tools"}>Tools</Link>
             </MenuToggle>
             <MenuToggle
               className="h-auto text-3xl md:text-5xl"
@@ -173,8 +173,8 @@ export default async function (props: {
                 <div className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col">
                   {[
                     { link: "/", label: "Home" },
-                    { link: "/#startups", label: "Startups" },
-                    { link: "/#solo", label: "Solo" },
+                    { link: "/#apps", label: "Apps" },
+                    { link: "/#tools", label: "Tools" },
                     { link: "/#oss", label: "OSS" },
                     { link: "/#freelance", label: "Freelance" },
                     { link: "/shaders", label: "Shaders" },
