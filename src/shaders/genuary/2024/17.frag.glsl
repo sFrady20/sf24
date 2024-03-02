@@ -17,6 +17,11 @@ uniform vec2 resolution;
 
 void main(){
   vec2 uv=gl_FragCoord.xy/resolution.xy;
-  vec4 color=vec4(uv,sin(time),1.);
+  
+  //normalize uv
+  uv-=vec2(.5);
+  uv*=min(vec2(resolution.x/resolution.y,1.),vec2(1.,resolution.y/resolution.x));
+  
+  vec4 color=vec4(abs(uv),sin(time),1.);
   gl_FragColor=color;
 }

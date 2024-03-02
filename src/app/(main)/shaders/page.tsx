@@ -13,11 +13,34 @@ import frag_24_8 from "@/shaders/genuary/2024/8.frag.glsl";
 import frag_24_10 from "@/shaders/genuary/2024/10.frag.glsl";
 import frag_24_12 from "@/shaders/genuary/2024/12.frag.glsl";
 import frag_24_13 from "@/shaders/genuary/2024/13.frag.glsl";
-import frag_24_14 from "@/shaders/genuary/2024/14.frag.glsl";
+import frag_24_17 from "@/shaders/genuary/2024/17.frag.glsl";
+import frag_24_29 from "@/shaders/genuary/2024/29.frag.glsl";
+import frag_24_30 from "@/shaders/genuary/2024/30.frag.glsl";
 
 export default async function () {
   return (
     <div className="grid grid-cols-3 w-full mt-[100px] md:mt-[132px]">
+      <ShaderCard
+        frag={frag_24_30}
+        title={"Shaders"}
+        subtitle={"Genuary 2024 - Day 30"}
+        shaderPath="genuary/2024/30"
+        className="col-span-3 md:col-span-1"
+      />
+      <ShaderCard
+        frag={frag_24_29}
+        title={"Signed Distance Function"}
+        subtitle={"Genuary 2024 - Day 29"}
+        shaderPath="genuary/2024/29"
+        className="col-span-3 md:col-span-1"
+      />
+      <ShaderCard
+        frag={frag_24_17}
+        title={"Ceasefire"}
+        subtitle={"Genuary 2024 - Day 17"}
+        shaderPath="genuary/2024/17"
+        className="col-span-3 md:col-span-1"
+      />
       <ShaderCard
         frag={frag_24_13}
         title={"Wobble Function"}
