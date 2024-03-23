@@ -204,6 +204,16 @@ export const categories = [
     ),
     projects: [
       {
+        id: "swag-shop",
+        label: "Spin To Win",
+        description: `Spin-To-Win included two installations: the first, for the AT&T Final Four, used a basketball with a spin sensor to operate a prize spinner animation. The second, for Mountain Dew, offered a digital animation for prize selection. Both served as interactive methods for prize distribution at events.`,
+        year: "2024",
+        hasVideo: true,
+        platforms: ["desktop"],
+        languages: ["C#"],
+        frameworks: ["React", "Electron", "Vite"],
+      },
+      {
         id: "homerunderby",
         label: "Capital One Home Run Derby",
         description: `The Capital One Home Run Derby is a Unity-based game developed for live events, offering an immersive home run derby experience. Players engage with the game using a physical bat equipped with sensors, which translates their movements directly into the game displayed on a large screen.`,
