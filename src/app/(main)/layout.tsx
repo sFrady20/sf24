@@ -11,6 +11,7 @@ import MenuToggle from "@/components/menu-toggle";
 import Menu from "@/components/menu";
 import Frady from "@/app/frady.svg";
 import { CastSenderProvider } from "@/components/cast/sender";
+import { MusicPlayer } from "@/components/music-player";
 
 const socials = [
   {
@@ -159,6 +160,8 @@ export default async function (props: {
           {children}
 
           {modal}
+
+          <MusicPlayer />
 
           <footer className="py-[100px] bg-foreground/5">
             <div className="container flex flex-col gap-10">
