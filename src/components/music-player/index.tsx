@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Howl } from "howler";
 import { Button } from "../ui/button";
 import { useAnimationFrame } from "framer-motion";
@@ -31,16 +31,16 @@ export function MusicPlayer(props: {}) {
 
   useAnimationFrame(() => {
     if (isPlaying)
-      setProgress(Math.round((song.seek() / song.duration()) * 100));
+      setProgress(Math.round((song.seek() / song.duration()) * 100) / 100);
   });
 
   return (
     <div
-      className="fixed right-4 bottom-4 md:right-10 md;bottom-10 flex flex-row gap-4 z-[60] p-1 rounded-lg"
+      className="fixed right-4 bottom-4 md:right-10 md:bottom-10 flex flex-row gap-4 z-[60] p-1 rounded-lg"
       style={{
         background: `conic-gradient(hsl(var(--foreground)) ${
-          progress - 1
-        }deg, transparent ${progress}deg)`,
+          progress * 360 - 1
+        }deg, transparent ${progress * 360}deg)`,
       }}
     >
       <div className="bg-background rounded-md flex">
