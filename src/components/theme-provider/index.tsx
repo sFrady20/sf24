@@ -32,7 +32,7 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 export function ThemeProvider({
   children,
-  defaultTheme = "dark",
+  defaultTheme = "system",
   storageKey = "theme",
   ...props
 }: ThemeProviderProps) {
@@ -47,7 +47,7 @@ export function ThemeProvider({
   const actualTheme = useMemo(
     () =>
       typeof window === "undefined"
-        ? "light"
+        ? "system"
         : theme === "system"
         ? holiday.hasSame(DateTime.now(), "day") && "holiday"
           ? "holiday"

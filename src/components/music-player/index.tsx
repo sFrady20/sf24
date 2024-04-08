@@ -1,12 +1,24 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  forwardRef,
+  useMemo,
+  useState,
+} from "react";
 import { Howl } from "howler";
 import { Button } from "../ui/button";
 import { useAnimationFrame } from "framer-motion";
 import { cn } from "@/utils/cn";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
-export function MusicPlayer(props: {}) {
+export const MusicPlayer = forwardRef<
+  ElementRef<"div">,
+  ComponentPropsWithoutRef<"div">
+>((props, ref) => {
+  const { className, style, ...rest } = props;
+
   const [isPlaying, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -21,6 +33,7 @@ export function MusicPlayer(props: {}) {
       },
       onend: () => {
         setPlaying(false);
+        setProgress(0);
       },
       onstop: () => {
         setPlaying(false);
@@ -35,43 +48,56 @@ export function MusicPlayer(props: {}) {
   });
 
   return (
-    <div
-      className="fixed right-4 bottom-4 md:right-10 md:bottom-10 flex flex-row gap-4 z-[60] p-1 rounded-lg"
-      style={{
-        background: `conic-gradient(hsl(var(--foreground)) ${
-          progress * 360 - 1
-        }deg, transparent ${progress * 360}deg)`,
-      }}
-    >
-      <div className="bg-background rounded-md flex">
-        <Button
-          variant={isPlaying ? "outline" : "default"}
-          size={"icon"}
+    <Tooltip>
+      <TooltipTrigger>
+        <div
+          ref={ref}
+          {...rest}
           className={cn(
-            "relative text-lg hover:bg-foreground/30 border",
-            isPlaying
-              ? "bg-foreground/20 border-foreground/50"
-              : "bg-background border-foreground/30"
+            "-m-1 flex flex-row gap-4 z-[60] p-1 relative z-[20] rounded-full overflow-hidden",
+            className
           )}
-          onClick={() => {
-            if (isPlaying) song.pause();
-            else song.play();
+          style={{
+            ...style,
+            background: `conic-gradient(hsl(var(--foreground)) ${
+              progress * 360 - 1
+            }deg, transparent ${progress * 360}deg)`,
           }}
         >
-          <i
-            className={cn(
-              "icon-[ri--pause-fill] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 transition",
-              isPlaying && "opacity-100"
-            )}
-          />
-          <i
-            className={cn(
-              "icon-[ri--music-2-fill] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-100 transition",
-              isPlaying && "opacity-0"
-            )}
-          />
-        </Button>
-      </div>
-    </div>
+          <div className="bg-background rounded-full flex">
+            <Button
+              variant={isPlaying ? "outline" : "default"}
+              size={"icon"}
+              className={cn(
+                "relative text-lg hover:bg-foreground/30 border rounded-full",
+                isPlaying
+                  ? "bg-foreground/20 border-foreground/50"
+                  : "bg-background border-foreground/30"
+              )}
+              onClick={() => {
+                if (isPlaying) song.pause();
+                else song.play();
+              }}
+            >
+              <i
+                className={cn(
+                  "icon-[ri--pause-fill] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 -rotate-180 transition-all",
+                  isPlaying && "opacity-100 rotate-0"
+                )}
+              />
+              <i
+                className={cn(
+                  "icon-[ri--music-2-fill] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-100 rotate-0 transition-all",
+                  isPlaying && "opacity-0 rotate-180"
+                )}
+              />
+            </Button>
+          </div>
+        </div>
+      </TooltipTrigger>
+      <TooltipContent side="bottom" key={isPlaying ? `on` : `off`}>
+        {isPlaying ? "Pause music" : "Play my theme song"}
+      </TooltipContent>
+    </Tooltip>
   );
-}
+});
