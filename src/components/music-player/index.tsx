@@ -36,7 +36,7 @@ export function MusicPlayer(props: {}) {
 
   return (
     <div
-      className="fixed right-10 bottom-10 flex flex-row gap-4 z-[60] p-1 rounded-lg"
+      className="fixed right-4 bottom-4 md:right-10 md;bottom-10 flex flex-row gap-4 z-[60] p-1 rounded-lg"
       style={{
         background: `conic-gradient(hsl(var(--foreground)) ${
           progress - 1
