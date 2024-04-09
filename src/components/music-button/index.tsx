@@ -13,18 +13,18 @@ import { useAnimationFrame } from "framer-motion";
 import { cn } from "@/utils/cn";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
-export const MusicPlayer = forwardRef<
+export const MusicButton = forwardRef<
   ElementRef<"div">,
-  ComponentPropsWithoutRef<"div">
+  ComponentPropsWithoutRef<"div"> & { src: string }
 >((props, ref) => {
-  const { className, style, ...rest } = props;
+  const { className, style, src, ...rest } = props;
 
   const [isPlaying, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
 
   const song = useMemo(() => {
     return new Howl({
-      src: `/theme-song.mp3`,
+      src,
       onplay: () => {
         setPlaying(true);
       },

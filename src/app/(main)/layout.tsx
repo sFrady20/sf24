@@ -11,7 +11,7 @@ import MenuToggle from "@/components/menu-toggle";
 import Menu from "@/components/menu";
 import Frady from "@/app/frady.svg";
 import { CastSenderProvider } from "@/components/cast/sender";
-import { MusicPlayer } from "@/components/music-player";
+import { MusicButton } from "@/components/music-button";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 const socials = [
@@ -84,7 +84,7 @@ export default async function (props: {
                   ))}
                 </div>
                 <div className="flex-1 flex flex-row items-center justify-end gap-2 md:gap-4">
-                  <MusicPlayer />
+                  <MusicButton src="/music/lets-connect.mp3" />
                   <ModeToggle />
                   <MenuToggle
                     variant={"ghost"}
