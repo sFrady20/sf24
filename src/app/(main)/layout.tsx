@@ -198,28 +198,32 @@ export default async function (props: {
                       },
                       {
                         link: "https://twitter.com/slowjamsteve",
-                        label: "X",
+                        label: "X (Formally Twitter)",
                       },
                       {
                         link: "https://github.com/sFrady20",
                         label: "Github",
                       },
                       {
-                        link: "https://www.producthunt.com/@sfrady20",
-                        label: "Product Hunt",
-                      },
-                      {
                         link: "https://leetcode.com/sfrady20/",
                         label: "Leet Code",
+                      },
+                      {
+                        link: "https://soundcloud.com/sultan-zabu",
+                        label: "SoundCloud",
                       },
                       {
                         link: "https://dribbble.com/sfrady20",
                         label: "Dribbble",
                       },
-                      {
-                        link: "https://calendly.com/sfrady20",
-                        label: "Calendly",
-                      },
+                      // {
+                      //   link: "https://www.producthunt.com/@sfrady20",
+                      //   label: "Product Hunt",
+                      // },
+                      // {
+                      //   link: "https://calendly.com/sfrady20",
+                      //   label: "Calendly",
+                      // },
                     ].map((x, i) => (
                       <div key={i} className=" col-span-1">
                         <Link
