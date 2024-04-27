@@ -248,7 +248,7 @@ export default async function (props: {
                         <div>Email me</div>
                       </Link>
                       <Link
-                        href={"/resume.pdf"}
+                        href={"/steven-frady-resume.pdf"}
                         download
                         className="hover:underline flex flex-row items-center gap-2"
                         target="_blank"
