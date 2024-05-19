@@ -41,6 +41,7 @@ export default async function () {
       </section>
 
       {categories
+        .filter((x) => !["tools"].includes(x.id))
         .flatMap((x, i) => [
           <section key={i} className="py-[60px]" id={x.id}>
             <div className="max-lg:container md:px-14 flex flex-col lg:grid grid-cols-12 gap-10">

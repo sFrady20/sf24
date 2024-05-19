@@ -130,13 +130,13 @@ export default async function (props: {
               >
                 <Link href={"/#apps"}>Apps</Link>
               </MenuToggle>
-              <MenuToggle
+              {/* <MenuToggle
                 className="h-auto text-3xl md:text-5xl"
                 variant={"ghost"}
                 asChild
               >
                 <Link href={"/#tools"}>Tools</Link>
-              </MenuToggle>
+              </MenuToggle> */}
               <MenuToggle
                 className="h-auto text-3xl md:text-5xl"
                 variant={"ghost"}
@@ -178,7 +178,7 @@ export default async function (props: {
                     {[
                       { link: "/", label: "Home" },
                       { link: "/#apps", label: "Apps" },
-                      { link: "/#tools", label: "Tools" },
+                      // { link: "/#tools", label: "Tools" },
                       { link: "/#oss", label: "OSS" },
                       { link: "/#freelance", label: "Freelance" },
                       { link: "/shaders", label: "Shaders" },
@@ -248,13 +248,13 @@ export default async function (props: {
                         <div>Email me</div>
                       </Link>
                       <Link
-                        href={"/steven-frady-resume.pdf"}
+                        href={"https://resume.stevenfrady.com"}
                         download
                         className="hover:underline flex flex-row items-center gap-2"
                         target="_blank"
                       >
                         <i className="icon-[ri--download-cloud-fill]" />
-                        <div>Download Resume</div>
+                        <div>Resume</div>
                       </Link>
                       <Link
                         href={"https://venmo.com/?txn=pay&recipients=sfrady"}
