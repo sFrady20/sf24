@@ -64,7 +64,12 @@ export const MusicButton = forwardRef<
             }deg, transparent ${progress * 360}deg)`,
           }}
         >
-          <div className="bg-background rounded-full flex">
+          <div
+            className={cn(
+              "rounded-full flex",
+              progress !== 0 && "bg-background"
+            )}
+          >
             <Button
               variant={isPlaying ? "outline" : "default"}
               size={"icon"}
@@ -72,7 +77,9 @@ export const MusicButton = forwardRef<
                 "relative text-lg hover:bg-foreground/30 border rounded-full",
                 isPlaying
                   ? "bg-foreground/20 border-foreground/50"
-                  : "bg-background border-foreground/30"
+                  : "bg-background border-foreground/30",
+                progress === 0 &&
+                  "border-none bg-[transparent] hover:bg-foreground/30"
               )}
               onClick={() => {
                 if (isPlaying) song.pause();
