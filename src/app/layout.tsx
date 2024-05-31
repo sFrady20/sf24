@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { Viewport } from "next/types";
 import { cn } from "@/utils/cn";
 import { fonts } from "@/utils/fonts";
+import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
   title: "Steven Frady - Creative Full-Stack Developer",
@@ -41,6 +42,10 @@ export const viewport: Viewport = {
 export default function App(props: { children?: ReactNode }) {
   const { children } = props;
 
+  const cookieJar = cookies();
+
+  const colorScheme = cookieJar.get("color-scheme");
+
   return (
     <html lang="en">
       <body
@@ -48,7 +53,8 @@ export default function App(props: { children?: ReactNode }) {
           fonts.display.variable,
           fonts.title.variable,
           fonts.body.variable,
-          "bg-background text-foreground font-body selection:bg-foreground selection:text-background"
+          "bg-background text-foreground font-body selection:bg-foreground selection:text-background",
+          colorScheme?.value || "system"
         )}
       >
         {children}

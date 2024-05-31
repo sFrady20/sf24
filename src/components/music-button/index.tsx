@@ -49,7 +49,7 @@ export const MusicButton = forwardRef<
 
   return (
     <Tooltip>
-      <TooltipTrigger>
+      <TooltipTrigger asChild>
         <div
           ref={ref}
           {...rest}
