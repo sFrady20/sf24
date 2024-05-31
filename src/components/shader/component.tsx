@@ -28,10 +28,10 @@ export function Shader(props: ShaderProps) {
   }).current;
 
   const [firstRender, setFirstRender] = useState(true);
-  const obs = useIntersectionObserver(containerEl, {});
+  const { isIntersecting, ref } = useIntersectionObserver();
 
   useEffect(() => {
-    if (!firstRender && (paused || !obs?.isIntersecting)) return;
+    if (!firstRender && (paused || !isIntersecting)) return;
     let frame = 0;
     const cb = (now: number) => {
       uniforms.time.value = now / 1000;
@@ -41,7 +41,7 @@ export function Shader(props: ShaderProps) {
     return () => {
       cancelAnimationFrame(frame);
     };
-  }, [paused, obs?.isIntersecting, firstRender]);
+  }, [paused, isIntersecting, firstRender]);
 
   const size = useSize(containerEl);
   useEffect(() => {
@@ -50,7 +50,10 @@ export function Shader(props: ShaderProps) {
 
   return (
     <div
-      ref={containerEl}
+      ref={(r) => {
+        (containerEl as any).current = r;
+        ref(r);
+      }}
       {...rest}
       className={cn("bg-black relative", className)}
     >
@@ -59,9 +62,7 @@ export function Shader(props: ShaderProps) {
       )}
       <div className="w-full h-full">
         <Canvas dpr={[1, 1]}>
-          {!firstRender && (paused || !obs?.isIntersecting) && (
-            <DisableRender />
-          )}
+          {!firstRender && (paused || !isIntersecting) && <DisableRender />}
           {frag && (
             <Slice key={frag}>
               <shaderMaterial
