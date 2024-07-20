@@ -297,12 +297,6 @@ export const categories = [
         platforms: ["web", "mobile"],
         languages: ["Brightscript", "PHP", "Kotlin"],
         frameworks: ["Roku", "Android"],
-        links: [
-          {
-            link: "https://www.drexls.com/",
-            icon: "icon-[ri--external-link-fill]",
-          },
-        ],
       },
       {
         id: "phonetopia",
