@@ -23,7 +23,7 @@ export function Shader(props: ShaderProps) {
   const uniforms = useRef({
     resolution: { value: [100, 100] },
     time: { value: 0 },
-    cursor: { value: [0, 0] },
+    pointer: { value: [0, 0] },
     seed: { value: seed || Math.random() },
   }).current;
 
@@ -56,6 +56,16 @@ export function Shader(props: ShaderProps) {
       }}
       {...rest}
       className={cn("bg-black relative", className)}
+      onResize={(e) => {
+        const bounds = (e.target as HTMLCanvasElement).getBoundingClientRect();
+        uniforms.resolution.value[0] = bounds.width;
+        uniforms.resolution.value[1] = bounds.height;
+      }}
+      onMouseMove={(e) => {
+        const bounds = (e.target as HTMLCanvasElement).getBoundingClientRect();
+        uniforms.pointer.value[0] = e.clientX + bounds.x;
+        uniforms.pointer.value[1] = -e.clientY + bounds.y + bounds.height;
+      }}
     >
       {firstRender && (
         <i className="icon-[svg-spinners--90-ring-with-bg] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 color-[white]" />

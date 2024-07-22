@@ -6,6 +6,7 @@ import frag4 from "@/shaders/genuary/2022/4.frag.glsl";
 import frag5 from "@/shaders/genuary/2022/5.frag.glsl";
 import frag6 from "@/shaders/genuary/2022/6.frag.glsl";
 import frag7 from "@/shaders/genuary/2022/7.frag.glsl";
+import frag18 from "@/shaders/genuary/2022/18.frag.glsl";
 
 import frag_24_6 from "@/shaders/genuary/2024/6.frag.glsl";
 import frag_24_7 from "@/shaders/genuary/2024/7.frag.glsl";
@@ -58,6 +59,13 @@ export default async function () {
         title={"Screensaver"}
         subtitle={"Genuary 2024 - Day 6"}
         shaderPath="genuary/2024/6"
+        className="col-span-3 md:col-span-1"
+      />
+      <ShaderCard
+        frag={frag18}
+        title={"VHS"}
+        subtitle={"Genuary 2022 - Day 18"}
+        shaderPath="genuary/2022/18"
         className="col-span-3 md:col-span-1"
       />
       <ShaderCard
