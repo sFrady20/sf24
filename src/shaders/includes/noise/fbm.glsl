@@ -1,6 +1,6 @@
+//3D gradient noise by Íñigo Quílez
 uniform float time;
 
-//3D gradient noise by Íñigo Quílez
 vec3 hash(vec3 p){
     p=vec3(dot(p,vec3(127.1,311.7,74.7)),
     dot(p,vec3(269.5,183.3,246.1)),

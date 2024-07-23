@@ -6,6 +6,7 @@ import Slice from "@/components/slice";
 import { useIntersectionObserver } from "usehooks-ts";
 import { useSize } from "./size";
 import { cn } from "@/utils/cn";
+import { Vector2 } from "three";
 
 const DisableRender = () => useFrame(() => null, 1000);
 
@@ -23,7 +24,14 @@ export function Shader(props: ShaderProps) {
   const uniforms = useRef({
     resolution: { value: [100, 100] },
     time: { value: 0 },
-    pointer: { value: [0, 0] },
+    pointer: {
+      value: [0, 0],
+    },
+    pointers: {
+      value: Array(10)
+        .fill("")
+        .map(() => new Vector2(0, 0)),
+    },
     seed: { value: seed || Math.random() },
   }).current;
 
@@ -61,10 +69,16 @@ export function Shader(props: ShaderProps) {
         uniforms.resolution.value[0] = bounds.width;
         uniforms.resolution.value[1] = bounds.height;
       }}
-      onMouseMove={(e) => {
+      onPointerMove={(e) => {
         const bounds = (e.target as HTMLCanvasElement).getBoundingClientRect();
+
         uniforms.pointer.value[0] = e.clientX + bounds.x;
         uniforms.pointer.value[1] = -e.clientY + bounds.y + bounds.height;
+
+        uniforms.pointers.value[e.pointerId - 1].set(
+          e.clientX + bounds.x,
+          -e.clientY + bounds.y + bounds.height
+        );
       }}
     >
       {firstRender && (
