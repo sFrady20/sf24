@@ -1,11 +1,10 @@
 import { ImageResponse } from "next/og";
 import { shaderData } from "@/data/shaders";
 import { NextRequest } from "next/server";
+import { headers } from "next/headers";
 
-// Route segment config
 export const runtime = "edge";
 
-// Image generation
 export const GET = async function (
   req: NextRequest,
   {
@@ -17,17 +16,17 @@ export const GET = async function (
   const shaderPath = params["shader-path"];
   const data = shaderData[shaderPath.join("/")];
 
-  // Font
+  const headersList = headers();
+
   return new ImageResponse(
     (
-      // ImageResponse JSX element
       <div
         style={{
           fontSize: 40,
           backgroundColor: "#111111",
-          backgroundImage: `url(http://localhost:3000/shaders/${shaderPath.join(
-            "/"
-          )}.png)`,
+          backgroundImage: `url(http://${headersList.get(
+            "host"
+          )}/shaders/${shaderPath.join("/")}.png)`,
           backgroundSize: "100% 100%",
           width: "100%",
           height: "100%",

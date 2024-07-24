@@ -15,7 +15,9 @@ export async function generateMetadata({
   const data = shaderData[params["shader-path"].join("/")];
   if (!data) return undefined;
 
-  const title = `${data.title} by Steven Frady`;
+  const title = `${data.title}${
+    data.subtitle ? ` - ${data.subtitle}` : ``
+  } - A shader by Steven Frady`;
 
   return {
     title,
@@ -28,7 +30,9 @@ export async function generateMetadata({
           type: "image/png",
           width: 1200,
           height: 630,
-          url: `/opengraph/shaders/${params["shader-path"].join("/")}`,
+          url: `https://stevenfrady.com/opengraph/shaders/${params[
+            "shader-path"
+          ].join("/")}`,
         },
       ],
     },
@@ -42,7 +46,9 @@ export async function generateMetadata({
           type: "image/png",
           width: 1200,
           height: 630,
-          url: `/opengraph/shaders/${params["shader-path"].join("/")}`,
+          url: `https://stevenfrady.com/opengraph/shaders/${params[
+            "shader-path"
+          ].join("/")}`,
         },
       ],
     },
