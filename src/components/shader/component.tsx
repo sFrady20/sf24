@@ -1,12 +1,20 @@
 "use client";
 
-import { HTMLAttributes, useEffect, useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import {
+  ElementRef,
+  HTMLAttributes,
+  forwardRef,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import Slice from "@/components/slice";
 import { useIntersectionObserver } from "usehooks-ts";
 import { useSize } from "./size";
 import { cn } from "@/utils/cn";
 import { Vector2 } from "three";
+import { useKeyboardControls } from "@react-three/drei";
 
 const DisableRender = () => useFrame(() => null, 1000);
 
@@ -16,7 +24,7 @@ export interface ShaderProps extends HTMLAttributes<HTMLDivElement> {
   seed?: number;
 }
 
-export function Shader(props: ShaderProps) {
+export const Shader = function (props: ShaderProps) {
   const { frag, paused, className, seed, ...rest } = props;
 
   const containerEl = useRef<HTMLDivElement>(null);
@@ -36,7 +44,7 @@ export function Shader(props: ShaderProps) {
   }).current;
 
   const [firstRender, setFirstRender] = useState(true);
-  const { isIntersecting, ref } = useIntersectionObserver();
+  const { isIntersecting, ref: containerRef } = useIntersectionObserver();
 
   useEffect(() => {
     if (!firstRender && (paused || !isIntersecting)) return;
@@ -60,7 +68,7 @@ export function Shader(props: ShaderProps) {
     <div
       ref={(r) => {
         (containerEl as any).current = r;
-        ref(r);
+        containerRef(r);
       }}
       {...rest}
       className={cn("bg-black relative", className)}
@@ -102,4 +110,4 @@ export function Shader(props: ShaderProps) {
       </div>
     </div>
   );
-}
+};

@@ -4,6 +4,50 @@ import { notFound } from "next/navigation";
 import { CastButton, CodeExpander } from "./components";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { shaderData } from "@/data/shaders";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { ["shader-path"]: string[] };
+}): Promise<Metadata | undefined> {
+  const data = shaderData[params["shader-path"].join("/")];
+  if (!data) return undefined;
+
+  const title = `${data.title} by Steven Frady`;
+
+  return {
+    title,
+    openGraph: {
+      title,
+      url: `/shaders/${params["shader-path"].join("/")}`,
+      images: [
+        {
+          alt: title,
+          type: "image/png",
+          width: 1200,
+          height: 630,
+          url: `/opengraph/shaders/${params["shader-path"].join("/")}`,
+        },
+      ],
+    },
+    twitter: {
+      title,
+      card: "summary_large_image",
+      site: "Steven Frady",
+      images: [
+        {
+          alt: title,
+          type: "image/png",
+          width: 1200,
+          height: 630,
+          url: `/opengraph/shaders/${params["shader-path"].join("/")}`,
+        },
+      ],
+    },
+  };
+}
 
 export default async function (props: {
   params: { ["shader-path"]: string[] };
@@ -53,6 +97,12 @@ export default async function (props: {
               <CastButton shaderPath={shaderPath}>
                 <div>Cast to ChromeCast</div>
               </CastButton>
+              {/* <Button variant={"ghost"} className="gap-2" asChild>
+                <Link href={`/shaders`}>
+                  <i className="icon-[ri--screenshot-2-fill]" />
+                  <div>Screenshot</div>
+                </Link>
+              </Button> */}
               <Button variant={"ghost"} className="gap-2" asChild>
                 <Link href={`/shaders`}>
                   <i className="icon-[ri--arrow-go-back-fill]" />
