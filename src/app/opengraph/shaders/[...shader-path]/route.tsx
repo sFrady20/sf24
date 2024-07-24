@@ -32,7 +32,7 @@ export const GET = async function (
           height: "100%",
           display: "flex",
           alignItems: "flex-end",
-          justifyContent: "flex-start",
+          justifyContent: "flex-end",
         }}
       >
         <div
@@ -40,13 +40,10 @@ export const GET = async function (
             display: "flex",
             flexDirection: "column",
             gap: "6px",
-            width: "100%",
-            background: "rgba(0,0,0,0.85)",
             padding: "32px",
-            backdropFilter: "blur(16px)",
           }}
         >
-          {data?.title && (
+          {/* {data?.title && (
             <h1
               style={{
                 color: "white",
@@ -71,7 +68,7 @@ export const GET = async function (
             >
               {data?.subtitle}
             </h2>
-          )}
+          )} */}
           <h3
             style={{
               color: "white",
@@ -79,7 +76,11 @@ export const GET = async function (
               lineHeight: "16px",
               margin: 0,
               fontWeight: "bold",
+              background: "rgba(0,0,0,0.85)",
               opacity: 0.6,
+              backdropFilter: "blur(16px)",
+              borderRadius: "8px",
+              padding: "4px 6px",
             }}
           >
             www.stevenfrady.com
