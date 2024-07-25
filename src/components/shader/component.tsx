@@ -1,20 +1,13 @@
 "use client";
 
-import {
-  ElementRef,
-  HTMLAttributes,
-  forwardRef,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { HTMLAttributes, useEffect, useRef, useState } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
 import Slice from "@/components/slice";
 import { useIntersectionObserver } from "usehooks-ts";
 import { useSize } from "./size";
 import { cn } from "@/utils/cn";
-import { Vector2 } from "three";
-import { useKeyboardControls } from "@react-three/drei";
+import { IUniform, Vector2, Vector3 } from "three";
+import merge from "lodash/merge";
 
 const DisableRender = () => useFrame(() => null, 1000);
 
@@ -22,26 +15,44 @@ export interface ShaderProps extends HTMLAttributes<HTMLDivElement> {
   frag?: string;
   paused?: boolean;
   seed?: number;
+  uniforms?: Record<string, IUniform<any>>;
 }
 
 export const Shader = function (props: ShaderProps) {
-  const { frag, paused, className, seed, ...rest } = props;
+  const {
+    frag,
+    paused,
+    className,
+    seed,
+    uniforms: uniformsProp = {},
+    ...rest
+  } = props;
 
   const containerEl = useRef<HTMLDivElement>(null);
 
-  const uniforms = useRef({
-    resolution: { value: [100, 100] },
-    time: { value: 0 },
-    pointer: {
-      value: [0, 0],
-    },
-    pointers: {
-      value: Array(10)
-        .fill("")
-        .map(() => new Vector2(0, 0)),
-    },
-    seed: { value: seed || Math.random() },
-  }).current;
+  const uniforms = useRef(
+    merge(uniformsProp, {
+      resolution: { value: [100, 100] },
+      time: { value: 0 },
+      pointer: {
+        value: [0, 0],
+      },
+      pointers: {
+        value: Array(10)
+          .fill("")
+          .map(() => new Vector2(0, 0)),
+      },
+      seed: { value: seed || Math.random() },
+      palette: {
+        value: [
+          new Vector3(0.5, 0.5, 0.5),
+          new Vector3(0.5, 0.5, 0.5),
+          new Vector3(1.0, 1.0, 1.0),
+          new Vector3(0.0, 0.33, 0.67),
+        ],
+      },
+    })
+  ).current;
 
   const [firstRender, setFirstRender] = useState(true);
   const { isIntersecting, ref: containerRef } = useIntersectionObserver();

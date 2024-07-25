@@ -1,8 +1,8 @@
-//Make a sea of shapes.
-
 uniform float time;
 uniform float seed;
 uniform vec2 resolution;
+
+//Make a sea of shapes.
 
 void main(){
   vec2 uv=gl_FragCoord.xy/resolution.xy;

@@ -53,7 +53,7 @@ export default function App(props: { children?: ReactNode }) {
           fonts.display.variable,
           fonts.title.variable,
           fonts.body.variable,
-          "bg-background text-foreground font-body selection:bg-foreground selection:text-background",
+          "bg-background text-foreground font-body selection:bg-foreground selection:text-background flex flex-col min-h-[100svh]",
           colorScheme?.value || "dark"
         )}
       >

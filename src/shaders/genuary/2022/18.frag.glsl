@@ -1,4 +1,3 @@
-
 uniform float time;
 uniform float seed;
 uniform vec2 resolution;
@@ -9,7 +8,6 @@ uniform vec2 pointers[10];
 #pragma glslify:smoothUnion=require('../../includes/ops/smooth-union')
 #pragma glslify:rotate=require('../../includes/ops/rotate')
 #pragma glslify:noise3d=require('../../includes/noise/3d')
-
 
 //Genuaray 2022/18: VHS.
 #define V vec2(0.,1.)
