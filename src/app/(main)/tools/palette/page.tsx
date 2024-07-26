@@ -45,7 +45,7 @@ export default function () {
             {new Array(3).fill("").map((x, ii) => (
               <div
                 key={ii}
-                className="flex-1 flex flex-col gap-4 border-b border-foreground/20 py-4"
+                className="flex-1 flex flex-col gap-4 border-b border-foreground/20 md:border-none py-4"
               >
                 {new Array(4).fill("").map((x, i) => (
                   <div key={i} className="w-full flex flex-row gap-2">
