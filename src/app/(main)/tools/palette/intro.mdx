@@ -1,0 +1,15 @@
+## Procedural Palette Generation Tool
+
+This tool creates customizable color palettes for GLSL shaders using a simple yet powerful mathematical formula. The technique was eloquently explained and popularized by [Inigo Quilez](https://iquilezles.org), an expert in computer graphics and procedural generation.
+
+The tool generates smooth, cyclical color transitions useful for adding variations to procedural elements, colorizing grayscale signals, or creating visual effects. It's based on the following cosine formula:
+
+```
+color(t) = a + b * cos(2π(c*t+d))
+```
+
+Where `t` is the input (0 to 1), and `a`, `b`, `c`, `d` are vector parameters controlling the palette.
+
+Adjust the sliders below to modify these parameters. The palette updates in real-time, allowing you to experiment with different color schemes. Feel free to use the generated GLSL code in your shaders.
+
+For an excellent, in-depth explanation of this technique, check out Inigo Quilez's ["Palettes"](https://iquilezles.org/articles/palettes/) article.

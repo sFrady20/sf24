@@ -176,7 +176,7 @@ export default async function (props: {
                   </p>
                   <div className="text-sm">© 2024</div>
                 </div>
-                <div className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col">
+                <div className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1">
                   {[
                     { link: "/", label: "Home" },
                     { link: "/#apps", label: "Apps" },
@@ -186,13 +186,16 @@ export default async function (props: {
                     { link: "/shaders", label: "Shaders" },
                   ].map((x, i) => (
                     <div key={i} className=" col-span-1">
-                      <Link href={x.link} className="hover:underline">
+                      <Link
+                        href={x.link}
+                        className="hover:underline text-sm font-title"
+                      >
                         {x.label}
                       </Link>
                     </div>
                   ))}
                 </div>
-                <div className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col">
+                <div className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1">
                   {[
                     {
                       link: "https://www.linkedin.com/in/stevenfrady/",
@@ -227,10 +230,10 @@ export default async function (props: {
                     //   label: "Calendly",
                     // },
                   ].map((x, i) => (
-                    <div key={i} className=" col-span-1">
+                    <div key={i} className="col-span-1">
                       <Link
                         href={x.link}
-                        className="hover:underline"
+                        className="hover:underline text-sm font-title"
                         target="_blank"
                       >
                         {x.label}
@@ -238,36 +241,34 @@ export default async function (props: {
                     </div>
                   ))}
                 </div>
-                <div className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col">
-                  <div className=" col-span-1 opacity-60">
-                    <Link
-                      href={"mailto:sfrady20@gmail.com"}
-                      download
-                      className="hover:underline flex flex-row items-center gap-2"
-                      target="_blank"
-                    >
-                      <i className="icon-[ri--mail-fill]" />
-                      <div>Email me</div>
-                    </Link>
-                    <Link
-                      href={"https://resume.stevenfrady.com"}
-                      download
-                      className="hover:underline flex flex-row items-center gap-2"
-                      target="_blank"
-                    >
-                      <i className="icon-[ri--download-cloud-fill]" />
-                      <div>Resume</div>
-                    </Link>
-                    <Link
-                      href={"https://venmo.com/?txn=pay&recipients=sfrady"}
-                      download
-                      className="hover:underline flex flex-row items-center gap-2"
-                      target="_blank"
-                    >
-                      <i className="icon-[ri--cup-fill]" />
-                      <div>Buy me a coffee</div>
-                    </Link>
-                  </div>
+                <div className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1 opacity-60">
+                  <Link
+                    href={"mailto:sfrady20@gmail.com"}
+                    download
+                    className="hover:underline flex flex-row items-center gap-2 font-title text-sm"
+                    target="_blank"
+                  >
+                    <i className="icon-[ri--mail-fill]" />
+                    <div>Email me</div>
+                  </Link>
+                  <Link
+                    href={"https://resume.stevenfrady.com"}
+                    download
+                    className="hover:underline flex flex-row items-center gap-2 font-title text-sm"
+                    target="_blank"
+                  >
+                    <i className="icon-[ri--download-cloud-fill]" />
+                    <div>Resume</div>
+                  </Link>
+                  <Link
+                    href={"https://venmo.com/?txn=pay&recipients=sfrady"}
+                    download
+                    className="hover:underline flex flex-row items-center gap-2 font-title text-sm"
+                    target="_blank"
+                  >
+                    <i className="icon-[ri--cup-fill]" />
+                    <div>Buy me a coffee</div>
+                  </Link>
                 </div>
               </div>
             </div>

@@ -7,7 +7,7 @@ import { useIntersectionObserver } from "usehooks-ts";
 import { useSize } from "./size";
 import { cn } from "@/utils/cn";
 import { IUniform, Vector2, Vector3 } from "three";
-import merge from "lodash/merge";
+import defaultsDeep from "lodash/defaultsDeep";
 
 const DisableRender = () => useFrame(() => null, 1000);
 
@@ -28,11 +28,11 @@ export const Shader = function (props: ShaderProps) {
     ...rest
   } = props;
 
-  const containerEl = useRef<HTMLDivElement>(null);
+  const [containerEl, setContainerEl] = useState<HTMLDivElement | null>(null);
 
   const uniforms = useRef(
-    merge(uniformsProp, {
-      resolution: { value: [100, 100] },
+    defaultsDeep(uniformsProp, {
+      resolution: { value: new Vector2(100, 100) },
       time: { value: 0 },
       pointer: {
         value: [0, 0],
@@ -70,24 +70,21 @@ export const Shader = function (props: ShaderProps) {
     };
   }, [paused, isIntersecting, firstRender]);
 
-  const size = useSize(containerEl);
+  const size = useSize(containerEl || undefined);
+
   useEffect(() => {
-    uniforms.resolution.value = size;
-  }, [size]);
+    if (!size[0] && !size[1]) return;
+    uniforms.resolution.value.set(size[0], size[1]);
+  }, [size, containerEl]);
 
   return (
     <div
       ref={(r) => {
-        (containerEl as any).current = r;
+        setContainerEl(r);
         containerRef(r);
       }}
       {...rest}
       className={cn("bg-black relative", className)}
-      onResize={(e) => {
-        const bounds = (e.target as HTMLCanvasElement).getBoundingClientRect();
-        uniforms.resolution.value[0] = bounds.width;
-        uniforms.resolution.value[1] = bounds.height;
-      }}
       onPointerMove={(e) => {
         const bounds = (e.target as HTMLCanvasElement).getBoundingClientRect();
 

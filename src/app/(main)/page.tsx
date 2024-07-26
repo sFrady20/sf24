@@ -31,7 +31,7 @@ export default async function () {
 
       <section className="md:pb-[60px]">
         <div className="container md:max-w-[620px]">
-          <p className="text-left text-xs md:text-sm leading-loose">
+          <p className="text-left text-xs md:text-sm lg:leading-relaxed font-title text-balance">
             I am a developer with over 9 years of experience, specializing in
             web and mobile development. My work is focused on creating
             user-centric solutions, with a commitment to continuous learning and
@@ -47,13 +47,13 @@ export default async function () {
             <div className="max-lg:container md:px-14 flex flex-col lg:grid grid-cols-12 gap-10">
               <div className="col-span-5 xl:col-span-4 xl:col-start-2 row-start-1">
                 <div className="sticky top-[160px] flex flex-col gap-6">
-                  <h3 className="text-xl">{x.title}</h3>
+                  <h3 className="text-xl font-title">{x.title}</h3>
                   {typeof x.intro === "string" ? (
-                    <p className="text-sm md:text-md lg:leading-loose opacity-80">
+                    <p className="text-sm md:text-md lg:leading-relaxed opacity-80 text-balance">
                       {x.intro}
                     </p>
                   ) : (
-                    <div className="text-sm md:text-md lg:leading-loose opacity-80">
+                    <div className="text-sm md:text-md lg:leading-relaxed opacity-80 text-balance">
                       {x.intro}
                     </div>
                   )}
@@ -89,7 +89,7 @@ export default async function () {
                     <HoverCard>
                       <HoverCardTrigger asChild>
                         <AccordionTrigger className="text-left justify-start flex-1 flex flex-row gap-6 hover:bg-foreground/5 rounded-md items-center p-4 -mx-4 cursor-default">
-                          <div className="flex flex-row items-center opacity-60 text-xs">
+                          <div className="flex flex-row items-center opacity-60 text-xs font-title">
                             {(i + 1)
                               .toString()
                               .padStart(2, "0")
@@ -98,8 +98,8 @@ export default async function () {
                                 <div key={i}>{x}</div>
                               ))}
                           </div>
-                          <div className="w-[40px]">{x.year}</div>
-                          <div className="col-span-2 flex-1 text-sm sm:text-md">
+                          <div className="w-[40px] font-title">{x.year}</div>
+                          <div className="col-span-2 flex-1 text-sm sm:text-md font-title">
                             {x.label}
                           </div>
                           <div className="text-right flex flex-row items-center">

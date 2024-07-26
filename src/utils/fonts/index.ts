@@ -1,4 +1,4 @@
-import { IBM_Plex_Sans, IBM_Plex_Serif, EB_Garamond } from "next/font/google";
+import { Lato } from "next/font/google";
 import localFont from "next/font/local";
 
 const display = localFont({
@@ -11,9 +11,9 @@ const title = localFont({
   weight: "400",
   variable: "--font-title",
 });
-const body = localFont({
-  src: "./Optiker-K.woff",
-  weight: "400",
+const body = Lato({
+  subsets: ["latin"],
+  weight: ["400", "700"],
   variable: "--font-body",
 });
 
