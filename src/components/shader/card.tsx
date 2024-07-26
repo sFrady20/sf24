@@ -52,8 +52,24 @@ export function ShaderCard(props: ShaderCardProps) {
       />
       <div className="flex flex-row absolute left-0 bottom-0 w-full items-center justify-between pointer-events-none p-4">
         <div className="flex flex-col">
-          <div className="text-[white] leading-none">{title}</div>
-          <div className="text-[white]/60 leading-none">{subtitle}</div>
+          <div
+            className="text-[white] leading-none font-title"
+            style={{
+              textShadow:
+                "-1px -1px 2px #111, 1px -1px 2px #111, -1px 1px 2px #111, 1px 1px 2px #111",
+            }}
+          >
+            {title}
+          </div>
+          <div
+            className="text-[white]/60 leading-none text-sm font-title drop-shadow-md"
+            style={{
+              textShadow:
+                "-1px -1px 2px #111, 1px -1px 2px #111, -1px 1px 2px #111, 1px 1px 2px #111",
+            }}
+          >
+            {subtitle}
+          </div>
         </div>
         <div className="flex flex-row">
           {shaderPath && (

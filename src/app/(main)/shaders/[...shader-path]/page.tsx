@@ -17,7 +17,7 @@ export async function generateMetadata({
 
   const title = `${data.title}${
     data.subtitle ? ` - ${data.subtitle}` : ``
-  } - A shader by Steven Frady`;
+  } - A GLSL shader by Steven Frady`;
 
   return {
     title,
@@ -103,12 +103,14 @@ export default async function (props: {
               <CastButton shaderPath={shaderPath}>
                 <div>Cast to ChromeCast</div>
               </CastButton>
-              {/* <Button variant={"ghost"} className="gap-2" asChild>
+              {/*
+              <Button variant={"ghost"} className="gap-2" asChild>
                 <Link href={`/shaders`}>
                   <i className="icon-[ri--screenshot-2-fill]" />
                   <div>Screenshot</div>
                 </Link>
-              </Button> */}
+              </Button>
+              */}
               <Button variant={"ghost"} className="gap-2" asChild>
                 <Link href={`/shaders`}>
                   <i className="icon-[ri--arrow-go-back-fill]" />
