@@ -8,6 +8,14 @@ import { useImmer } from "use-immer";
 import Intro from "./intro.mdx";
 import { useRef } from "react";
 import { Code } from "@/components/code";
+import { Slider } from "@/components/slider";
+
+/*
+vec3 a=vec3(0,0.21,0.17);
+vec3 b=vec3(0,0.51,0.44);
+vec3 c=vec3(0,0.62,0.46);
+vec3 d=vec3(0,0,0);
+*/
 
 export default function () {
   const uniforms = useRef({
@@ -49,8 +57,7 @@ export default function () {
               >
                 {new Array(4).fill("").map((x, i) => (
                   <div key={i} className="w-full flex flex-row gap-2">
-                    <input
-                      type="range"
+                    <Slider
                       max={1}
                       min={0}
                       step={0.01}

@@ -1,0 +1,45 @@
+@property --value {
+  initial-value: 0;
+  syntax: "<number>";
+  inherits: true;
+}
+
+@keyframes progress {
+  to {
+    --value: 1;
+  }
+}
+
+.container {
+  timeline-scope: --thumb;
+  animation: progress both linear;
+  animation-direction: reverse;
+  animation-timeline: --thumb;
+  animation-range: contain;
+
+  position: relative;
+  transition: transform 0.1s ease-out;
+}
+.container:active {
+  transform: scaleY(1.2);
+}
+
+.slider {
+  overflow: hidden;
+  opacity: 0;
+}
+.slider::-webkit-slider-thumb {
+  view-timeline: --thumb inline;
+}
+
+.track {
+  @apply bg-foreground/10 absolute inset-0 pointer-events-none rounded-md overflow-hidden;
+}
+.container:hover .track {
+  @apply bg-foreground/20;
+}
+.track::after {
+  content: "";
+  @apply bg-foreground absolute left-0 top-0 h-full pointer-events-none;
+  width: calc(var(--value) * 100%);
+}
