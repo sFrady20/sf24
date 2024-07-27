@@ -184,6 +184,7 @@ export default async function (props: {
                     { link: "/#oss", label: "OSS" },
                     { link: "/#freelance", label: "Freelance" },
                     { link: "/shaders", label: "Shaders" },
+                    { link: "/tools", label: "Tools" },
                   ].map((x, i) => (
                     <div key={i} className=" col-span-1">
                       <Link

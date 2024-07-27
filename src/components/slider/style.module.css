@@ -25,11 +25,13 @@
 }
 
 .slider {
-  overflow: hidden;
-  opacity: 0;
+  @apply cursor-grab overflow-hidden opacity-0;
 }
 .slider::-webkit-slider-thumb {
   view-timeline: --thumb inline;
+}
+.slider:active {
+  @apply cursor-grabbing;
 }
 
 .track {
