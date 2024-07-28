@@ -207,20 +207,20 @@ export default async function (props: {
                       label: "X (Formally Twitter)",
                     },
                     {
+                      link: "https://peerlist.io/sfrady20",
+                      label: "Peerlist",
+                    },
+                    {
                       link: "https://github.com/sFrady20",
                       label: "Github",
                     },
                     {
-                      link: "https://leetcode.com/sfrady20/",
-                      label: "Leet Code",
+                      link: "https://dribbble.com/sfrady20",
+                      label: "Dribbble",
                     },
                     {
                       link: "https://soundcloud.com/sultan-zabu",
                       label: "SoundCloud",
-                    },
-                    {
-                      link: "https://dribbble.com/sfrady20",
-                      label: "Dribbble",
                     },
                     // {
                     //   link: "https://www.producthunt.com/@sfrady20",

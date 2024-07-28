@@ -19,6 +19,14 @@ vec3 c=vec3(0,0.62,0.46);
 vec3 d=vec3(0,0,0);
 */
 
+/*
+Cool one
+vec3 a=vec3(0.56,0.53,0.86);
+vec3 b=vec3(0.79,0.22,0.29);
+vec3 c=vec3(0.84,1,1);
+vec3 d=vec3(0.49,0.33,0.67);
+*/
+
 const defaultUniforms = {
   palette: {
     value: [
