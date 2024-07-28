@@ -19,7 +19,6 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Steven Frady - Creative Full-Stack Developer",
-    url: "https://www.stevenfrady.com/",
     type: "website",
     images: [
       "http://stevenfrady.com/social.webp",
