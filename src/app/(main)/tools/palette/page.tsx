@@ -13,6 +13,18 @@ export const metadata: Metadata = {
   title: "Procedural Palette Generation Tool - Steven Frady",
   description:
     "Create customizable color palettes for GLSL shaders using a simple cosine-based formula",
+  openGraph: {
+    title: "Procedural Palette Generation Tool - Steven Frady",
+    images: [
+      {
+        alt: "Procedural Palette Generation Tool - Steven Frady",
+        type: "image/png",
+        width: 1200,
+        height: 675,
+        url: `https://stevenfrady.com/tools/palette`,
+      },
+    ],
+  },
 };
 
 export default async function () {
