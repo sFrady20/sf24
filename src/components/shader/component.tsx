@@ -74,6 +74,7 @@ export const Shader = function (props: ShaderProps) {
 
   useEffect(() => {
     if (!size[0] && !size[1]) return;
+    console.log(size[0], size[1]);
     uniforms.resolution.value.set(size[0], size[1]);
   }, [size, containerEl]);
 

@@ -1,5 +1,10 @@
 import Intro from "./intro.mdx";
-import { PaletteTool } from "./components";
+import {
+  PaletteEditor,
+  PaletteExamples,
+  PaletteExport,
+  PaletteProvider,
+} from "./components";
 import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -25,8 +30,12 @@ export default async function () {
         <article>
           <Intro />
         </article>
-        <div className="flex flex-col gap-6 mt-10">
-          <PaletteTool />
+        <div className="flex flex-col gap-10 mt-10">
+          <PaletteProvider>
+            <PaletteEditor />
+            <PaletteExamples />
+            <PaletteExport />
+          </PaletteProvider>
         </div>
       </div>
     </div>

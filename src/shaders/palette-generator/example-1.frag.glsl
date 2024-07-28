@@ -25,7 +25,7 @@ const float timeScale=.05;
 float smin(float a,float b){
   float k=10.;
   float res=exp2(-k*a)+exp2(-k*b);
-  return-log2(res)/k;
+  return sin(-log2(res)/k)*0.5+0.5;
 }
 
 void main(){
