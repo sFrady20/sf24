@@ -21,7 +21,7 @@ export const metadata: Metadata = {
         type: "image/png",
         width: 1200,
         height: 675,
-        url: `https://stevenfrady.com/tools/palette`,
+        url: `https://stevenfrady.com/palette-tool.png`,
       },
     ],
   },
