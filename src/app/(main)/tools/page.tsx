@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default async function () {
   return (
-    <div className="flex-1 container py-[80px] md:pt-[132px]">
+    <div className="flex-1 container py-[100px] md:pt-[132px]">
       <div className="grid grid-cols-12 gap-6">
         {/* Favicon and Metadata Editor */}
         <div className="col-span-12 md:col-span-4">

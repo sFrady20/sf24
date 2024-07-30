@@ -2,12 +2,9 @@
 
 import { FileInput } from "@/components/file-input";
 import { Button } from "@/components/ui/button";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-
-//@ts-ignore
-import Jimp from "jimp/es";
 
 const fmtStore = create(
   immer<{ image: File | null }>((get, set) => ({
@@ -98,15 +95,18 @@ export const FMTImageSize = function (props: { size: number }) {
         return;
       }
 
-      const reader = new FileReader();
-      reader.onload = async function () {
-        const result = (await Jimp.read(reader.result as string)).cover(
-          size,
-          size
-        );
-        setDataUrl(await result.getBase64Async(-1));
-      };
-      reader.readAsDataURL(file);
+      const form = new FormData();
+      form.append("file", file);
+      form.append("size", size.toString());
+
+      const result = await fetch(`/api/images/resize`, {
+        method: "post",
+        body: form,
+      });
+
+      setDataUrl(
+        URL.createObjectURL(new Blob([Buffer.from(await result.arrayBuffer())]))
+      );
     })();
   }, [file]);
 

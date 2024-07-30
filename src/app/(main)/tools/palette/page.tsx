@@ -29,10 +29,10 @@ export const metadata: Metadata = {
 
 export default async function () {
   return (
-    <div className="py-[80px] md:pt-[132px] flex-1">
+    <div className="py-[100px] md:pt-[132px] flex-1">
       <div className="container flex flex-col max-w-[1000px]">
         <div>
-          <Button variant={"ghost"} className="gap-2" asChild>
+          <Button variant={"ghost"} className="gap-2 -ml-4" asChild>
             <Link href="/tools">
               <i className="icon-[ri--arrow-left-line]" />
               <div>More tools</div>
