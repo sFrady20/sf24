@@ -105,7 +105,11 @@ export const FMTImageSize = function (props: { size: number }) {
       });
 
       setDataUrl(
-        URL.createObjectURL(new Blob([Buffer.from(await result.arrayBuffer())]))
+        URL.createObjectURL(
+          new Blob([Buffer.from(await result.arrayBuffer())], {
+            type: "image/webp",
+          })
+        )
       );
     })();
   }, [file]);
