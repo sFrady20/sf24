@@ -7,7 +7,7 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
 //@ts-ignore
-import Jimp from "Jimp/es";
+import Jimp from "jimp/es";
 
 const fmtStore = create(
   immer<{ image: File | null }>((get, set) => ({
