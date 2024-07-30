@@ -5,7 +5,6 @@ export default async function () {
     <div className="flex-1 container py-[80px] md:pt-[132px]">
       <div className="grid grid-cols-12 gap-6">
         {/* Favicon and Metadata Editor */}
-        {/*
         <div className="col-span-12 md:col-span-4">
           <Link href="/tools/metadata">
             <div className="bg-foreground/10 rounded p-4 cursor-pointer hover:bg-foreground/15 flex flex-col gap-1">
@@ -18,7 +17,6 @@ export default async function () {
             </div>
           </Link>
         </div>
-        */}
 
         {/* Palette Editor */}
         <div className="col-span-12 md:col-span-4">
