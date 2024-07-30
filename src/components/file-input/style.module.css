@@ -1,0 +1,10 @@
+.container {
+  @apply relative border-[1.5px] border-dashed min-h-[80px] rounded-xl flex flex-row items-center justify-center bg-foreground/5 transition-all;
+}
+.container:hover {
+  @apply bg-foreground/10;
+}
+
+.input {
+  @apply absolute inset-0 opacity-0 cursor-pointer;
+}

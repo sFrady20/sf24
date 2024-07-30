@@ -30,6 +30,7 @@
     "@types/chromecast-caf-sender": "^1.0.10",
     "@types/color": "^3.0.6",
     "@types/howler": "^2.2.11",
+    "@types/jimp": "^0.2.28",
     "@types/lodash": "^4.17.7",
     "@types/luxon": "^3.4.2",
     "@types/mdx": "^2.0.13",
@@ -65,6 +66,8 @@
     "zustand": "^4.5.2"
   },
   "dependencies": {
+    "fflate": "^0.8.2",
+    "jimp": "^0.22.12",
     "lodash": "^4.17.21",
     "use-immer": "^0.10.0"
   }

@@ -11,37 +11,40 @@
 }
 
 .container {
+  @apply relative rounded-md overflow-hidden;
+
   timeline-scope: --thumb;
   animation: progress both linear;
   animation-direction: reverse;
   animation-timeline: --thumb;
   animation-range: contain;
 
-  position: relative;
   transition: transform 0.1s ease-out;
 }
+
 .container:active {
   transform: scaleY(1.2);
 }
 
-.slider {
-  @apply cursor-grab overflow-hidden opacity-0;
+.container:before {
+  @apply bg-foreground/10 absolute inset-0 pointer-events-none overflow-hidden;
+  content: "";
 }
-.slider::-webkit-slider-thumb {
-  view-timeline: --thumb inline;
-}
-.slider:active {
-  @apply cursor-grabbing;
-}
-
-.track {
-  @apply bg-foreground/10 absolute inset-0 pointer-events-none rounded-md overflow-hidden;
-}
-.container:hover .track {
+.container:before:hover {
   @apply bg-foreground/20;
 }
-.track::after {
+.container::after {
+  @apply bg-foreground absolute left-0 top-0 h-full pointer-events-none rounded-l-md;
   content: "";
-  @apply bg-foreground absolute left-0 top-0 h-full pointer-events-none;
   width: calc(var(--value) * 100%);
+}
+
+.input {
+  @apply cursor-col-resize overflow-hidden opacity-0 flex-1 h-10;
+}
+.input::-webkit-slider-thumb {
+  view-timeline: --thumb inline;
+}
+.input:active {
+  @apply cursor-col-resize;
 }
