@@ -2,14 +2,18 @@
 
 import { FileInput } from "@/components/file-input";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
 const fmtStore = create(
-  immer<{ image: File | null }>((get, set) => ({
-    image: null,
-  }))
+  immer<{ image: File | null; loadedFiles?: Record<string, string> }>(
+    (get, set) => ({
+      image: null,
+      loadedFiles: undefined,
+    })
+  )
 );
 
 export const FMTFileInput = function () {
@@ -117,4 +121,91 @@ export const FMTImageSize = function (props: { size: number }) {
   if (!dataUrl) return null;
 
   return <img src={dataUrl} className="bg-foreground/10 rounded border" />;
+};
+
+type FMTFileProperties = { id: string; filepath: string };
+const fileMap: FMTFileProperties[] = [
+  {
+    id: "32",
+    filepath: "public/favicon/32x32.png",
+  },
+  {
+    id: "64",
+    filepath: "public/favicon/64x64.png",
+  },
+  {
+    id: "192",
+    filepath: "public/favicon/192x192.png",
+  },
+  {
+    id: "512",
+    filepath: "public/favicon/512x512.png",
+  },
+];
+
+export const FMTFileList = function () {
+  return (
+    <>
+      {fileMap.map((x, i) => (
+        <FMTFile key={x.id} fileProperties={x} />
+      ))}
+    </>
+  );
+};
+
+export const FMTFile = function (props: { fileProperties: FMTFileProperties }) {
+  const { fileProperties } = props;
+
+  const file = fmtStore((x) => x.image);
+
+  const [dataUrl, setDataUrl] = useState("");
+  useEffect(() => {
+    (async () => {
+      if (!file) {
+        setDataUrl("");
+        return;
+      }
+
+      const form = new FormData();
+      form.append("file", file);
+      form.append("size", fileProperties.id);
+
+      const result = await fetch(`/api/images/resize`, {
+        method: "post",
+        body: form,
+      });
+
+      setDataUrl(
+        URL.createObjectURL(
+          new Blob([Buffer.from(await result.arrayBuffer())], {
+            type: "image/webp",
+          })
+        )
+      );
+    })();
+  }, [file]);
+
+  if (!dataUrl) return null;
+
+  return (
+    <div
+      className="flex flex-row items-center gap-3 rounded-md hover:bg-foreground/5 py-2 px-4"
+      key={fileProperties.id}
+    >
+      <div>{fileProperties.filepath}</div>
+      <div className="overflow-hidden text-ellipsis text-nowrap">
+        <Link
+          href={dataUrl}
+          target="_blank"
+          className="underline hover:no-underline"
+        >
+          {dataUrl}
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+export const FMTExport = function () {
+  return <Button>Test</Button>;
 };
