@@ -42,7 +42,7 @@ export default async function () {
           </div>
           <div className="col-span-12 md:col-span-6 flex flex-col gap-4">
             <div className="flex flex-row justify-end">
-              <FMTExport />
+              <FMTExport>Export All</FMTExport>
             </div>
             <div className="flex flex-col gap-1">
               <FMTFileList />

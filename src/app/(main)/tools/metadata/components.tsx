@@ -1,30 +1,89 @@
 "use client";
 
 import { FileInput } from "@/components/file-input";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonProps } from "@/components/ui/button";
 import { cn } from "@/utils/cn";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
+import { strToU8, zipSync } from "fflate";
+
+type FMTFileStatus = {
+  isProcessing: boolean;
+  dataUrl?: string;
+};
 
 const fmtStore = create(
-  immer<{ image: File | null; loadedFiles?: Record<string, string> }>(
-    (get, set) => ({
-      image: null,
-      loadedFiles: undefined,
-    })
-  )
+  immer<{
+    image: File | null;
+    loadedFiles: Record<string, FMTFileStatus>;
+  }>((get, set) => ({
+    image: null,
+    loadedFiles: {},
+  }))
 );
+
+const processFile = async function (
+  fileProperties: FMTFileProperties,
+  file: File
+) {
+  switch (fileProperties.type) {
+    case "image":
+      const form = new FormData();
+      form.append("file", file);
+      form.append("width", `${fileProperties.width}`);
+      form.append("height", `${fileProperties.height}`);
+
+      const result = await fetch(`/api/images/resize`, {
+        method: "post",
+        body: form,
+      });
+
+      return URL.createObjectURL(
+        new Blob([Buffer.from(await result.arrayBuffer())], {
+          type: "image/webp",
+        })
+      );
+      break;
+  }
+  return "";
+};
 
 export const FMTFileInput = function () {
   return (
     <FileInput
       accept="image/*"
-      onChange={(e) => {
+      onChange={async (e) => {
+        const file = e.target.files?.[0];
+        if (!file) {
+          fmtStore.setState((x) => {
+            x.image = null;
+            x.loadedFiles = {};
+          });
+          return;
+        }
+
         fmtStore.setState((x) => {
-          x.image = e.target.files?.[0] || null;
+          x.image = file || null;
+          x.loadedFiles = {};
         });
+
+        let processedFiles: Record<string, string> = {};
+        for (let fileProperties of fileMap) {
+          fmtStore.setState((x) => {
+            x.loadedFiles![fileProperties.filepath] = {
+              isProcessing: true,
+            };
+          });
+          const processedFileUrl = await processFile(fileProperties, file);
+          fmtStore.setState((x) => {
+            x.loadedFiles![fileProperties.filepath] = {
+              isProcessing: false,
+              dataUrl: processedFileUrl,
+            };
+          });
+        }
       }}
     >
       Choose File...
@@ -75,6 +134,7 @@ export const FMTFilePreview = function () {
               onClick={() => {
                 fmtStore.setState((x) => {
                   x.image = null;
+                  x.loadedFiles = {};
                 });
               }}
             >
@@ -124,41 +184,45 @@ export const FMTImageSize = function (props: { size: number }) {
   return <img src={dataUrl} className="bg-foreground/10 rounded border" />;
 };
 
-type FMTFileProperties = { id: string; filepath: string } & (
-  | { type: "image" }
+type FMTFileProperties = { filepath: string } & (
+  | { type: "image"; width: number; height: number }
   | { type: "json" }
 );
 
 const fileMap: FMTFileProperties[] = [
   {
-    id: "500",
     filepath: "src/icon.png",
     type: "image",
+    width: 512,
+    height: 512,
   },
   {
-    id: "webmanifest",
     filepath: "public/site.webmanifest",
     type: "json",
   },
   {
-    id: "32",
     filepath: "public/favicon/32x32.png",
     type: "image",
+    width: 32,
+    height: 32,
   },
   {
-    id: "64",
     filepath: "public/favicon/64x64.png",
     type: "image",
+    width: 64,
+    height: 64,
   },
   {
-    id: "192",
     filepath: "public/favicon/192x192.png",
     type: "image",
+    width: 192,
+    height: 192,
   },
   {
-    id: "512",
     filepath: "public/favicon/512x512.png",
     type: "image",
+    width: 512,
+    height: 512,
   },
 ];
 
@@ -166,7 +230,7 @@ export const FMTFileList = function () {
   return (
     <>
       {fileMap.map((x, i) => (
-        <FMTFile key={x.id} fileProperties={x} />
+        <FMTFile key={x.filepath} fileProperties={x} />
       ))}
     </>
   );
@@ -175,57 +239,110 @@ export const FMTFileList = function () {
 export const FMTFile = function (props: { fileProperties: FMTFileProperties }) {
   const { fileProperties } = props;
 
-  const file = fmtStore((x) => x.image);
+  const fileStatus = fmtStore(
+    (x) => x.loadedFiles?.[fileProperties.filepath]
+  ) || { isProcessing: false };
 
-  const [dataUrl, setDataUrl] = useState("");
-  useEffect(() => {
-    (async () => {
-      if (!file) {
-        setDataUrl("");
-        return;
-      }
-
-      const form = new FormData();
-      form.append("file", file);
-      form.append("size", fileProperties.id);
-
-      const result = await fetch(`/api/images/resize`, {
-        method: "post",
-        body: form,
-      });
-
-      setDataUrl(
-        URL.createObjectURL(
-          new Blob([Buffer.from(await result.arrayBuffer())], {
-            type: "image/webp",
-          })
-        )
-      );
-    })();
-  }, [file]);
-
-  if (!dataUrl) return null;
+  const OptionalLink = fileStatus.dataUrl ? Link : "div";
 
   return (
-    <Link
-      href={dataUrl}
-      target="_blank"
-      className="flex flex-row items-center gap-3 rounded-md hover:bg-foreground/5 py-2 px-4"
-      key={fileProperties.id}
+    <div
+      className={cn(
+        "flex flex-row items-center gap-3 rounded-md hover:bg-foreground/5 py-2 px-4 group",
+        !!fileStatus.dataUrl && "cursor-pointer",
+        !fileStatus.dataUrl && "text-foreground/30"
+      )}
+      key={fileProperties.filepath}
     >
-      <i
-        className={cn(
-          fileProperties.type === "image" && "icon-[ri--file-image-line]",
-          fileProperties.type === "json" && "icon-[ri--file-code-line]"
-        )}
-      />
-      <div className="overflow-hidden text-ellipsis text-nowrap">
+      <OptionalLink href={fileStatus.dataUrl || ""} target="_blank">
+        <i
+          className={cn(
+            fileStatus.isProcessing
+              ? cn("icon-[svg-spinners--90-ring-with-bg]")
+              : cn(
+                  fileProperties.type === "image" &&
+                    "icon-[ri--file-image-line]",
+                  fileProperties.type === "json" && "icon-[ri--file-code-line]"
+                )
+          )}
+        />
+      </OptionalLink>
+      <OptionalLink
+        href={fileStatus.dataUrl || ""}
+        target="_blank"
+        className="overflow-hidden text-ellipsis text-nowrap flex-1"
+      >
         {fileProperties.filepath.split("/").join(" / ")}
-      </div>
-    </Link>
+      </OptionalLink>
+      {!!fileStatus.dataUrl && (
+        <div
+          className="hover:underline text-sm hidden group-hover:block cursor-pointer"
+          onClick={(e) => {
+            e.stopPropagation();
+
+            const a = document.createElement("a");
+            a.href = fileStatus.dataUrl!;
+            a.setAttribute(
+              "download",
+              fileProperties.filepath.split("/").slice(-1).join("-")
+            );
+            document.body.appendChild(a);
+            a.click();
+            a.parentNode?.removeChild(a);
+          }}
+        >
+          Export
+        </div>
+      )}
+    </div>
   );
 };
 
-export const FMTExport = function () {
-  return <Button variant={"outline"}>Export</Button>;
+export const FMTExport = function (props: ButtonProps) {
+  const isEmpty = fmtStore((x) => Object.values(x.loadedFiles).length === 0);
+  const isProcessing = fmtStore((x) =>
+    Object.values(x.loadedFiles).some((x) => x.isProcessing)
+  );
+
+  return (
+    <Button
+      variant={"outline"}
+      disabled={isEmpty || isProcessing}
+      {...props}
+      className={cn("gap-2", props.className)}
+      onClick={async (e) => {
+        props.onClick?.(e);
+        if (e.isDefaultPrevented()) return;
+
+        const loadedFiles = fmtStore.getState().loadedFiles;
+
+        const unzipped: Record<string, Uint8Array> = {};
+        for (const filepath in loadedFiles) {
+          const fileStatus = loadedFiles[filepath];
+          const fileProperties = fileMap.find((x) => x.filepath === filepath)!;
+
+          const blob = await fetch(fileStatus.dataUrl!).then(
+            async (x) => new Uint8Array(await x.arrayBuffer())
+          );
+          unzipped[filepath] = blob;
+        }
+
+        const zipped = zipSync(unzipped);
+        const zippedUrl = URL.createObjectURL(new Blob([zipped]));
+
+        const a = document.createElement("a");
+        a.href = zippedUrl;
+        a.setAttribute(
+          "download",
+          `favicon-export-${Math.random().toString(32).substring(7)}.zip`
+        );
+        document.body.appendChild(a);
+        a.click();
+        a.parentNode?.removeChild(a);
+      }}
+    >
+      {isProcessing && <i className="icon-[svg-spinners--90-ring-with-bg]" />}
+      <div>{isProcessing ? "Processing" : props.children}</div>
+    </Button>
+  );
 };
