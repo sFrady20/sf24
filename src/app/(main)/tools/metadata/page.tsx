@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import {
+  FMTExport,
   FMTFileInput,
   FMTFileList,
   FMTFilePreview,
@@ -41,7 +42,7 @@ export default async function () {
           </div>
           <div className="col-span-12 md:col-span-6 flex flex-col gap-4">
             <div className="flex flex-row justify-end">
-              <Button variant={"outline"}>Download</Button>
+              <FMTExport />
             </div>
             <div className="flex flex-col gap-1">
               <FMTFileList />

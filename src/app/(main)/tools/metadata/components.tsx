@@ -2,6 +2,7 @@
 
 import { FileInput } from "@/components/file-input";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/utils/cn";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { create } from "zustand";
@@ -123,23 +124,41 @@ export const FMTImageSize = function (props: { size: number }) {
   return <img src={dataUrl} className="bg-foreground/10 rounded border" />;
 };
 
-type FMTFileProperties = { id: string; filepath: string };
+type FMTFileProperties = { id: string; filepath: string } & (
+  | { type: "image" }
+  | { type: "json" }
+);
+
 const fileMap: FMTFileProperties[] = [
+  {
+    id: "500",
+    filepath: "src/icon.png",
+    type: "image",
+  },
+  {
+    id: "webmanifest",
+    filepath: "public/site.webmanifest",
+    type: "json",
+  },
   {
     id: "32",
     filepath: "public/favicon/32x32.png",
+    type: "image",
   },
   {
     id: "64",
     filepath: "public/favicon/64x64.png",
+    type: "image",
   },
   {
     id: "192",
     filepath: "public/favicon/192x192.png",
+    type: "image",
   },
   {
     id: "512",
     filepath: "public/favicon/512x512.png",
+    type: "image",
   },
 ];
 
@@ -188,24 +207,25 @@ export const FMTFile = function (props: { fileProperties: FMTFileProperties }) {
   if (!dataUrl) return null;
 
   return (
-    <div
+    <Link
+      href={dataUrl}
+      target="_blank"
       className="flex flex-row items-center gap-3 rounded-md hover:bg-foreground/5 py-2 px-4"
       key={fileProperties.id}
     >
-      <div>{fileProperties.filepath}</div>
+      <i
+        className={cn(
+          fileProperties.type === "image" && "icon-[ri--file-image-line]",
+          fileProperties.type === "json" && "icon-[ri--file-code-line]"
+        )}
+      />
       <div className="overflow-hidden text-ellipsis text-nowrap">
-        <Link
-          href={dataUrl}
-          target="_blank"
-          className="underline hover:no-underline"
-        >
-          {dataUrl}
-        </Link>
+        {fileProperties.filepath.split("/").join(" / ")}
       </div>
-    </div>
+    </Link>
   );
 };
 
 export const FMTExport = function () {
-  return <Button>Test</Button>;
+  return <Button variant={"outline"}>Export</Button>;
 };
