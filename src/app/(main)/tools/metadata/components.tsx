@@ -197,10 +197,6 @@ const fileMap: FMTFileProperties[] = [
     height: 512,
   },
   {
-    filepath: "public/site.webmanifest",
-    type: "json",
-  },
-  {
     filepath: "public/favicon/32x32.png",
     type: "image",
     width: 32,
