@@ -1,0 +1,28 @@
+.container {
+  @apply border rounded bg-foreground/5 transition-all overflow-hidden grid;
+}
+.container:hover {
+  @apply bg-foreground/10;
+}
+.container::after {
+  /* Note the weird space! Needed to preventy jumpy behavior */
+  content: attr(data-replicated-value) " ";
+  /* This is how textarea text behaves */
+  white-space: pre-wrap;
+  /* Hidden from view, clicks, and screen readers */
+  visibility: hidden;
+}
+
+.control {
+  @apply min-h-0 h-auto overflow-hidden;
+  /* You could leave this, but after a user resizes, then it ruins the auto sizing */
+  resize: none;
+}
+
+.control,
+.container::after {
+  /* Identical styling required!! */
+  @apply rounded w-full p-[0.5rem] bg-[transparent] border-0;
+  /* Place on top of each other */
+  grid-area: 1 / 1 / 2 / 2;
+}

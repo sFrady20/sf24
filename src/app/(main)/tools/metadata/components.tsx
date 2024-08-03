@@ -4,10 +4,12 @@ import { FileInput } from "@/components/file-input";
 import { Button, ButtonProps } from "@/components/ui/button";
 import { cn } from "@/utils/cn";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { ComponentProps, useEffect, useState } from "react";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { strToU8, zipSync } from "fflate";
+import { TextInput } from "@/components/text-input";
+import { Code } from "@/components/code";
 
 type FMTFileStatus = {
   isProcessing: boolean;
@@ -16,9 +18,13 @@ type FMTFileStatus = {
 
 const fmtStore = create(
   immer<{
+    title: string;
+    description: string;
     image: File | null;
     loadedFiles: Record<string, FMTFileStatus>;
   }>((get, set) => ({
+    title: "",
+    description: "",
     image: null,
     loadedFiles: {},
   }))
@@ -48,6 +54,32 @@ const processFile = async function (
       break;
   }
   return "";
+};
+
+export const FMTTitleInput = function () {
+  const title = fmtStore((x) => x.title);
+  return (
+    <TextInput
+      onChange={(e) => {
+        fmtStore.setState((x) => {
+          x.title = e.target.value;
+        });
+      }}
+    />
+  );
+};
+
+export const FMTDescriptionInput = function () {
+  const description = fmtStore((x) => x.description);
+  return (
+    <TextInput
+      onChange={(e) => {
+        fmtStore.setState((x) => {
+          x.description = e.target.value;
+        });
+      }}
+    />
+  );
 };
 
 export const FMTFileInput = function () {
@@ -244,8 +276,8 @@ export const FMTFile = function (props: { fileProperties: FMTFileProperties }) {
   return (
     <div
       className={cn(
-        "flex flex-row items-center gap-3 rounded-md hover:bg-foreground/5 py-2 px-4 group",
-        !!fileStatus.dataUrl && "cursor-pointer",
+        "flex flex-row items-center gap-3 rounded-md py-2 px-4 group",
+        !!fileStatus.dataUrl && "cursor-pointer hover:bg-foreground/5",
         !fileStatus.dataUrl && "text-foreground/30"
       )}
       key={fileProperties.filepath}
@@ -340,5 +372,20 @@ export const FMTExport = function (props: ButtonProps) {
       {isProcessing && <i className="icon-[svg-spinners--90-ring-with-bg]" />}
       <div>{isProcessing ? "Processing" : props.children}</div>
     </Button>
+  );
+};
+
+export const FMTTemplatedCode = function (props: ComponentProps<typeof Code>) {
+  const { children, ...rest } = props;
+
+  const title = fmtStore((x) => x.title);
+  const description = fmtStore((x) => x.description);
+
+  return (
+    <Code {...rest}>
+      {children
+        ?.replaceAll("<<TITLE>>", title)
+        .replaceAll("<<DESCRIPTION>>", description)}
+    </Code>
   );
 };

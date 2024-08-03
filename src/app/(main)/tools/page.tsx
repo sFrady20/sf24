@@ -8,7 +8,7 @@ export default async function () {
         <div className="col-span-12 md:col-span-4">
           <Link href="/tools/metadata">
             <div className="bg-foreground/10 rounded p-4 cursor-pointer hover:bg-foreground/15 flex flex-col gap-1">
-              <h2 className="font-title">Favicon and Metadata</h2>
+              <h2 className="font-title font-bold">Favicon and Metadata</h2>
               <p className="text-sm">
                 Create, preview, and generate favicons and essential metadata
                 for your website to enhance its appearance across browsers and
@@ -22,7 +22,9 @@ export default async function () {
         <div className="col-span-12 md:col-span-4">
           <Link href="/tools/palette">
             <div className="bg-foreground/10 rounded p-4 cursor-pointer hover:bg-foreground/15 flex flex-col gap-1">
-              <h2 className="font-title">Procedural Palette Generator</h2>
+              <h2 className="font-title font-bold">
+                Procedural Palette Generator
+              </h2>
               <p className="text-sm">
                 Create customizable color palettes for GLSL shaders using a
                 simple cosine-based formula

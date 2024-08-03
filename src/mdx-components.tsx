@@ -6,13 +6,19 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h1: (props: any) => (
       <h1
         {...props}
-        className={cn("text-5xl font-title my-[1em]", props.className)}
+        className={cn(
+          "text-5xl font-title my-[1em] font-bold",
+          props.className
+        )}
       />
     ),
     h2: (props: any) => (
       <h2
         {...props}
-        className={cn("text-4xl font-title my-[1em]", props.className)}
+        className={cn(
+          "text-4xl font-title my-[1em] font-bold",
+          props.className
+        )}
       />
     ),
     p: (props: any) => (

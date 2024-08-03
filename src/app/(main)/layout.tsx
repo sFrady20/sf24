@@ -174,7 +174,7 @@ export default async function (props: {
                   <p className="opacity-60 text-sm">
                     Des. and Dev. by Steven Frady
                   </p>
-                  <div className="text-sm">© 2024</div>
+                  <div className="text-xs">© 2024</div>
                 </div>
                 <div className="col-span-6 sm:col-span-2 xl:col-span-1 flex flex-col gap-1">
                   {[
