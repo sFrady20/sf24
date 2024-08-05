@@ -47,7 +47,7 @@ export default async function () {
             <div className="max-lg:container md:px-14 flex flex-col lg:grid grid-cols-12 gap-10">
               <div className="col-span-5 xl:col-span-4 xl:col-start-2 row-start-1">
                 <div className="sticky top-[160px] flex flex-col gap-6">
-                  <h3 className="text-xl font-title">{x.title}</h3>
+                  <h2 className="text-xl font-title">{x.title}</h2>
                   {typeof x.intro === "string" ? (
                     <p className="text-sm md:text-md lg:leading-relaxed opacity-80 text-balance">
                       {x.intro}
@@ -103,15 +103,19 @@ export default async function () {
                             {x.label}
                           </div>
                           <div className="text-right flex flex-row items-center">
-                            {x.links?.map((x, i) => (
+                            {x.links?.map((xx, i) => (
                               <Button
                                 key={i}
                                 variant={"ghost"}
                                 size={"icon"}
                                 asChild
                               >
-                                <Link href={x.link} target="_blank">
-                                  <i className={cn(x.icon)} />
+                                <Link
+                                  href={xx.link}
+                                  target="_blank"
+                                  title={xx.link}
+                                >
+                                  <i className={cn(xx.icon)} />
                                 </Link>
                               </Button>
                             ))}

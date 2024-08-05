@@ -23,6 +23,7 @@ export function ColorSchemeToggle(
         <Button
           size="icon"
           variant="ghost"
+          aria-label="Change theme"
           {...rest}
           onClick={async () => {
             await setColorScheme(
@@ -86,7 +87,7 @@ export function ColorSchemeToggle(
           </AnimatePresence>
         </Button>
       </TooltipTrigger>
-      <TooltipContent side="bottom">
+      <TooltipContent side="bottom" className="font-title">
         {colorScheme === "favorite" ? "alien" : colorScheme} theme
       </TooltipContent>
     </Tooltip>

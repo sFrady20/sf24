@@ -85,6 +85,7 @@ export const MusicButton = forwardRef<
                 if (isPlaying) song.pause();
                 else song.play();
               }}
+              aria-label={isPlaying ? "Stop music" : "Start music"}
             >
               <i
                 className={cn(
@@ -102,7 +103,11 @@ export const MusicButton = forwardRef<
           </div>
         </div>
       </TooltipTrigger>
-      <TooltipContent side="bottom" key={isPlaying ? `on` : `off`}>
+      <TooltipContent
+        side="bottom"
+        key={isPlaying ? `on` : `off`}
+        className="font-title"
+      >
         {isPlaying ? "Pause music" : "Play my theme song"}
       </TooltipContent>
     </Tooltip>
