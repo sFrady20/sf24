@@ -33,10 +33,40 @@ export default async function () {
           </Link>
         </div>
 
-        {/* JSON Formatter */}
-        {/* Flip a coin */}
-        {/* Spin a wheel */}
-        {/* Lorem Ipsum */}
+        {/* Format: HTML / CSS / SCSS / JSON / JAVASCRIPT / TYPESCRIPT
+        Validate
+        Beautify
+        Remove Whitespace
+        Change Case
+        Regex
+        Minify
+        */}
+
+        {/* Encode/Decode: MD5 / SHA / Base64 / QR *}
+
+        {/* Choose:
+        Wheel
+        Coinflip
+        Dice
+         */}
+
+        {/* Generators:
+        Md5
+        UUID
+        Lorem Ipsum
+        Password
+         */}
+
+        {/* Image:
+        Resize
+        Crop
+        */}
+
+        {/* Conversions:
+        Image to Image
+        Unit to Unit
+        Color to color
+        */}
       </div>
     </div>
   );
