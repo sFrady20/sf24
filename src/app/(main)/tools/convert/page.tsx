@@ -29,7 +29,6 @@ export default async function () {
           </div>
           <CVT_Input>Choose File</CVT_Input>
           <CVT_Preview />
-          To
           <CVT_Options />
           <CVT_ActionButton />
         </div>

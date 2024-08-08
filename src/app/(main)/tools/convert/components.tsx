@@ -2,16 +2,16 @@
 
 import { FileInput } from "@/components/file-input";
 import { makeStore } from "@/utils/make-store";
-import { ReactNode, useMemo } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { fileConversionMap } from "./data";
 import { Button } from "@/components/ui/button";
+import { downloadFile } from "@/utils/download-file";
 
 type CVT_Store = {
   input: {
-    type: string;
-    data: string;
+    file?: File;
   };
   output: {
     type: string;
@@ -20,8 +20,7 @@ type CVT_Store = {
 
 const CVT = makeStore<CVT_Store>((get) => ({
   input: {
-    type: "",
-    data: "",
+    file: undefined,
   },
   output: {
     type: "",
@@ -44,13 +43,11 @@ export const CVT_Input = function (props: { children?: ReactNode }) {
           const file = e.target.files?.[0];
           if (file) {
             store.setState((x) => {
-              x.input.type = file.type;
-              x.input.data = URL.createObjectURL(new Blob([file]));
+              x.input.file = file;
             });
           } else {
             store.setState((x) => {
-              x.input.type = "";
-              x.input.data = "";
+              x.input.file = undefined;
             });
           }
         }}
@@ -66,13 +63,22 @@ export const CVT_Preview = function (props: { children?: ReactNode }) {
 
   const store = CVT.use();
 
-  const type = store((x) => x.input.type);
-  const data = store((x) => x.input.data);
+  const file = store((x) => x.input.file);
+
+  const [dataUrl, setDataUrl] = useState("");
+
+  useEffect(() => {
+    (async () => {
+      setDataUrl(
+        file ? URL.createObjectURL(new Blob([await file.arrayBuffer()])) : ""
+      );
+    })();
+  }, [file]);
 
   return (
     <>
-      <img src={data} className="max-w-[200px]" />
-      <div>{type}</div>
+      <img src={dataUrl} className="max-w-[200px]" />
+      <div>{file?.type}</div>
     </>
   );
 };
@@ -80,10 +86,10 @@ export const CVT_Preview = function (props: { children?: ReactNode }) {
 export const CVT_Options = function (props: {}) {
   const store = CVT.use();
 
-  const inputType = store((x) => x.input.type);
+  const inputType = store((x) => x.input.file?.type);
 
   const options = useMemo(
-    () => fileConversionMap[inputType] || [],
+    () => (inputType && fileConversionMap[inputType]) || [],
     [inputType]
   );
 
@@ -124,7 +130,25 @@ export const CVT_ActionButton = function (props: {}) {
       <Button
         variant={"outline"}
         onClick={async () => {
-          await fetch("/api/convert");
+          const file = store.getState().input.file;
+          if (!file) return;
+
+          const formData = new FormData();
+          formData.append("file", file);
+          const result = await fetch(
+            `/api/convert/to/${outputType.split("/")[1]}`,
+            {
+              method: "post",
+              body: formData,
+            }
+          );
+          if (result.status === 200)
+            await downloadFile(
+              await result.blob(),
+              `${file.name.split(".").slice(0, -1).join(".")}.${
+                outputType.split("/")[1]
+              }`
+            );
         }}
       >
         Convert
