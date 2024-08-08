@@ -8,11 +8,9 @@ import {
   FMTFileInput,
   FMTFileList,
   FMTFilePreview,
-  FMTImageSize,
   FMTTemplatedCode,
   FMTTitleInput,
 } from "./components";
-import { Code } from "@/components/code";
 
 export const metadata: Metadata = {
   title: "Favicon and Metadata Tool - Steven Frady",

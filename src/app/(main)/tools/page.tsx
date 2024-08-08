@@ -33,6 +33,16 @@ export default async function () {
           </Link>
         </div>
 
+        {/* File Converter */}
+        <div className="col-span-12 md:col-span-4">
+          <Link href="/tools/convert">
+            <div className="bg-foreground/10 rounded p-4 cursor-pointer hover:bg-foreground/15 flex flex-col gap-1">
+              <h2 className="font-title font-bold">File Converter</h2>
+              <p className="text-sm"></p>
+            </div>
+          </Link>
+        </div>
+
         {/* Format: HTML / CSS / SCSS / JSON / JAVASCRIPT / TYPESCRIPT
         Validate
         Beautify
@@ -48,14 +58,14 @@ export default async function () {
         Wheel
         Coinflip
         Dice
-         */}
+        */}
 
         {/* Generators:
         Md5
         UUID
         Lorem Ipsum
         Password
-         */}
+        */}
 
         {/* Image:
         Resize

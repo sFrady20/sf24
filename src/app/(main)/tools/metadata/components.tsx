@@ -7,7 +7,7 @@ import Link from "next/link";
 import { ComponentProps, useEffect, useState } from "react";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { strToU8, zipSync } from "fflate";
+import { zipSync } from "fflate";
 import { TextInput } from "@/components/text-input";
 import { Code } from "@/components/code";
 
