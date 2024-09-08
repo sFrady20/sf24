@@ -51,5 +51,5 @@ void main(){
   col=mix(vec3(0.),col,smoothstep(.4,1.,smoothstep(shift,0.,.4)));
   
   vec4 color=vec4(col,1.);
-  gl_FragColor=mod(color,11.);
+  gl_FragColor=pow(color, vec4(0.5));
 }

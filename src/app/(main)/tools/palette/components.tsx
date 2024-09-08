@@ -1,7 +1,7 @@
 "use client";
 
 import { Shader } from "@/components/shader";
-import { IUniform, Vector2, Vector3 } from "three";
+import { Vector2, Vector3 } from "three";
 import { Updater, useImmer } from "use-immer";
 import { ReactNode, createContext, useContext, useMemo, useRef } from "react";
 import { Code } from "@/components/code";
@@ -11,6 +11,10 @@ import exampleFrag1 from "@/shaders/palette-generator/example-1.frag.glsl";
 import exampleFrag2 from "@/shaders/palette-generator/example-2.frag.glsl";
 import exampleFrag3 from "@/shaders/palette-generator/example-3.frag.glsl";
 import exampleFrag4 from "@/shaders/palette-generator/example-4.frag.glsl";
+import { create, createStore } from "zustand";
+import { persist } from "zustand/middleware";
+import { Button } from "@/components/ui/button";
+import { immer } from "zustand/middleware/immer";
 
 /*
 vec3 a=vec3(0,0.21,0.17);
@@ -25,6 +29,17 @@ vec3 a=vec3(0.56,0.53,0.86);
 vec3 b=vec3(0.79,0.22,0.29);
 vec3 c=vec3(0.84,1,1);
 vec3 d=vec3(0.49,0.33,0.67);
+*/
+
+/*
+phantasm
+vec3 palette(float t){
+  vec3 a=vec3(0.38,0.21,0.83);
+  vec3 b=vec3(0.35,0.5,0.48);
+  vec3 c=vec3(0.53,0.79,0.32);
+  vec3 d=vec3(0.47,0.4,0.47);
+  return a+b*cos(6.28318*(c*t+d));
+}
 */
 
 const defaultUniforms = {
@@ -45,10 +60,22 @@ const defaultPalette = [
   ]),
 ];
 
+const localPaletteToolStore = create(
+  immer(
+    persist<{ savedPalettes: number[][][] }>(
+      (get, set) => ({
+        savedPalettes: [],
+      }),
+      { name: "sf-palette-tool" }
+    )
+  )
+);
+
 const PaletteToolContext = createContext({
   palette: defaultPalette,
   updatePalette: (() => {}) as Updater<number[][]>,
   uniforms: defaultUniforms,
+  localStore: localPaletteToolStore,
 });
 
 export const PaletteProvider = function (props: { children?: ReactNode }) {
@@ -62,6 +89,7 @@ export const PaletteProvider = function (props: { children?: ReactNode }) {
         palette,
         updatePalette,
         uniforms: defaultUniforms,
+        localStore: localPaletteToolStore,
       }}
     >
       {children}
@@ -178,5 +206,93 @@ export const PaletteExport = function () {
   vec3 d=vec3(${palette[3][0]},${palette[3][1]},${palette[3][2]});
   return a+b*cos(6.28318*(c*t+d));
 }`}</Code>
+  );
+};
+
+export const SavedPalettes = function () {
+  const { palette, uniforms, updatePalette, localStore } =
+    useContext(PaletteToolContext);
+
+  const saved = localStore((x) => x.savedPalettes);
+
+  return (
+    <div className="flex flex-col gap-2">
+      <div>
+        <Button
+          variant={"outline"}
+          onClick={() => {
+            localStore.setState((x) => {
+              x.savedPalettes.push(palette);
+            });
+          }}
+        >
+          Save Palette
+        </Button>
+      </div>
+      <div className="flex flex-col gap-2">
+        {saved.map((x, i) => (
+          <SavedPalette
+            key={x.flat(2).join(",")}
+            palette={x}
+            onSelect={() => {
+              updatePalette((xx) => {
+                for (let a = 0; a < xx.length; ++a) {
+                  for (let b = 0; b < xx[a].length; ++b) {
+                    uniforms.palette.value[a].setComponent(b, x[a][b]);
+                  }
+                }
+                return x;
+              });
+            }}
+            onDelete={() => {
+              localStore.setState((x) => {
+                x.savedPalettes.splice(i, 1);
+              });
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const SavedPalette = function (props: {
+  palette: number[][];
+  onSelect?: () => void;
+  onDelete?: () => void;
+}) {
+  const { palette, onSelect, onDelete } = props;
+
+  const { uniforms: uniformsCtx } = useContext(PaletteToolContext);
+
+  const uniforms = useMemo(
+    () => ({
+      ...uniformsCtx,
+      resolution: { value: new Vector2(100, 100) },
+      palette: { value: palette.map((x) => new Vector3(x[0], x[1], x[2])) },
+    }),
+    []
+  );
+
+  return (
+    <div className="flex flex-row items-center gap-2">
+      <Shader
+        frag={frag}
+        className="h-[50px] rounded-lg overflow-hidden flex-1 cursor-pointer border-2 border-[transparent] hover:border-foreground/30"
+        uniforms={uniforms}
+        onClick={() => {
+          onSelect?.();
+        }}
+      />
+      <Button
+        variant={"ghost"}
+        size="icon"
+        onClick={() => {
+          onDelete?.();
+        }}
+      >
+        <i className="icon-[ri--delete-bin-fill]" />
+      </Button>
+    </div>
   );
 };

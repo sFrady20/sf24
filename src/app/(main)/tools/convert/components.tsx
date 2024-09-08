@@ -3,8 +3,6 @@
 import { FileInput } from "@/components/file-input";
 import { makeStore } from "@/utils/make-store";
 import { ReactNode, useEffect, useMemo, useState } from "react";
-import { create } from "zustand";
-import { immer } from "zustand/middleware/immer";
 import { fileConversionMap } from "./data";
 import { Button } from "@/components/ui/button";
 import { downloadFile } from "@/utils/download-file";

@@ -4,6 +4,7 @@ import {
   PaletteExamples,
   PaletteExport,
   PaletteProvider,
+  SavedPalettes,
 } from "./components";
 import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
@@ -47,6 +48,7 @@ export default async function () {
             <PaletteEditor />
             <PaletteExamples />
             <PaletteExport />
+            <SavedPalettes />
           </PaletteProvider>
         </div>
       </div>
