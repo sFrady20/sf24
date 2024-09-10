@@ -11,7 +11,7 @@ import exampleFrag1 from "@/shaders/palette-generator/example-1.frag.glsl";
 import exampleFrag2 from "@/shaders/palette-generator/example-2.frag.glsl";
 import exampleFrag3 from "@/shaders/palette-generator/example-3.frag.glsl";
 import exampleFrag4 from "@/shaders/palette-generator/example-4.frag.glsl";
-import { create, createStore } from "zustand";
+import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Button } from "@/components/ui/button";
 import { immer } from "zustand/middleware/immer";
