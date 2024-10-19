@@ -8,10 +8,10 @@ import {
   ElementRef,
   HTMLAttributes,
   forwardRef,
-  useState,
 } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useApp } from "@/app/(main)/context";
+import { useShallow } from "zustand/shallow";
 
 type HoverCardState = {
   isOpen: boolean;
@@ -87,8 +87,10 @@ export const HoverCardContent = forwardRef<
   const key = hoverCard((x) => x.key);
 
   const app = useApp();
-  const xMove = app((x) => x.mouse.x / x.window.width - 0.5);
-  const yMove = app((x) => x.mouse.y / x.window.height - 0.5);
+  const mouseX = app((x) => x.mouse.x);
+  const mouseY = app((x) => x.mouse.y);
+  const winWidth = app((x) => x.window.width);
+  const winHeight = app((x) => x.window.height);
 
   return (
     <AnimatePresence>
@@ -105,8 +107,8 @@ export const HoverCardContent = forwardRef<
           animate={"animate"}
           exit={"exit"}
           style={{
-            transform: `translate(${-50 + xMove * 100}%, ${
-              -50 + yMove * 100
+            transform: `translate(${-50 + (mouseX / winWidth - 0.5) * 100}%, ${
+              -50 + (mouseY / winHeight - 0.5) * 100
             }%)`,
           }}
           {...rest}

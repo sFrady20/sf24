@@ -69,7 +69,7 @@ export default async function () {
                 className="max-xl:col-span-6 col-span-5 max-xl:col-start-7 col-start-7 row-start-1"
               >
                 {x.projects.map((x, i) => (
-                  <AccordionItem value={x.id} key={x.id}>
+                  <AccordionItem value={x.id} key={`${x.id}`}>
                     <div className="relative w-full aspect-square md:hidden rounded-lg overflow-hidden">
                       {(x as any).hasVideo ? (
                         <video
@@ -221,7 +221,10 @@ export default async function () {
               </Accordion>
             </div>
           </section>,
-          <div className="container w-full h-[1px] bg-foreground/10" />,
+          <div
+            key={`sep-${i}`}
+            className="container w-full h-[1px] bg-foreground/10"
+          />,
         ])
         .slice(0, -1)}
 

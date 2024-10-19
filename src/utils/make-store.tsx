@@ -6,9 +6,9 @@ import { create, StateCreator } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
 export function makeStore<R>(
-  stateCreator: StateCreator<R, [["zustand/immer", unknown]]>
+  stateCreator: StateCreator<R, [["zustand/immer", never]]>
 ) {
-  const creator = () => create(immer<R>(stateCreator));
+  const creator = () => create(immer(stateCreator));
 
   const Context = createContext(creator());
 
