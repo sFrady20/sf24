@@ -38,11 +38,10 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function App(props: { children?: ReactNode }) {
+export default async function App(props: { children?: ReactNode }) {
   const { children } = props;
 
   const cookieJar = cookies();
-
   const colorScheme = cookieJar.get("color-scheme");
 
   return (

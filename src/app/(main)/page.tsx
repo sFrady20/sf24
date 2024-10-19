@@ -27,7 +27,7 @@ export default async function () {
         <div className="container @container">
           <Frady
             className={
-              "w-full h-[20cqw] will-change-[opacity,filter,transform] animate-[focus_0.4s_ease-out_0s_1_both]"
+              "w-full h-[20cqw] will-change-[opacity,filter,transform] animate-[focus_0.8s_ease-out_0s_1_both]"
             }
           />
         </div>
@@ -35,7 +35,7 @@ export default async function () {
 
       <section className="md:pb-[60px]">
         <div className="container md:max-w-[620px]">
-          <p className="text-left text-xs md:text-sm lg:leading-relaxed font-title text-balance will-change-[opacity,filter,transform] animate-[focus_0.4s_ease-out_0.2s_1_both]">
+          <p className="text-left text-xs md:text-sm lg:leading-relaxed font-title text-balance will-change-[opacity,filter,transform] animate-[focus_0.8s_ease-out_0.1s_1_both]">
             I am a developer with over 9 years of experience, specializing in
             web and mobile development. My work is focused on creating
             user-centric solutions, with a commitment to continuous learning and
