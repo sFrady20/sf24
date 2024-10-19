@@ -2,16 +2,13 @@
 
 import { Draft } from "immer";
 import { ReactNode, createContext, useContext, useMemo } from "react";
-import { create } from "zustand";
+import { create, StateCreator } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
 export function makeStore<R>(
-  stateCreator: <T = R>(
-    set: (draft: T | Partial<T> | ((state: Draft<T>) => void)) => void,
-    get: () => T
-  ) => R
+  stateCreator: StateCreator<R, [["zustand/immer", unknown]]>
 ) {
-  const creator = () => create(immer<R>((set, get) => stateCreator(set, get)));
+  const creator = () => create(immer<R>(stateCreator));
 
   const Context = createContext(creator());
 
