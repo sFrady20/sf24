@@ -25,13 +25,17 @@ export default async function () {
     <>
       <section className="mt-[60px] md:mt-[100px] flex flex-col md:gap-0 py-[60px] md:py-[80px]">
         <div className="container @container">
-          <Frady className={"w-full h-[20cqw]"} />
+          <Frady
+            className={
+              "w-full h-[20cqw] will-change-[opacity,filter,transform] animate-[focus_0.4s_ease-out_0s_1_both]"
+            }
+          />
         </div>
       </section>
 
       <section className="md:pb-[60px]">
         <div className="container md:max-w-[620px]">
-          <p className="text-left text-xs md:text-sm lg:leading-relaxed font-title text-balance">
+          <p className="text-left text-xs md:text-sm lg:leading-relaxed font-title text-balance will-change-[opacity,filter,transform] animate-[focus_0.4s_ease-out_0.2s_1_both]">
             I am a developer with over 9 years of experience, specializing in
             web and mobile development. My work is focused on creating
             user-centric solutions, with a commitment to continuous learning and

@@ -65,6 +65,18 @@ const config: Config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0px" },
         },
+        focus: {
+          "0%": {
+            opacity: "0",
+            filter: "blur(8px)",
+            transform: "translateY(12px)",
+          },
+          "100%": {
+            opacity: "1",
+            filter: "blur(0px)",
+            transform: "translateY(0px)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",

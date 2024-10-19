@@ -8,24 +8,30 @@ import {
   ElementRef,
   HTMLAttributes,
   forwardRef,
+  useState,
 } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useApp } from "@/app/(main)/context";
 
 type HoverCardState = {
-  isOpen?: boolean;
+  isOpen: boolean;
+  key: string;
 };
 
 const { Context: HoverCardContext, hook: useHoverCard } =
   createContextStore<HoverCardState>({
     isOpen: false,
+    key: Math.random().toString(32).substring(7),
   });
 
 export const HoverCard = forwardRef<HTMLDivElement, HoverCardTriggerProps>(
   (props, ref) => {
     const { children, ...rest } = props;
 
-    const store = useMemoStore<HoverCardState>({});
+    const store = useMemoStore<HoverCardState>({
+      isOpen: false,
+      key: Math.random().toString(32).substring(7),
+    });
 
     return (
       <HoverCardContext.Provider value={store}>
@@ -55,7 +61,10 @@ export const HoverCardTrigger = forwardRef<
       ref={ref}
       {...rest}
       onPointerEnter={(e) => {
-        hoverCard.setState({ isOpen: true });
+        hoverCard.setState({
+          isOpen: true,
+          key: Math.random().toString(32).substring(7),
+        });
         onPointerEnter?.(e as any);
       }}
       onPointerLeave={(e) => {
@@ -75,6 +84,7 @@ export const HoverCardContent = forwardRef<
 
   const hoverCard = useHoverCard();
   const isOpen = hoverCard((x) => x.isOpen);
+  const key = hoverCard((x) => x.key);
 
   const app = useApp();
   const xMove = app((x) => x.mouse.x / x.window.width - 0.5);
@@ -85,6 +95,7 @@ export const HoverCardContent = forwardRef<
       {isOpen && (
         <motion.div
           ref={ref}
+          key={key}
           variants={{
             initial: {},
             animate: { transition: { when: "beforeChildren" } },
