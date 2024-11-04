@@ -10,32 +10,10 @@ export const categories = [
       peers come together to build practical, impactful solutions.`,
     projects: [
       {
-        id: "wanderseat",
-        label: "WanderSeat",
-        year: "2024",
-        description: `Wanderseat is a travel app that transforms the way people discover and share flight deals. Embracing the concept "Where Travelers Become Influencers," this platform creates an ecosystem where sharing flight deals and travel experiences not only benefits the community but also rewards the sharer. It's designed to inspire and empower the next wave of travelers, making the hunt for the best flight deals a shared, rewarding journey`,
-        platforms: ["web", "mobile"],
-        languages: ["Typescript"],
-        frameworks: [
-          "React",
-          "React-Native",
-          "Next.js",
-          "Supabase",
-          "Tailwind",
-          "Shadcn",
-        ],
-        links: [
-          {
-            link: "https://wanderseat.com/",
-            icon: "icon-[ri--external-link-fill]",
-          },
-        ],
-      },
-      {
         id: "griddy",
-        label: "Sports Grid",
+        label: "District Athletics",
         year: "2024",
-        description: `Sports Grid is a local sports platform crafted by a focused team of
+        description: `District Athletics is a local sports platform crafted by a focused team of
           four. Set to launch in the DMV area, it's designed to streamline the
           sports experience with three key features: finding local games,
           managing teams, and facilitating team communication. Our platform,
@@ -55,7 +33,29 @@ export const categories = [
         ],
         links: [
           {
-            link: "https://griddy.gg/",
+            link: "https://districtathletics.net/",
+            icon: "icon-[ri--external-link-fill]",
+          },
+        ],
+      },
+      {
+        id: "wanderseat",
+        label: "WanderSeat",
+        year: "2024",
+        description: `Wanderseat is a travel app that transforms the way people discover and share flight deals. Embracing the concept "Where Travelers Become Influencers," this platform creates an ecosystem where sharing flight deals and travel experiences not only benefits the community but also rewards the sharer. It's designed to inspire and empower the next wave of travelers, making the hunt for the best flight deals a shared, rewarding journey`,
+        platforms: ["web", "mobile"],
+        languages: ["Typescript"],
+        frameworks: [
+          "React",
+          "React-Native",
+          "Next.js",
+          "Supabase",
+          "Tailwind",
+          "Shadcn",
+        ],
+        links: [
+          {
+            link: "https://wanderseat.com/",
             icon: "icon-[ri--external-link-fill]",
           },
         ],
