@@ -59,6 +59,16 @@ export default async function () {
           </Link>
         </div>
 
+        {/* Tweet topic randomaizer */}
+        <div className="col-span-12 md:col-span-4">
+          <Link href="/tools/tweet-topic-randomizer">
+            <ToolCard
+              title="Tweet Topic Randomizer"
+              description="Generate a random topic to tweet on based on current events and popular memes. (WIP)"
+            />
+          </Link>
+        </div>
+
         {/* Format: HTML / CSS / SCSS / JSON / JAVASCRIPT / TYPESCRIPT
         Validate
         Beautify
