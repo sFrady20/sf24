@@ -19,6 +19,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Sunlight } from "@/components/sunlight";
 
 export default async function () {
   return (

@@ -13,6 +13,7 @@ import { MusicButton } from "@/components/music-button";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ColorSchemeToggle } from "@/components/mode-toggle";
 import { cookies } from "next/headers";
+import { Sunlight } from "@/components/sunlight";
 
 const socials = [
   {
@@ -50,6 +51,8 @@ export default async function (props: {
     <CastSenderProvider>
       <AppProvider>
         <TooltipProvider delayDuration={300}>
+          <Sunlight />
+
           <div className="fixed top-0 left-0 w-full p-4 md:p-10 z-[40] pointer-events-auto">
             <header className="flex flex-row justify-between items-center h-[50px] bg-background/30 backdrop-blur-lg rounded-full px-2">
               <div className="flex-1 flex flex-row items-center justify-start">
