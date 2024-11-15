@@ -54,11 +54,12 @@ export const MusicButton = forwardRef<
           ref={ref}
           {...rest}
           className={cn(
-            "-m-1 flex flex-row gap-4 z-[60] p-1 relative z-[20] rounded-full overflow-hidden",
+            "-m-1 flex flex-row gap-4 z-[60] p-1 relative z-[20] rounded-full overflow-hidden transition-[background] ease-[var(--timing-fn)]",
             className
           )}
           style={{
             ...style,
+            transitionDuration: "0.66s",
             background: `conic-gradient(hsl(var(--foreground)) ${
               progress * 360 - 1
             }deg, transparent ${progress * 360}deg)`,
@@ -67,14 +68,17 @@ export const MusicButton = forwardRef<
           <div
             className={cn(
               "rounded-full flex",
-              progress !== 0 && "bg-background"
+              progress !== 0 &&
+                "bg-background transition-[background-color] ease-[var(--timing-fn)]"
             )}
+            style={{ transitionDuration: "0.66s" }}
           >
             <Button
               variant={isPlaying ? "outline" : "default"}
               size={"icon"}
+              style={{ transitionDuration: "0.66s" }}
               className={cn(
-                "relative text-lg hover:bg-foreground/30 border rounded-full",
+                "relative text-lg hover:bg-foreground/30 border rounded-full transition-[background-color,_border] ease-[var(--timing-fn)]",
                 isPlaying
                   ? "bg-foreground/20 border-foreground/50"
                   : "bg-background border-foreground/30",
@@ -89,13 +93,13 @@ export const MusicButton = forwardRef<
             >
               <i
                 className={cn(
-                  "icon-[ri--pause-fill] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 -rotate-180 transition-all",
+                  "icon-[ri--pause-fill] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 -rotate-180 transition-transform",
                   isPlaying && "opacity-100 rotate-0"
                 )}
               />
               <i
                 className={cn(
-                  "icon-[ri--music-2-fill] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-100 rotate-0 transition-all",
+                  "icon-[ri--music-2-fill] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-100 rotate-0 transition-transform",
                   isPlaying && "opacity-0 rotate-180"
                 )}
               />

@@ -26,7 +26,7 @@ export default async function () {
     <>
       <section className="mt-[60px] md:mt-[100px] flex flex-col md:gap-0 py-[60px] md:py-[80px]">
         <div className="container @container">
-          <Thanos amount={0.5}>
+          <Thanos amount={0} initialAmount={1}>
             <Frady className={"w-full h-[20cqw]"} />
           </Thanos>
         </div>

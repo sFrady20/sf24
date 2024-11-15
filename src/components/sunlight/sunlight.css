@@ -1,23 +1,30 @@
 body {
   --light: var(--day);
   --dark: var(--night);
-  --shadow: #030307;
-  --bounce-light: hsla(var(--foreground) / 10%);
+  --shadow: hsl(0 0% 9%);
   --timing-fn: cubic-bezier(0.455, 0.19, 0, 0.985);
 
   transition: background-color 0.66s var(--timing-fn),
     color 0.66s var(--timing-fn);
 }
 
-body.favorite {
+body.light {
   --bounce-light: hsla(var(--foreground) / 20%);
+}
+body.favorite {
+  --shadow: 170 60% 1%;
+  --bounce-light: hsla(var(--foreground) / 20%);
+}
+body.dark {
+  --bounce-light: hsla(var(--foreground) / 10%);
 }
 
 #dappled-light {
   pointer-events: none;
-  position: fixed;
+  position: absolute;
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
   z-index: -10;
 }
 
@@ -32,6 +39,8 @@ body.favorite {
   height: 100%;
   width: 100%;
   inset: 0;
+  will-change: backdrop-filter, mask-image;
+  transform: translateZ(0);
   backdrop-filter: blur(var(--blur-amount));
   mask-image: linear-gradient(
     252deg,
@@ -110,7 +119,7 @@ body.favorite {
 }
 
 .light .perspective {
-  opacity: 0.08;
+  opacity: 0.15;
   transform: matrix3d(
     0.95,
     0.225,
@@ -132,7 +141,7 @@ body.favorite {
 }
 
 .dark .perspective {
-  opacity: 0.3;
+  opacity: 1;
   transform: matrix3d(
     0.8333,
     0.0833,
@@ -154,7 +163,7 @@ body.favorite {
 }
 
 .favorite .perspective {
-  opacity: 0.25;
+  opacity: 1;
   width: 100vw;
   transform: matrix3d(0.8, 0 0, 0.0001, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 }
@@ -163,13 +172,12 @@ body.favorite {
   position: absolute;
   background-size: cover;
   background-repeat: no-repeat;
-  bottom: -20px;
-  right: -700px;
+  bottom: -200px;
+  right: -1000px;
   width: 1600px;
   height: 1400px;
-  background-image: url("./leaves.png");
   filter: url(#wind) ting();
-  animation: billow 8s ease-in-out infinite;
+  animation: billow 7s ease-in-out infinite;
   transition: opacity 2s var(--timing-fn);
 }
 

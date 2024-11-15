@@ -51,10 +51,13 @@ export default async function (props: {
     <CastSenderProvider>
       <AppProvider>
         <TooltipProvider delayDuration={300}>
-          <Sunlight />
+          {/* <Sunlight /> */}
 
           <div className="fixed top-0 left-0 w-full p-4 md:p-10 z-[40] pointer-events-auto">
-            <header className="flex flex-row justify-between items-center h-[50px] bg-background/30 backdrop-blur-lg rounded-full px-2">
+            <header
+              className="flex flex-row justify-between items-center h-[50px] bg-background/30 backdrop-blur-lg rounded-full px-2 transition-[background-color] ease-[var(--timing-fn)]"
+              style={{ transitionDuration: "0.66s" }}
+            >
               <div className="flex-1 flex flex-row items-center justify-start">
                 <Button
                   variant={"ghost"}

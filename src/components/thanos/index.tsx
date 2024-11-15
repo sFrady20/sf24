@@ -4,38 +4,55 @@ import {
   ComponentPropsWithoutRef,
   ElementRef,
   forwardRef,
-  memo,
-  useEffect,
   useId,
   useMemo,
-  useState,
+  useRef,
 } from "react";
+import useSpringAnimation from "./use-spring-animation";
+
+const DISSOLVE_SCALE = 400;
 
 export const Thanos = forwardRef<
   ElementRef<"div">,
   ComponentPropsWithoutRef<"div"> & {
     children: React.ReactNode;
+    initialAmount?: number;
     amount: number;
+    dissolveScale?: number;
   }
->(function (props, ref) {
-  const { style, amount, ...rest } = props;
+>(function (props, forwardedRef) {
+  const {
+    style,
+    amount,
+    initialAmount = props.amount,
+    dissolveScale = DISSOLVE_SCALE,
+    ...rest
+  } = props;
 
   const id = useId();
 
-  const [noise, setNoise] = useState(1);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setNoise((x) => {
-        if (x <= 0.001) {
-          clearInterval(interval);
-        }
-        return (x *= 0.88);
-      });
-    }, 100);
-  }, []);
-
   const seed = useMemo(() => Math.floor(Math.random() * 1000), []);
+
+  const contentRef = useRef<HTMLDivElement | null>(null);
+  const displacementMapRef = useRef<SVGFEDisplacementMapElement | null>(null);
+
+  const currentValue = useRef(initialAmount);
+
+  useSpringAnimation(currentValue, amount, {
+    onValueChange: (value) => {
+      displacementMapRef.current?.setAttribute(
+        "scale",
+        `${value * dissolveScale}`
+      );
+
+      if (contentRef.current) {
+        contentRef.current.style.opacity = `${0 + 1 - Math.pow(value, 0.5)}`;
+        contentRef.current.style.transform = `scale(${
+          1 + Math.pow(value, 0.5) * 0.1
+        })`;
+      }
+    },
+  });
 
   return (
     <>
@@ -85,9 +102,10 @@ export const Thanos = forwardRef<
 
             {/* Apply displacement map to distort the image */}
             <feDisplacementMap
+              ref={displacementMapRef}
               in="SourceGraphic"
               in2="mergedNoise"
-              scale={noise * 2000}
+              scale={initialAmount * dissolveScale}
               xChannelSelector="R"
               yChannelSelector="G"
             />
@@ -95,16 +113,22 @@ export const Thanos = forwardRef<
         </defs>
       </svg>
       <div
-        {...ref}
+        ref={(node) => {
+          // Assign the node to both the innerRef and the forwardedRef
+          contentRef.current = node;
+          if (typeof forwardedRef === "function") {
+            forwardedRef(node);
+          } else if (forwardedRef) {
+            forwardedRef.current = node;
+          }
+        }}
         {...rest}
         style={{
-          ...style,
-
+          opacity: 0 + 1 - Math.pow(initialAmount, 0.5),
           willChange: `opacity,filter,transform`,
-          opacity: 0.2 + 1 - Math.pow(noise, 0.5),
-          transform: `scale(${1 + Math.pow(noise, 0.5) * 0.1})`,
           filter: `url(#${id}-dissolve)`,
           WebkitFilter: `url(#${id}-dissolve)`,
+          ...style,
         }}
       />
     </>
