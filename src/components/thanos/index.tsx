@@ -7,6 +7,7 @@ import {
   useId,
   useMemo,
   useRef,
+  useState,
 } from "react";
 import useSpringAnimation from "./use-spring-animation";
 
@@ -19,6 +20,7 @@ export const Thanos = forwardRef<
     initialAmount?: number;
     amount: number;
     dissolveScale?: number;
+    disableOpacity?: boolean;
   }
 >(function (props, forwardedRef) {
   const {
@@ -26,6 +28,7 @@ export const Thanos = forwardRef<
     amount,
     initialAmount = props.amount,
     dissolveScale = DISSOLVE_SCALE,
+    disableOpacity = false,
     ...rest
   } = props;
 
@@ -46,7 +49,9 @@ export const Thanos = forwardRef<
       );
 
       if (contentRef.current) {
-        contentRef.current.style.opacity = `${0 + 1 - Math.pow(value, 0.5)}`;
+        if (!disableOpacity) {
+          contentRef.current.style.opacity = `${0 + 1 - Math.pow(value, 0.5)}`;
+        }
         contentRef.current.style.transform = `scale(${
           1 + Math.pow(value, 0.5) * 0.1
         })`;
@@ -124,10 +129,12 @@ export const Thanos = forwardRef<
         }}
         {...rest}
         style={{
-          opacity: 0 + 1 - Math.pow(initialAmount, 0.5),
           willChange: `opacity,filter,transform`,
           filter: `url(#${id}-dissolve)`,
           WebkitFilter: `url(#${id}-dissolve)`,
+          ...(!disableOpacity
+            ? { opacity: 0 + 1 - Math.pow(initialAmount, 0.5) }
+            : {}),
           ...style,
         }}
       />

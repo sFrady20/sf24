@@ -1,0 +1,35 @@
+.root {
+  --inset: 80px;
+  --radius: 25px;
+
+  /* Mask definition */
+  -webkit-mask-image: linear-gradient(black, black),
+    radial-gradient(circle, #000 70.5%, transparent 70.5%),
+    radial-gradient(circle, #000 70.5%, transparent 70.5%);
+  mask-image: linear-gradient(black, black),
+    radial-gradient(circle, #000 70.5%, transparent 70.5%),
+    radial-gradient(circle, #000 70.5%, transparent 70.5%);
+
+  -webkit-mask-size: calc(100% - (var(--inset) * 2) - (var(--radius) * 2))
+      calc(100% - (var(--inset) * 2)),
+    calc(var(--radius) * 2) calc(var(--radius) * 2),
+    calc(var(--radius) * 2) calc(var(--radius) * 2);
+  mask-size: calc(100% - var(--inset) * 2 - var(--radius) * 2)
+      calc(100% - var(--inset) * 2),
+    calc(var(--radius) * 2) calc(var(--radius) * 2),
+    calc(var(--radius) * 2) calc(var(--radius) * 2);
+
+  -webkit-mask-position: calc(var(--inset) + var(--radius))
+      calc(var(--inset) + var(--radius)),
+    calc(var(--inset)) calc(var(--inset)),
+    calc(100% - var(--inset)) calc(var(--inset));
+  mask-position: calc(var(--inset) + var(--radius)) calc(var(--inset)),
+    calc(var(--inset)) calc(var(--inset)),
+    calc(100% - var(--inset)) calc(var(--inset));
+
+  -webkit-mask-repeat: no-repeat, calc(var(--inset)) calc(var(--inset));
+  mask-repeat: no-repeat;
+
+  -webkit-mask-composite: destination-in, destination-in, destination-in;
+  mask-composite: add, add, add;
+}
