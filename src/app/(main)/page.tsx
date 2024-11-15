@@ -19,24 +19,22 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Sunlight } from "@/components/sunlight";
+import { Thanos } from "@/components/thanos";
 
 export default async function () {
   return (
     <>
       <section className="mt-[60px] md:mt-[100px] flex flex-col md:gap-0 py-[60px] md:py-[80px]">
         <div className="container @container">
-          <Frady
-            className={
-              "w-full h-[20cqw] will-change-[opacity,filter,transform] animate-[focus_0.8s_ease-out_0s_1_both]"
-            }
-          />
+          <Thanos amount={0.5}>
+            <Frady className={"w-full h-[20cqw]"} />
+          </Thanos>
         </div>
       </section>
 
       <section className="md:pb-[60px]">
         <div className="container md:max-w-[620px]">
-          <p className="text-left text-xs md:text-sm lg:leading-relaxed font-title text-balance will-change-[opacity,filter,transform] animate-[focus_0.8s_ease-out_0s_1_both]">
+          <p className="text-left text-xs md:text-sm lg:leading-relaxed font-title text-balance">
             I am a developer with over 9 years of experience, specializing in
             web and mobile development. My work is focused on creating
             user-centric solutions, with a commitment to continuous learning and
