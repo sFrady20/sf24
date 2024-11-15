@@ -32,7 +32,7 @@ export default async function () {
         </div>
       </section>
 
-      <div className="animate-[fadeIn_2.2s_2.2s_ease-out_both]">
+      <div className="md:animate-[fadeIn_2s_2.2s_ease-out_both]">
         <section className="md:pb-[60px]">
           <div className="container md:max-w-[620px]">
             <p className="text-left text-xs md:text-sm lg:leading-relaxed font-title text-balance">
