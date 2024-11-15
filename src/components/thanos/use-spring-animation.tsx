@@ -1,8 +1,8 @@
 import { MutableRefObject, useEffect, useMemo } from "react";
 
 // Spring animation defaults
-const SPRING_TENSION = 0.05;
-const SPRING_DAMPING = 0.1;
+const SPRING_TENSION = 0.1;
+const SPRING_DAMPING = 0.15;
 const SPRING_PRECISION = 0.001;
 
 function useSpringAnimation(

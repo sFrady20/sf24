@@ -11,7 +11,9 @@ import {
 } from "react";
 import useSpringAnimation from "./use-spring-animation";
 
-const DISSOLVE_SCALE = 400;
+const DISSOLVE_SCALE = 4000;
+
+const opacityTransform = (value: number) => 0 + 1 - Math.pow(value, 0.5);
 
 export const Thanos = forwardRef<
   ElementRef<"div">,
@@ -20,7 +22,7 @@ export const Thanos = forwardRef<
     initialAmount?: number;
     amount: number;
     dissolveScale?: number;
-    disableOpacity?: boolean;
+    opacityScale?: number;
   }
 >(function (props, forwardedRef) {
   const {
@@ -28,7 +30,7 @@ export const Thanos = forwardRef<
     amount,
     initialAmount = props.amount,
     dissolveScale = DISSOLVE_SCALE,
-    disableOpacity = false,
+    opacityScale = 1,
     ...rest
   } = props;
 
@@ -49,9 +51,9 @@ export const Thanos = forwardRef<
       );
 
       if (contentRef.current) {
-        if (!disableOpacity) {
-          contentRef.current.style.opacity = `${0 + 1 - Math.pow(value, 0.5)}`;
-        }
+        contentRef.current.style.opacity = `${
+          opacityTransform(value) * opacityScale
+        }`;
         contentRef.current.style.transform = `scale(${
           1 + Math.pow(value, 0.5) * 0.1
         })`;
@@ -132,9 +134,7 @@ export const Thanos = forwardRef<
           willChange: `opacity,filter,transform`,
           filter: `url(#${id}-dissolve)`,
           WebkitFilter: `url(#${id}-dissolve)`,
-          ...(!disableOpacity
-            ? { opacity: 0 + 1 - Math.pow(initialAmount, 0.5) }
-            : {}),
+          opacity: opacityTransform(initialAmount) * opacityScale,
           ...style,
         }}
       />
