@@ -77,6 +77,10 @@ const config: Config = {
             transform: "translateY(0px)",
           },
         },
+        fadeIn: {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
