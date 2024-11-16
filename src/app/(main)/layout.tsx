@@ -55,15 +55,13 @@ export default async function (props: {
           {/* <Sunlight /> */}
 
           <div className="fixed top-0 left-0 w-full p-4 md:p-10 z-[40] pointer-events-none">
-            <header
-              className="flex flex-row justify-between items-center h-[50px] rounded-full px-2 relative pointer-events-auto"
-              style={{ transitionDuration: "0.66s" }}
-            >
+            <header className="flex flex-row justify-between items-center h-[50px] rounded-full px-2 relative pointer-events-auto">
               <div
                 className={cn(
                   "absolute inset-[-80px] bg-background/30 backdrop-blur-lg transition-[background-color] ease-[var(--timing-fn)] z-[-1] pointer-events-none",
                   maskStyles.root
                 )}
+                style={{ transitionDuration: "0.66s" }}
               />
               <div className="flex-1 flex flex-row items-center justify-start">
                 <Button

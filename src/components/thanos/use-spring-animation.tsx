@@ -1,9 +1,9 @@
 import { MutableRefObject, useEffect, useMemo } from "react";
 
 // Spring animation defaults
-const SPRING_TENSION = 0.1;
-const SPRING_DAMPING = 0.15;
-const SPRING_PRECISION = 0.001;
+const SPRING_TENSION = 0.34;
+const SPRING_DAMPING = 0.00012;
+const SPRING_PRECISION = 0.00001;
 
 function useSpringAnimation(
   valueRef: MutableRefObject<number>,
@@ -26,16 +26,20 @@ function useSpringAnimation(
     let velocity = 0;
     let animationFrameId: number | null = null;
     let isAnimating = true;
+    let lastTime = performance.now();
 
-    const animate = () => {
+    const animate = (currentTime: number) => {
       if (!isAnimating) return;
+
+      const deltaTime = (currentTime - lastTime) / 1000; // Convert to seconds
+      lastTime = currentTime;
 
       // Calculate spring physics
       const distance = goal - valueRef.current;
       const force = distance * tension;
 
       // Apply damping to velocity
-      velocity = velocity * damping + force;
+      velocity = velocity * Math.pow(damping, deltaTime) + force * deltaTime;
 
       // Update the current value
       valueRef.current += velocity;
@@ -54,8 +58,7 @@ function useSpringAnimation(
     };
 
     // Start animation
-    animate();
-
+    animationFrameId = requestAnimationFrame(animate);
     // Cleanup function
     return () => {
       isAnimating = false;
