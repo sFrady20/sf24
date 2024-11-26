@@ -32,10 +32,10 @@ export const categories = [
           "Shadcn",
         ],
         links: [
-          {
-            link: "https://districtathletics.net/",
-            icon: "icon-[ri--external-link-fill]",
-          },
+          // {
+          //   link: "https://districtathletics.net/",
+          //   icon: "icon-[ri--external-link-fill]",
+          // },
         ],
       },
       {
