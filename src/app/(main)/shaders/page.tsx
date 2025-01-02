@@ -18,7 +18,7 @@ export default async function () {
   return (
     <div className="grid grid-cols-3 w-full mt-[100px] md:mt-[132px]">
       {Object.entries(shaderData)
-        .toReversed()
+        .reverse()
         .map(([shaderId, shader]) => (
           <ShaderCard
             frag={frags[shaderId]}
