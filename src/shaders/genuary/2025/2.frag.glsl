@@ -18,6 +18,6 @@ vec3 palette(float t){
 
 void main() {
   vec2 uv=gl_FragCoord.xy/resolution.xy;
-  vec4 color=vec4(uv,sin(time),1.);
+  vec4 color=vec4(palette(time*0.5+uv.x*0.5),1.);
   gl_FragColor=color;
 }

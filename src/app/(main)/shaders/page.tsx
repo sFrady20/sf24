@@ -1,124 +1,33 @@
 import { ShaderCard } from "@/components/shader";
-import frag1 from "@/shaders/genuary/2022/1.frag.glsl";
-import frag2 from "@/shaders/genuary/2022/2.frag.glsl";
-import frag3 from "@/shaders/genuary/2022/3.frag.glsl";
-import frag4 from "@/shaders/genuary/2022/4.frag.glsl";
-import frag5 from "@/shaders/genuary/2022/5.frag.glsl";
-import frag6 from "@/shaders/genuary/2022/6.frag.glsl";
-import frag7 from "@/shaders/genuary/2022/7.frag.glsl";
-import frag18 from "@/shaders/genuary/2022/18.frag.glsl";
-
-import frag_24_6 from "@/shaders/genuary/2024/6.frag.glsl";
-import frag_24_7 from "@/shaders/genuary/2024/7.frag.glsl";
-import frag_24_8 from "@/shaders/genuary/2024/8.frag.glsl";
-import frag_24_10 from "@/shaders/genuary/2024/10.frag.glsl";
-import frag_24_12 from "@/shaders/genuary/2024/12.frag.glsl";
-import frag_24_13 from "@/shaders/genuary/2024/13.frag.glsl";
-import frag_24_14 from "@/shaders/genuary/2024/14.frag.glsl";
+import { shaderData } from "@/data/shaders";
 
 export default async function () {
+  const frags = Object.fromEntries(
+    await Promise.all(
+      Object.keys(shaderData).map(async (shaderId) => [
+        shaderId,
+        (
+          await import(
+            `raw-loader!glslify-loader!@/shaders/${shaderId}.frag.glsl`
+          )
+        ).default,
+      ])
+    )
+  );
+
   return (
     <div className="grid grid-cols-3 w-full mt-[100px] md:mt-[132px]">
-      <ShaderCard
-        frag={frag_24_13}
-        title={"Wobble Function"}
-        subtitle={"Genuary 2024 - Day 13"}
-        shaderPath="genuary/2024/13"
-        className="col-span-3 md:col-span-1"
-      />
-      <ShaderCard
-        frag={frag_24_12}
-        title={"Lava lamp"}
-        subtitle={"Genuary 2024 - Day 12"}
-        shaderPath="genuary/2024/12"
-        className="col-span-3 md:col-span-1"
-      />
-      <ShaderCard
-        frag={frag_24_10}
-        title={"Hexagonal"}
-        subtitle={"Genuary 2024 - Day 10"}
-        shaderPath="genuary/2024/10"
-        className="col-span-3 md:col-span-1"
-      />
-      <ShaderCard
-        frag={frag_24_8}
-        title={"Chaotic system."}
-        subtitle={"Genuary 2024 - Day 8"}
-        shaderPath="genuary/2024/8"
-        className="col-span-3 md:col-span-1"
-      />
-      <ShaderCard
-        frag={frag_24_7}
-        title={"Loading"}
-        subtitle={"Genuary 2024 - Day 7"}
-        shaderPath="genuary/2024/7"
-        className="col-span-3 md:col-span-1"
-      />
-      <ShaderCard
-        frag={frag_24_6}
-        title={"Screensaver"}
-        subtitle={"Genuary 2024 - Day 6"}
-        shaderPath="genuary/2024/6"
-        className="col-span-3 md:col-span-1"
-      />
-      <ShaderCard
-        frag={frag18}
-        title={"VHS"}
-        subtitle={"Genuary 2022 - Day 18"}
-        shaderPath="genuary/2022/18"
-        className="col-span-3 md:col-span-1"
-      />
-      <ShaderCard
-        frag={frag7}
-        title={"Sol LeWitt Wall Drawing"}
-        subtitle={"Genuary 2022 - Day 7"}
-        shaderPath="genuary/2022/7"
-        className="col-span-3 md:col-span-1"
-      />
-      {/*
-      <ShaderCard
-        frag={frag6}
-        title={"Trade styles with a friend. (Feels)"}
-        subtitle={"Genuary 2022 - Day 6"}
-        shaderPath="genuary/2022/6"
-        className="col-span-3 md:col-span-1"
-      />
-      */}
-      <ShaderCard
-        frag={frag5}
-        title={"Destroy a square"}
-        subtitle={"Genuary 2022 - Day 5"}
-        shaderPath="genuary/2022/5"
-        className="col-span-3 md:col-span-1"
-      />
-      <ShaderCard
-        frag={frag4}
-        title={"The next fidenza"}
-        subtitle={"Genuary 2022 - Day 4"}
-        shaderPath="genuary/2022/4"
-        className="col-span-3 md:col-span-1"
-      />
-      <ShaderCard
-        frag={frag3}
-        title={"SpaceTime"}
-        subtitle={"Genuary 2022 - Day 3"}
-        shaderPath="genuary/2022/3"
-        className="col-span-3 md:col-span-1"
-      />
-      <ShaderCard
-        frag={frag2}
-        title={"Dithering"}
-        subtitle={"Genuary 2022 - Day 2"}
-        shaderPath="genuary/2022/2"
-        className="col-span-3 md:col-span-1"
-      />
-      <ShaderCard
-        frag={frag1}
-        title={"Draw 10,000 of something"}
-        subtitle={"Genuary 2022 - Day 1"}
-        shaderPath="genuary/2022/1"
-        className="col-span-3 md:col-span-1"
-      />
+      {Object.entries(shaderData)
+        .toReversed()
+        .map(([shaderId, shader]) => (
+          <ShaderCard
+            frag={frags[shaderId]}
+            title={shader.title}
+            subtitle={shader.subtitle}
+            shaderPath={shaderId}
+            className="col-span-3 md:col-span-1 relative"
+          />
+        ))}
     </div>
   );
 }

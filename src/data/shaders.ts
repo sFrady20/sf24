@@ -51,4 +51,8 @@ export const shaderData: Record<string, { title: string; subtitle: string }> = {
     title: "Wobble Function",
     subtitle: "Genuary 2024, Day 13",
   },
+  // "genuary/2025/2": {
+  //   title: "Layers",
+  //   subtitle: "Genuary 2025, Day 2",
+  // },
 };
