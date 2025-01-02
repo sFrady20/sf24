@@ -3,7 +3,14 @@
 import { Shader } from "@/components/shader";
 import { Vector2, Vector3 } from "three";
 import { Updater, useImmer } from "use-immer";
-import { ReactNode, createContext, useContext, useMemo, useRef } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react";
 import { Code } from "@/components/code";
 import { Slider } from "@/components/slider";
 import frag from "@/shaders/palette-generator/debug.frag.glsl";
@@ -15,6 +22,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Button } from "@/components/ui/button";
 import { immer } from "zustand/middleware/immer";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 /*
 vec3 a=vec3(0,0.21,0.17);
@@ -78,17 +86,45 @@ const PaletteToolContext = createContext({
   localStore: localPaletteToolStore,
 });
 
-export const PaletteProvider = function (props: { children?: ReactNode }) {
-  const { children } = props;
+export const PaletteProvider = function (props: {
+  children?: ReactNode;
+  defaultPalette?: number[][];
+}) {
+  const { defaultPalette: defaultPaletteProp, children } = props;
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
-  const [palette, updatePalette] = useImmer(defaultPalette);
+  const defaults = useMemo(() => {
+    const defaultValues = defaultPaletteProp || defaultPalette;
+
+    const uniforms = {
+      palette: {
+        value: defaultValues.map(([...x]) => new Vector3(...x)),
+      },
+    };
+
+    const palette = [...defaultValues];
+
+    return { palette, uniforms };
+  }, []);
+
+  const [palette, updatePalette] = useImmer(defaults.palette);
+
+  useEffect(() => {
+    // Create a new URLSearchParams instance from the current params
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("p", JSON.stringify(palette));
+    const newURL = `${pathname}?${decodeURIComponent(params.toString())}`;
+    router.replace(newURL, { scroll: false });
+  }, [palette, searchParams]);
 
   return (
     <PaletteToolContext.Provider
       value={{
         palette,
         updatePalette,
-        uniforms: defaultUniforms,
+        uniforms: defaults.uniforms,
         localStore: localPaletteToolStore,
       }}
     >
@@ -96,7 +132,6 @@ export const PaletteProvider = function (props: { children?: ReactNode }) {
     </PaletteToolContext.Provider>
   );
 };
-
 export const PaletteEditor = function () {
   const {
     palette,
@@ -199,7 +234,9 @@ export const PaletteExport = function () {
     <Code
       language="glsl"
       className="p-4 bg-foreground/10 rounded"
-    >{`vec3 palette(float t){
+    >{`// https://www.stevenfrady.com/tools/palette?p=${JSON.stringify(
+      palette
+    )}\nvec3 palette(float t){
   vec3 a=vec3(${palette[0][0]},${palette[0][1]},${palette[0][2]});
   vec3 b=vec3(${palette[1][0]},${palette[1][1]},${palette[1][2]});
   vec3 c=vec3(${palette[2][0]},${palette[2][1]},${palette[2][2]});
@@ -278,7 +315,7 @@ const SavedPalette = function (props: {
     <div className="flex flex-row items-center gap-2">
       <Shader
         frag={frag}
-        className="h-[50px] rounded-lg overflow-hidden flex-1 cursor-pointer border-2 border-[transparent] hover:border-foreground/30"
+        className="h-[50px] rounded-lg overflow-hidden flex-1 cursor-pointer border-2 border-background hover:border-foreground/30"
         uniforms={uniforms}
         onClick={() => {
           onSelect?.();

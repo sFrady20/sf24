@@ -28,7 +28,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function () {
+export default async function (props: {
+  searchParams: Promise<{ p: string }>;
+}) {
+  const { p: paletteStr } = await props.searchParams;
+
+  try {
+    var palette = JSON.parse(paletteStr) as number[][] | undefined;
+  } catch (e) {
+    palette = undefined;
+  }
+
   return (
     <div className="py-[100px] md:pt-[132px] flex-1">
       <div className="container flex flex-col max-w-[1000px]">
@@ -44,7 +54,7 @@ export default async function () {
           <Intro />
         </article>
         <div className="flex flex-col gap-10 mt-10">
-          <PaletteProvider>
+          <PaletteProvider defaultPalette={palette}>
             <PaletteEditor />
             <PaletteExamples />
             <PaletteExport />
