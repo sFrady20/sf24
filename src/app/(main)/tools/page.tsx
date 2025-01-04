@@ -5,7 +5,7 @@ function ToolCard(props: { title: ReactNode; description: ReactNode }) {
   const { title, description } = props;
 
   return (
-    <div className="bg-foreground/10 rounded p-4 cursor-pointer hover:bg-foreground/15 flex flex-col gap-1 h-[200px] transition hover:-translate-y-1 hover:translate-x-1 group">
+    <div className="bg-foreground/10 p-4 cursor-pointer hover:bg-foreground/15 flex flex-col gap-1 h-[200px] transition group">
       <h2 className="font-title font-bold">{title}</h2>
       <p className="text-sm flex-1">{description}</p>
       <div className="flex flex-row justify-end">
@@ -21,7 +21,18 @@ function ToolCard(props: { title: ReactNode; description: ReactNode }) {
 export default async function () {
   return (
     <div className="flex-1 container py-[100px] md:pt-[132px]">
-      <div className="grid grid-cols-12 gap-6">
+      <div className="grid grid-cols-12 gap-[1px] rounded overflow-hidden">
+        {/* Palette Editor */}
+        <div className="col-span-12 md:col-span-4">
+          <Link href="/tools/palette">
+            <ToolCard
+              title="Procedural Shader Palette Generator"
+              description="Create customizable color palettes for GLSL shaders using a
+        simple cosine-based formula."
+            />
+          </Link>
+        </div>
+
         {/* Favicon and Metadata Editor */}
         <div className="col-span-12 md:col-span-4">
           <Link href="/tools/metadata">
@@ -34,37 +45,39 @@ export default async function () {
           </Link>
         </div>
 
-        {/* Palette Editor */}
+        {/* File Converter */}
         <div className="col-span-12 md:col-span-4">
-          <Link href="/tools/palette">
+          <Link href="/tools/convert">
             <ToolCard
-              title="Procedural Palette Generator"
-              description="Create customizable color palettes for GLSL shaders using a
-                simple cosine-based formula."
+              title="File Conversion Pipeline Creator"
+              description="(WIP)"
             />
           </Link>
         </div>
 
-        {/* File Converter */}
-        <div className="col-span-12 md:col-span-4">
-          <Link href="/tools/convert">
-            <ToolCard title="File Converter" description="(WIP)" />
-          </Link>
-        </div>
-
         {/* App Name Generator */}
-        <div className="col-span-12 md:col-span-4">
+        {/* <div className="col-span-12 md:col-span-4">
           <Link href="/tools/app-name-generator">
             <ToolCard title="App Name Generator" description="(WIP)" />
           </Link>
-        </div>
+        </div> */}
 
-        {/* Tweet topic randomaizer */}
-        <div className="col-span-12 md:col-span-4">
+        {/* Tweet topic randomizer */}
+        {/* <div className="col-span-12 md:col-span-4">
           <Link href="/tools/tweet-topic-randomizer">
             <ToolCard
               title="Tweet Topic Randomizer"
               description="Generate a random topic to tweet on based on current events and popular memes. (WIP)"
+            />
+          </Link>
+        </div> */}
+
+        {/* Shader function library */}
+        <div className="col-span-12 md:col-span-4">
+          <Link href="/tools/shader-fn-lib">
+            <ToolCard
+              title="Shader Function Library"
+              description="Explore 2D and 3D SDFs, ops, transformations, and other GLSL shader functions."
             />
           </Link>
         </div>
