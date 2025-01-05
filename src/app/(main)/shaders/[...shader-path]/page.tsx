@@ -1,7 +1,7 @@
 import { Code } from "@/components/code";
 import { Shader } from "@/components/shader";
 import { notFound } from "next/navigation";
-import { CastButton, CodeExpander } from "./components";
+import { CastButton, CodeExpander, RecordButton } from "./components";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { shaderData } from "@/data/shaders";
@@ -60,10 +60,12 @@ export default async function (props: {
 }) {
   const { params } = props;
 
-  let frag: string;
+  let frag: string, code: string;
   const shaderPath = params["shader-path"].join("/");
 
   try {
+    code = (await import(`raw-loader!@/shaders/${shaderPath}.frag.glsl`))
+      .default;
     frag = (
       await import(
         `raw-loader!glslify-loader!@/shaders/${shaderPath}.frag.glsl`
@@ -85,12 +87,16 @@ export default async function (props: {
           <div className="col-span-3 xl:col-span-2 break-all ">
             <CodeExpander>
               <Code language="glsl" className="break-all">
-                {frag}
+                {code}
               </Code>
             </CodeExpander>
           </div>
           <div className="col-span-1 row-start-1 xl:col-start-3">
             <div className="md:sticky top-[120px] flex flex-col items-start gap-2">
+              <RecordButton
+                canvasSelector={`canvas`}
+                filename={`${shaderPath.replaceAll("/", "-")}.webm`}
+              />
               <Button variant={"ghost"} className="gap-2" asChild>
                 <Link
                   href={`https://github.com/sFrady20/sf24/blob/main/src/shaders/${shaderPath}.frag.glsl`}

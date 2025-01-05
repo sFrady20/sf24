@@ -1,9 +1,17 @@
 "use client";
 
 import { cn } from "@/utils/cn";
-import { HTMLAttributes, ReactNode, forwardRef, useRef, useState } from "react";
+import {
+  HTMLAttributes,
+  ReactNode,
+  forwardRef,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Button } from "@/components/ui/button";
 import { useCastSender } from "@/components/cast/sender";
+import { useCanvasRecorder } from "@/utils/use-canvas-recorder";
 
 export interface CodeExpanderProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -88,3 +96,41 @@ export function CastButton(props: {
     </Button>
   );
 }
+
+export const RecordButton = function ({
+  canvasSelector,
+  filename,
+}: {
+  canvasSelector: string;
+  filename: string;
+}) {
+  const { startRecording, saveRecording, isRecording } =
+    useCanvasRecorder(canvasSelector);
+
+  return (
+    <Button
+      variant={"ghost"}
+      className="group flex flex-row gap-2"
+      data-enabled={isRecording}
+      onClick={() => {
+        if (isRecording) {
+          saveRecording(filename);
+        } else {
+          startRecording();
+        }
+      }}
+    >
+      <i
+        className={cn(
+          "icon-[ri--record-circle-line] text-lg group-data-[enabled=true]:text-red-500 group-data-[enabled=true]:icon-[ri--record-circle-fill]"
+        )}
+      />
+      <div className="block group-data-[enabled=true]:hidden">
+        Capture Recording
+      </div>
+      <div className="hidden group-data-[enabled=true]:block">
+        Save Recording
+      </div>
+    </Button>
+  );
+};
