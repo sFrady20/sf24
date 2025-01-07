@@ -10,7 +10,6 @@ uniform float seed;
 uniform vec2 resolution;
 uniform vec2 pointer;
 
-// https://www.stevenfrady.com/tools/palette?p=[[0.73,0.62,1],[1,1,1],[0.2,0.35,0.3],[0.61,0.52,0.53]]
 vec3 palette(float t){
   float ft = floor(time * 0.3);
   
@@ -26,15 +25,6 @@ vec3 palette(float t){
     0.3 + (sin(ft + 13.35285) * 0.5 + 0.5) * 0.3
   );
   vec3 d=vec3(0.61,0.52,0.53);
-  return a+b*cos(6.28318*(c*t+d));
-}
-
-// https://www.stevenfrady.com/tools/palette?p=[[0.97,0.82,0.7],[0.92,0.8,0.63],[0.39,0.51,0.37],[0.49,0.53,0.55]]
-vec3 paletteB(float t){
-  vec3 a=vec3(0.97,0.82,0.7);
-  vec3 b=vec3(0.92,0.8,0.63);
-  vec3 c=vec3(0.39,0.51,0.37);
-  vec3 d=vec3(0.49,0.53,0.55);
   return a+b*cos(6.28318*(c*t+d));
 }
 
