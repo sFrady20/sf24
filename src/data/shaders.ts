@@ -55,6 +55,10 @@ export const shaderData: Record<string, { title: string; subtitle: string }> = {
     title: "Layers",
     subtitle: "Genuary 2025, Day 2",
   },
+  "genuary/2025/5": {
+    title: "Isometric Art",
+    subtitle: "Genuary 2025, Day 5",
+  },
   // "genuary/2025/2": {
   //   title: "Layers",
   //   subtitle: "Genuary 2025, Day 2",

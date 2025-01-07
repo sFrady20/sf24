@@ -61,8 +61,8 @@ void main() {
   vec2 uv=gl_FragCoord.xy/resolution.xy;
   float t = time + seed;
   
+  //normalize uv
   vec2 uv0=uv;
-  //normalize uv (cover)
   uv-=vec2(.5);
   uv*=max(vec2(resolution.x/resolution.y,1.),vec2(1.,resolution.y/resolution.x));
   
