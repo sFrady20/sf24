@@ -8,6 +8,7 @@ Isometric Art (No vanishing points).
 uniform float time;
 uniform float seed;
 uniform vec2 resolution;
+uniform vec2 pointer;
 
 // https://www.stevenfrady.com/tools/palette?p=[[0.73,0.62,1],[1,1,1],[0.2,0.35,0.3],[0.61,0.52,0.53]]
 vec3 palette(float t){
@@ -51,6 +52,8 @@ void main(){
 
   uv.x += sin(time * 0.03 + seed);
   uv.y += cos(time * 0.03 + seed);
+
+  uv += pointer / resolution * 0.5;
 
   //isometric-ify
   uv *= mat2(1.,-2.,1.,2.);
