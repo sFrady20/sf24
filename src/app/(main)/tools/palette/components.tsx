@@ -9,7 +9,6 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useRef,
 } from "react";
 import { Code } from "@/components/code";
 import { Slider } from "@/components/slider";
@@ -144,8 +143,32 @@ export const PaletteEditor = function () {
     []
   );
 
+  useEffect(() => {
+    uniforms.palette.value.forEach((x, i) => {
+      x.set(palette[i][0], palette[i][1], palette[i][2]);
+    });
+  }, [palette]);
+
   return (
     <div className="flex flex-col gap-6">
+      <div className="flex flex-row gap-2 justify-end">
+        <Button
+          variant={"outline"}
+          onClick={() => {
+            updatePalette((x) => {
+              for (let i = 0; i < x.length; i++) {
+                for (let ii = 0; ii < x[i].length; ii++) {
+                  const r = Math.round(Math.random() * 100) / 100;
+                  x[i][ii] = r;
+                }
+              }
+            });
+          }}
+        >
+          <i className="icon-[ri--dice-line] mr-2" />
+          <div>Randomize</div>
+        </Button>
+      </div>
       <Shader
         frag={frag}
         className="h-[10svh] rounded-lg overflow-hidden sticky md:relative top-[80px] md:top-0 z-[20] border-none"
@@ -169,7 +192,6 @@ export const PaletteEditor = function () {
                     updatePalette((x) => {
                       const newValue = parseFloat(e.target.value);
                       x[i][ii] = newValue;
-                      uniforms.palette.value[i].setComponent(ii, newValue);
                     });
                   }}
                 />
@@ -184,7 +206,6 @@ export const PaletteEditor = function () {
                     updatePalette((x) => {
                       const newValue = parseFloat(e.target.value);
                       x[i][ii] = newValue;
-                      uniforms.palette.value[i].setComponent(ii, newValue);
                     });
                   }}
                 />

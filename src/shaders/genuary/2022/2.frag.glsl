@@ -1,24 +1,27 @@
+/*
+Dithering
+created for genuary 2022
+updated 2025
+*/
+
 uniform float time;
 uniform float seed;
 uniform vec2 resolution;
-uniform vec2 cursor;
-uniform vec2 scroll;
-uniform float transition;
 
-#define PATTERN_TIME_SCALE .8
-#define LED_SIZE 2.
+#define PATTERN_TIME_SCALE .3
 
-int octaves=10;
-vec3[7]palette=vec3[](
-  vec3(.7,.3,.3),
-  vec3(.3,.7,.3),
-  vec3(.3,.3,.7),
-  vec3(.7,.7,.3),
-  vec3(.3,.7,.7),
-  vec3(.1,.1,.2),
-  vec3(.2,.2,.3)
-);
-int paletteSize=7;
+int octaves=3;
+
+// https://www.stevenfrady.com/tools/palette?p=[[0.35,0.74,0.44],[0.4,1,1],[0.61,0.3,0.48],[1,0.24,0.08]]
+vec3 palette(float t){
+  vec3 a=vec3(0.35,0.74,0.44);
+  vec3 b=vec3(0.4,1,1);
+  vec3 c=vec3(0.61,0.3,0.48);
+  vec3 d=vec3(1,0.24,0.08);
+  return a+b*cos(6.28318*(c*t+d));
+}
+
+float paletteSize = 32.;
 
 float random(in vec2 st){
   return fract(sin(dot(st.xy,vec2(12.9898,78.233)))*43758.5453123);
@@ -31,132 +34,91 @@ float perlin(in vec2 p){//or maybe not perlin idunno
   
   float res=mix(
     mix(random(ip),random(ip+vec2(1.,0.)),u.x),
-    mix(random(ip+vec2(0.,1.)),random(ip+vec2(1.,1.)),u.x),u.y);
+    mix(random(ip+vec2(0.,1.)),random(ip+vec2(1.,1.)),u.x),u.y
+  );
     
-    return res*res;
+  return res*res;
+}
+  
+float fbm(in vec2 st){
+  float value=0.;
+  float amp=.6;
+  float freq=0.;
+  
+  for(int i=0;i<octaves;i++){
+    value+=amp*perlin(st);
+    st*=2.1;
+    amp*=.35;
   }
+  return value;
+}
+
+vec3 rgbToHsl(vec3 c){
+  vec4 K=vec4(0.,-1./3.,2./3.,-1.);
+  vec4 p=mix(vec4(c.bg,K.wz),vec4(c.gb,K.xy),step(c.b,c.g));
+  vec4 q=mix(vec4(p.xyw,c.r),vec4(c.r,p.yzx),step(p.x,c.r));
   
-  float fbm(in vec2 st){
-    float value=0.;
-    float amp=.6;
-    float freq=0.;
-    
-    for(int i=0;i<octaves;i++){
-      value+=amp*perlin(st);
-      st*=2.1;
-      amp*=.35;
-    }
-    return value;
-  }
+  float d=q.x-min(q.w,q.y);
+  float e=1.e-10;
+  return vec3(abs(q.z+(q.w-q.y)/(6.*d+e)),d/(q.x+e),q.x);
+}
+
+vec3 hslToRgb(vec3 c){
+  vec4 K=vec4(1.,2./3.,1./3.,3.);
+  vec3 p=abs(fract(c.xxx+K.xyz)*6.-K.www);
+  return c.z*mix(K.xxx,clamp(p-K.xxx,0.,1.),c.y);
+}
+
+float pattern(in vec2 p){
+  float f=0.;
+  vec2 q=vec2(
+    fbm(p+time*PATTERN_TIME_SCALE*.2+vec2(0.)),
+    fbm(p+time*PATTERN_TIME_SCALE*.3+vec2(2.4,4.8))
+  );
+  vec2 r=vec2(
+    fbm(q+time*PATTERN_TIME_SCALE*.3+4.*q+vec2(3.,9.)),
+    fbm(q+time*PATTERN_TIME_SCALE*.2+8.*q+vec2(2.4,8.4))
+  );
+  f=fbm(p+r*2.+time*.09);
+  return f;
+}
+
+float indexValue(vec2 p){
+  float x=mod(p.x,2.);
+  float y=mod(p.y,2.);
+  return step(1., min(x, y));
+}
+
+vec4 dither(vec4 color, vec2 uv){
+  vec3 hsl=rgbToHsl(color.rgb);
   
-  vec3 rgbToHsl(vec3 c){
-    vec4 K=vec4(0.,-1./3.,2./3.,-1.);
-    vec4 p=mix(vec4(c.bg,K.wz),vec4(c.gb,K.xy),step(c.b,c.g));
-    vec4 q=mix(vec4(p.xyw,c.r),vec4(c.r,p.yzx),step(p.x,c.r));
-    
-    float d=q.x-min(q.w,q.y);
-    float e=1.e-10;
-    return vec3(abs(q.z+(q.w-q.y)/(6.*d+e)),d/(q.x+e),q.x);
-  }
+  float a = fract(floor(hsl.x * paletteSize) / paletteSize);
+  float b = fract(ceil(hsl.x * paletteSize) / paletteSize);
+
+  vec3 col = mix(
+    palette(fract(a)),
+    palette(fract(b)),
+    step(0.5, indexValue(gl_FragCoord.xy))
+  );
   
-  vec3 hslToRgb(vec3 c){
-    vec4 K=vec4(1.,2./3.,1./3.,3.);
-    vec3 p=abs(fract(c.xxx+K.xyz)*6.-K.www);
-    return c.z*mix(K.xxx,clamp(p-K.xxx,0.,1.),c.y);
-  }
+  return vec4(col * pow(length(col), .1), 1.);
+}
+
+void show(inout vec4 col,inout vec2 uv){
+  float r=pattern(uv/94.+3825.235);
+  float g=pattern(uv/87.-23.253);
+  float b=pattern(uv/93.+2353.2);
+  col=vec4(vec3(r,g,b),1.);
+}
+
+void main(){
+  vec4 col=vec4(0.,0.,0.,1.);
+  vec2 uv=gl_FragCoord.xy;
+  uv -= 0.5*resolution;
+  uv *= 0.5;
   
-  float pattern(in vec2 p){
-    float f=0.;
-    vec2 q=vec2(
-      fbm(p+time*PATTERN_TIME_SCALE*.2+vec2(0.)),
-      fbm(p+time*PATTERN_TIME_SCALE*.3+vec2(2.4,4.8))
-    );
-    vec2 r=vec2(
-      fbm(q+time*PATTERN_TIME_SCALE*.3+4.*q+vec2(3.,9.)),
-      fbm(q+time*PATTERN_TIME_SCALE*.2+8.*q+vec2(2.4,8.4))
-    );
-    f=fbm(p+r*2.+time*.09);
-    return f;
-  }
+  show(col,uv);
+  col = dither(col, uv);
   
-  const float indexMatrix[4]=float[](0.,8.,
-  12.,4.);
-  
-  float indexValue(){
-    float x=mod(gl_FragCoord.x,2.);
-    float y=mod(gl_FragCoord.y,2.);
-    return indexMatrix[int(x+y*2.)]/4.;
-  }
-  
-  float hueDistance(float h1,float h2){
-    float diff=abs((h1-h2));
-    return min(abs((1.-diff)),diff);
-  }
-  
-  vec3[2]closestColors(float hue){
-    vec3 closest=vec3(-2.,0.,0.);
-    vec3 secondClosest=vec3(-2.,0.,0.);
-    
-    vec3 temp;
-    for(int i=0;i<paletteSize;++i){
-      temp=rgbToHsl(palette[i]);
-      float tempDistance=hueDistance(temp.x,hue);
-      if(tempDistance<hueDistance(closest.x,hue)){
-        secondClosest=closest;
-        closest=temp;
-      }else{
-        if(tempDistance<hueDistance(secondClosest.x,hue)){
-          secondClosest=temp;
-        }
-      }
-    }
-    
-    return vec3[2](
-      closest,secondClosest
-    );;
-  }
-  
-  vec3 dither(vec3 color){
-    vec3 hsl=rgbToHsl(color);
-    vec3[2]cs=closestColors(hsl.x);
-    float d=indexValue();
-    float hueDiff=hueDistance(hsl.x,cs[0].x)/hueDistance(cs[1].x,cs[0].x);
-    return hslToRgb(hueDiff<d?cs[0]:cs[1]);
-  }
-  
-  void show(inout vec4 col,inout vec2 uv){
-    float r=pattern(uv/94.+3825.235);
-    float g=pattern(uv/87.-23.253);
-    float b=pattern(uv/93.+2353.2);
-    col=vec4(vec3(r,g,b),1.);
-  }
-  
-  void dither(inout vec4 col,inout vec2 uv){
-    vec2 pixel=mod(floor(uv/LED_SIZE),8.)/8.;
-    float factor=1.3;
-    vec3 oCol=col.rgb;
-    
-    //oCol = floor(col.rgb * factor + vec3(0.5)) * factor;
-    oCol=dither(oCol);
-    
-    col=vec4(oCol,1.);
-  }
-  
-  void main(){
-    vec2 aspect=vec2(1.,resolution.y/resolution.x);
-    
-    vec4 col=vec4(0.,0.,0.,1.);
-    vec2 uv=gl_FragCoord.xy;
-    
-    show(col,uv);
-    dither(col,uv);
-    
-    // uv /= resolution.xy; //scale
-    // uv -= vec2(0.5); //translate
-    // uv *= aspect; //apply aspect
-    
-    //show(col, uv);
-    
-    gl_FragColor=col;
-  }
-  
+  gl_FragColor=col;
+}
