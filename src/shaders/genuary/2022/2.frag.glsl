@@ -7,21 +7,31 @@ updated 2025
 uniform float time;
 uniform float seed;
 uniform vec2 resolution;
+uniform vec2 pointer;
 
-#define PATTERN_TIME_SCALE .3
+#define PATTERN_TIME_SCALE.3
 
-int octaves=3;
+int octaves=12;
 
-// https://www.stevenfrady.com/tools/palette?p=[[0.35,0.74,0.44],[0.4,1,1],[0.61,0.3,0.48],[1,0.24,0.08]]
-vec3 palette(float t){
-  vec3 a=vec3(0.35,0.74,0.44);
-  vec3 b=vec3(0.4,1,1);
-  vec3 c=vec3(0.61,0.3,0.48);
-  vec3 d=vec3(1,0.24,0.08);
+// https://www.stevenfrady.com/tools/palette?p=[[0.17,0.08,0.1],[0.71,0.88,0.85],[0.94,0.42,0.02],[0.96,0.17,0.5]]
+vec3 warPalette(float t){
+  vec3 a=vec3(.17,.08,.1);
+  vec3 b=vec3(.71,.88,.85);
+  vec3 c=vec3(.94,.42,.02);
+  vec3 d=vec3(.96,.17,.5);
   return a+b*cos(6.28318*(c*t+d));
 }
 
-float paletteSize = 32.;
+// https://www.stevenfrady.com/tools/palette?p=[[0.17,0.08,0.1],[0.71,0.88,0.85],[0.94,0.42,0.02],[0.96,0.17,0.5]]
+vec3 lovePalette(float t){
+  vec3 a=vec3(.35,.74,.44);
+  vec3 b=vec3(.4,1,1);
+  vec3 c=vec3(.61,.3,.48);
+  vec3 d=vec3(1,.24,.08);
+  return a+b*cos(6.28318*(c*t+d));
+}
+
+float paletteSize=16.;
 
 float random(in vec2 st){
   return fract(sin(dot(st.xy,vec2(12.9898,78.233)))*43758.5453123);
@@ -36,10 +46,10 @@ float perlin(in vec2 p){//or maybe not perlin idunno
     mix(random(ip),random(ip+vec2(1.,0.)),u.x),
     mix(random(ip+vec2(0.,1.)),random(ip+vec2(1.,1.)),u.x),u.y
   );
-    
+  
   return res*res;
 }
-  
+
 float fbm(in vec2 st){
   float value=0.;
   float amp=.6;
@@ -86,22 +96,30 @@ float pattern(in vec2 p){
 float indexValue(vec2 p){
   float x=mod(p.x,2.);
   float y=mod(p.y,2.);
-  return step(1., min(x, y));
+  return step(1.,min(x,y));
 }
 
-vec4 dither(vec4 color, vec2 uv){
+vec4 dither(vec4 color,vec2 uv){
   vec3 hsl=rgbToHsl(color.rgb);
   
-  float a = fract(floor(hsl.x * paletteSize) / paletteSize);
-  float b = fract(ceil(hsl.x * paletteSize) / paletteSize);
-
-  vec3 col = mix(
-    palette(fract(a)),
-    palette(fract(b)),
-    step(0.5, indexValue(gl_FragCoord.xy))
+  float a=fract(floor(hsl.x*paletteSize)/paletteSize);
+  float b=fract(ceil(hsl.x*paletteSize)/paletteSize);
+  
+  vec3 col=mix(
+    mix(
+      lovePalette(fract(a)),
+      lovePalette(fract(b)),
+      step(.5,indexValue(gl_FragCoord.xy))
+    ),
+    mix(
+      warPalette(fract(a)),
+      warPalette(fract(b)),
+      step(.5,indexValue(gl_FragCoord.xy))
+    ),
+    smoothstep(.1,.9,pointer.x/resolution.x)
   );
   
-  return vec4(col * pow(length(col), .1), 1.);
+  return vec4(col*pow(length(col),.1),1.);
 }
 
 void show(inout vec4 col,inout vec2 uv){
@@ -114,11 +132,11 @@ void show(inout vec4 col,inout vec2 uv){
 void main(){
   vec4 col=vec4(0.,0.,0.,1.);
   vec2 uv=gl_FragCoord.xy;
-  uv -= 0.5*resolution;
-  uv *= 0.5;
+  uv-=.5*resolution;
+  uv*=.5;
   
   show(col,uv);
-  col = dither(col, uv);
+  col=dither(col,uv);
   
   gl_FragColor=col;
 }
