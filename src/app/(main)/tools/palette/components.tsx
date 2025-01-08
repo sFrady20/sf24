@@ -22,6 +22,10 @@ import { persist } from "zustand/middleware";
 import { Button } from "@/components/ui/button";
 import { immer } from "zustand/middleware/immer";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import {
+  CopyToClipboard,
+  CopyToClipboardIcon,
+} from "@/components/copy-to-clipboard";
 
 /*
 vec3 a=vec3(0,0.21,0.17);
@@ -169,11 +173,6 @@ export const PaletteEditor = function () {
           <div>Randomize</div>
         </Button>
       </div>
-      <Shader
-        frag={frag}
-        className="h-[10svh] rounded-lg overflow-hidden sticky md:relative top-[80px] md:top-0 z-[20] border-none"
-        uniforms={uniforms}
-      />
       <div className="flex flex-col md:flex-row gap-4">
         {new Array(3).fill("").map((x, ii) => (
           <div
@@ -214,6 +213,11 @@ export const PaletteEditor = function () {
           </div>
         ))}
       </div>
+      <Shader
+        frag={frag}
+        className="h-[10svh] rounded-lg overflow-hidden sticky md:relative top-[80px] md:top-0 z-[20] border-none"
+        uniforms={uniforms}
+      />
     </div>
   );
 };
@@ -251,19 +255,28 @@ export const PaletteExamples = function () {
 export const PaletteExport = function () {
   const { palette } = useContext(PaletteToolContext);
 
-  return (
-    <Code
-      language="glsl"
-      className="p-4 bg-foreground/10 rounded"
-    >{`// https://www.stevenfrady.com/tools/palette?p=${JSON.stringify(
-      palette
-    )}\nvec3 palette(float t){
+  const code = `// https://www.stevenfrady.com/tools/palette?p=${JSON.stringify(
+    palette
+  )}\nvec3 palette(float t){
   vec3 a=vec3(${palette[0][0]},${palette[0][1]},${palette[0][2]});
   vec3 b=vec3(${palette[1][0]},${palette[1][1]},${palette[1][2]});
   vec3 c=vec3(${palette[2][0]},${palette[2][1]},${palette[2][2]});
   vec3 d=vec3(${palette[3][0]},${palette[3][1]},${palette[3][2]});
   return a+b*cos(6.28318*(c*t+d));
-}`}</Code>
+}`;
+
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="flex flex-row gap-2 justify-end">
+        <CopyToClipboard variant={"outline"} content={code}>
+          <CopyToClipboardIcon />
+          <div>Copy To Clipboard</div>
+        </CopyToClipboard>
+      </div>
+      <Code language="glsl" className="p-4 bg-foreground/10 rounded">
+        {code}
+      </Code>
+    </div>
   );
 };
 
