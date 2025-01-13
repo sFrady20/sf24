@@ -63,8 +63,8 @@ export const shaderData: Record<string, { title: string; subtitle: string }> = {
   //   title: "Landscape",
   //   subtitle: "Genuary 2025, Day 6",
   // },
-  // "genuary/2025/10": {
-  //   title: "TAU",
-  //   subtitle: "Genuary 2025, Day 10",
-  // },
+  "genuary/2025/10": {
+    title: "TAU",
+    subtitle: "Genuary 2025, Day 10",
+  },
 };

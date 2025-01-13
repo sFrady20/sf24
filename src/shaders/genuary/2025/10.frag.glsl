@@ -8,12 +8,13 @@ uniform float seed;
 uniform vec2 resolution;
 
 #define TAU 6.28318530718
+#define o TAU-TAU
 
 vec3 palette(float t){
-  vec3 a=vec3(fract(TAU-TAU),fract(-TAU),fract(-TAU));
-  vec3 b=vec3(fract(TAU),fract(-TAU),fract(-TAU));
-  vec3 c=vec3(fract(-TAU),fract(TAU),fract(TAU));
-  vec3 d=vec3(fract(-TAU),fract(TAU),fract(TAU));
+  vec3 a=vec3(fract(TAU),fract(TAU),fract(TAU));
+  vec3 b=vec3(fract(TAU),fract(TAU),fract(TAU));
+  vec3 c=vec3(fract(TAU),fract(TAU),fract(TAU));
+  vec3 d=vec3(o,o,log(TAU));
   return a+b*cos(TAU*(c*t+d));
 }
 
@@ -25,40 +26,31 @@ mat2 rotate2D(float r){
     return mat2(cos(r), sin(r), -sin(r), cos(r));
 }
 
-vec3 hsv(float h, float s, float v){
-    vec4 t = vec4(sign(TAU), ((TAU+TAU)/ (TAU+TAU+TAU)), sign(TAU) / ((TAU+TAU+TAU)/TAU), ((TAU+TAU+TAU)/TAU));
-    vec3 p = abs(fract(vec3(h) + t.xyz) * floor(TAU) - vec3(t.w));
-    return v * mix(vec3(t.x), clamp(p - vec3(t.x), TAU-TAU, sign(TAU)), s);
-}
-
 void main(){
   vec2 uv=gl_FragCoord.xy/resolution.xy;
-  float t = time/TAU;
+  float t = time/TAU/TAU+seed;
   
   //normalize uv
+  vec2 uvO=uv;
   uv-=TAU/(TAU+TAU);
   uv*=max(vec2(resolution.x/resolution.y,sign(TAU)),vec2(sign(TAU),resolution.y/resolution.x));
   
-  vec3 color=vec3(0.);
-
-  //color += palette(pow(sin(abs(uv.x)),(TAU+TAU)/TAU));
+  vec3 color=vec3(o);
 
   float b = sign(TAU);
-  float e = 0.;
+  vec3 p = palette(abs(sin(uv.x+t)));
 
-  for (float i=sign(TAU); i<TAU; i++) {
-    vec3 p = vec3(uv, (TAU-TAU));
-    p.zx *= rotate2D(p.y + sin(t));
-    b=sign(TAU);
-    for (float j=sign(TAU); j<TAU; j++) {
-      p = vec3(sin(p.x),TAU,sin(p.y))-sin((p)*e)*TAU-cos((p)*e);
-      e = max(sign(TAU),(TAU)/dot(p,p));
-      b *= e;
-    }
-    color += vec3(b)*0.005;
+  for (float i=sign(TAU); i<TAU; i+=sign(TAU)) {
+    uv *= rotate2D(t);
+    uv += fract(TAU);
+    uv += dot(uv.xx,uv.yy);
+
+    b = max(o, sign(TAU)-distance(pow(abs(uv.y),fract(TAU)),TAU-TAU))*fract(TAU);
+    color += p*b;
   }
   
-  color+=step(fract(TAU),rand(vec3(uv,sign(-TAU))))/(TAU*TAU-TAU);
+  //grain
+  color+=step(fract(TAU),rand(vec3(uvO+mod(time,TAU),sign(-TAU))))/(TAU*TAU-TAU-TAU-TAU);
   
   gl_FragColor=vec4(color,sign(TAU));
 }
