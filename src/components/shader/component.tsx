@@ -88,11 +88,11 @@ export const Shader = function (props: ShaderProps) {
       onPointerMove={(e) => {
         const bounds = (e.target as HTMLCanvasElement).getBoundingClientRect();
 
-        uniforms.pointer.value[0] = e.clientX + bounds.x;
+        uniforms.pointer.value[0] = e.clientX - bounds.x;
         uniforms.pointer.value[1] = -e.clientY + bounds.y + bounds.height;
 
         uniforms.pointers.value[e.pointerId - 1].set(
-          e.clientX + bounds.x,
+          e.clientX - bounds.x,
           -e.clientY + bounds.y + bounds.height
         );
       }}
