@@ -50,14 +50,22 @@ export function ShaderCard(props: ShaderCardProps) {
         onPointerLeave?.(e as any);
       }}
     >
-      {isIntersecting && (
-        <Shader
-          key="shader"
-          frag={frag}
-          paused={!autoplay && !isHovering}
-          className="absolute left-0 top-0 w-full h-full"
-        />
-      )}
+      <AnimatePresence>
+        {isIntersecting && (
+          <motion.div
+            key="shader"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <Shader
+              frag={frag}
+              paused={!autoplay && !isHovering}
+              className="absolute left-0 top-0 w-full h-full"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div className="flex flex-row absolute left-0 bottom-0 w-full items-center justify-between pointer-events-none p-4">
         <div className="flex flex-col">
           <div
