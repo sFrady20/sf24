@@ -1,5 +1,4 @@
 #pragma glslify:noise=require('../../includes/noise/3d')
-#pragma glslify:opRotate=require('../../includes/ops/rotate')
 
 /*
 Isometric Art (No vanishing points).
