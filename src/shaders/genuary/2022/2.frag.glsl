@@ -116,7 +116,7 @@ vec4 dither(vec4 color,vec2 uv){
       warPalette(fract(b)),
       step(.5,indexValue(gl_FragCoord.xy))
     ),
-    smoothstep(.1,.9,pointer.x/resolution.x)
+    smoothstep(-100.,100.,uv.x)
   );
   
   return vec4(col*pow(length(col),.1),1.);

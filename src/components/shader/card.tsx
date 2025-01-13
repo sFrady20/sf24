@@ -5,6 +5,8 @@ import { Shader } from "./component";
 import { Button } from "../ui/button";
 import { HTMLAttributes, useState } from "react";
 import { cn } from "@/utils/cn";
+import { AnimatePresence, motion } from "framer-motion";
+import { useIntersectionObserver } from "usehooks-ts";
 
 export interface ShaderCardProps extends HTMLAttributes<HTMLDivElement> {
   frag: string;
@@ -29,9 +31,12 @@ export function ShaderCard(props: ShaderCardProps) {
 
   const [isHovering, setHovering] = useState(false);
 
+  const { ref, isIntersecting } = useIntersectionObserver();
+
   return (
     <div
       {...rest}
+      ref={ref}
       className={cn(
         "col-span-1 cursor-crosshair overflow-hidden h-0 pb-[72%] relative rounded-none",
         className
@@ -45,11 +50,14 @@ export function ShaderCard(props: ShaderCardProps) {
         onPointerLeave?.(e as any);
       }}
     >
-      <Shader
-        frag={frag}
-        paused={!autoplay && !isHovering}
-        className="absolute left-0 top-0 w-full h-full"
-      />
+      {isIntersecting && (
+        <Shader
+          key="shader"
+          frag={frag}
+          paused={!autoplay && !isHovering}
+          className="absolute left-0 top-0 w-full h-full"
+        />
+      )}
       <div className="flex flex-row absolute left-0 bottom-0 w-full items-center justify-between pointer-events-none p-4">
         <div className="flex flex-col">
           <div

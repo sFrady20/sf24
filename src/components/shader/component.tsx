@@ -108,7 +108,8 @@ export const Shader = function (props: ShaderProps) {
               <shaderMaterial
                 fragmentShader={frag}
                 uniforms={uniforms}
-                onUpdate={() => {
+                onUpdate={() => {}}
+                onBeforeRender={() => {
                   if (firstRender) setFirstRender(false);
                 }}
               />
