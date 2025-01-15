@@ -17,7 +17,7 @@ export interface CodeExpanderProps extends HTMLAttributes<HTMLDivElement> {}
 
 export const CodeExpander = forwardRef<HTMLDivElement, CodeExpanderProps>(
   (props, ref) => {
-    const { children, className, ...rest } = props;
+    const { children, className, style, ...rest } = props;
 
     const [isExpanded, setExpanded] = useState(false);
 
@@ -25,15 +25,18 @@ export const CodeExpander = forwardRef<HTMLDivElement, CodeExpanderProps>(
       <div className="flex flex-col items-center">
         <div
           ref={ref}
-          data-open={isExpanded}
+          aria-expanded={isExpanded}
           {...rest}
           className={cn(
-            "max-h-[500px] overflow-hidden w-full relative",
-            isExpanded
-              ? "max-h-none"
-              : "after:absolute after:inset-0 after:bg-gradient-to-b after:from-[transparent] after:via-transparent after:to-[#011627]",
+            "max-h-[500px] overflow-hidden w-full relative aria-[expanded=true]:max-h-none",
             className
           )}
+          style={{
+            maskImage: isExpanded
+              ? undefined
+              : `linear-gradient(to bottom, black 60%, transparent 100%)`,
+            ...style,
+          }}
         >
           {children}
         </div>

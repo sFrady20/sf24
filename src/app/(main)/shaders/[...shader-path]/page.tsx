@@ -77,12 +77,12 @@ export default async function (props: {
   }
 
   return (
-    <>
+    <div className="relative">
       <Shader
         frag={typeof frag === "string" ? frag : ""}
-        className="h-[100svh]"
+        className="h-[100svh] sticky top-0"
       />
-      <div className="bg-[#011627] text-[white]">
+      <div className="bg-[#011627]/90 text-[white] relative z-[1]">
         <div className="container grid grid-cols-3 gap-x-20 gap-y-[60px] py-[100px]">
           <div className="col-span-3 xl:col-span-2 break-all ">
             <CodeExpander>
@@ -93,10 +93,6 @@ export default async function (props: {
           </div>
           <div className="col-span-1 row-start-1 xl:col-start-3">
             <div className="md:sticky top-[120px] flex flex-col items-start gap-2">
-              <RecordButton
-                canvasSelector={`canvas`}
-                filename={`${shaderPath.replaceAll("/", "-")}.webm`}
-              />
               <Button variant={"ghost"} className="gap-2" asChild>
                 <Link
                   href={`https://github.com/sFrady20/sf24/blob/main/src/shaders/${shaderPath}.frag.glsl`}
@@ -106,6 +102,16 @@ export default async function (props: {
                   <div>View source on GitHub</div>
                 </Link>
               </Button>
+              <Button variant={"ghost"} className="gap-2" asChild>
+                <Link href={`/shaders`}>
+                  <i className="icon-[ri--arrow-go-back-fill]" />
+                  <div>More shaders</div>
+                </Link>
+              </Button>
+              <RecordButton
+                canvasSelector={`canvas`}
+                filename={`${shaderPath.replaceAll("/", "-")}.webm`}
+              />
               <CastButton shaderPath={shaderPath}>
                 <div>Cast to ChromeCast</div>
               </CastButton>
@@ -117,16 +123,10 @@ export default async function (props: {
                 </Link>
               </Button>
               */}
-              <Button variant={"ghost"} className="gap-2" asChild>
-                <Link href={`/shaders`}>
-                  <i className="icon-[ri--arrow-go-back-fill]" />
-                  <div>More shaders</div>
-                </Link>
-              </Button>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
