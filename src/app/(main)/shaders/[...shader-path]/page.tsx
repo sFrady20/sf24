@@ -82,7 +82,7 @@ export default async function (props: {
         frag={typeof frag === "string" ? frag : ""}
         className="h-[100svh] sticky top-0"
       />
-      <div className="bg-[#011627]/90 text-[white] relative z-[1]">
+      <div className="bg-[#011627]/90 text-[white] relative z-[1] backdrop-blur-md">
         <div className="container grid grid-cols-3 gap-x-20 gap-y-[60px] py-[100px]">
           <div className="col-span-3 xl:col-span-2 break-all ">
             <CodeExpander>
