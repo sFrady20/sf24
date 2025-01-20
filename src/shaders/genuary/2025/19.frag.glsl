@@ -29,7 +29,7 @@ void main(){
   vec2 aspect = max(vec2(resolution.x/resolution.y,1.),vec2(1.,resolution.y/resolution.x));
   uv*=aspect;
   
-  float t = time * 0.4f + seed;
+  float t = time * 0.3f + seed;
 
   uv += 1./TILE/2.;
   vec2 id = floor(uv*TILE);
@@ -39,7 +39,7 @@ void main(){
 
   vec2 max = vec2(round(TILE/2.-2.)*aspect);
   if (id.x < max.x && id.y < max.y && id.x > -max.x && id.y > -max.y) {
-    vec2 rUv = opRotate(uv, id.x*2.*sin(t-abs(length(id))*0.05)+id.y*2.*cos(t), 0.5);
+    vec2 rUv = opRotate(uv, ((id.x)*2.*sin(t-abs(length(id))*0.05)+id.y*2.*cos(t)) * 0.2, 0.5);
     vec3 h = mix(vec3(0.), vec3(1.), smoothstep(0.5-AA, 0.5+AA, rUv.x));
     col = mix(h, col, smoothstep(0.4-AA/2., 0.4+AA/2., length(uv - vec2(0.5))));
     col = mix(palette(1.-abs(id.y*0.01)), col, smoothstep(0.3-AA/2., 0.3+AA/2., length(uv - vec2(0.5))));
