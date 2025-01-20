@@ -1,10 +1,10 @@
-#pragma glslify:noise=require('../../includes/noise/simplex-3d')
-#pragma glslify:sdBox=require('../../includes/sdf/2d/box')
-#pragma glslify:opRotate=require('../../includes/ops/rotate')
-
 /*
 Layers upon layers upon layers.
 */
+
+#pragma glslify:noise=require('../../includes/noise/simplex-3d')
+#pragma glslify:sdBox=require('../../includes/sdf/2d/box')
+#pragma glslify:opRotate=require('../../includes/ops/rotate')
 
 uniform float time;
 uniform float seed;

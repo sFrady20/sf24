@@ -2,13 +2,13 @@
 Exactly 42 lines of code.
 */
 
+#pragma glslify:noise=require('../../includes/noise/simplex-3d')
+
 uniform float time;
 uniform float seed;
 uniform vec2 resolution;
 
 const int LAYERS = 10;
-
-#pragma glslify:noise=require('../../includes/noise/simplex-3d')
 
 vec3 palette(float t){
   vec3 a=vec3(0.8,0.5,0.5);

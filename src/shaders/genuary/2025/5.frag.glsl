@@ -1,8 +1,8 @@
-#pragma glslify:noise=require('../../includes/noise/3d')
-
 /*
 Isometric Art (No vanishing points).
 */
+
+#pragma glslify:noise=require('../../includes/noise/3d')
 
 uniform float time;
 uniform float seed;
