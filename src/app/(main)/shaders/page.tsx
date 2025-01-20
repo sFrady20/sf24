@@ -16,7 +16,7 @@ export default async function () {
   );
 
   return (
-    <div className="grid grid-cols-3 w-full mt-[100px] md:mt-[132px]">
+    <div className="grid grid-cols-12 w-full mt-[100px] md:mt-[132px]">
       {Object.entries(shaderData)
         .reverse()
         .map(([shaderId, shader]) => (
@@ -25,7 +25,7 @@ export default async function () {
             title={shader.title}
             subtitle={shader.subtitle}
             shaderPath={shaderId}
-            className="col-span-3 md:col-span-1 relative"
+            className="col-span-12 md:col-span-6 xl:col-span-4 relative"
           />
         ))}
     </div>
