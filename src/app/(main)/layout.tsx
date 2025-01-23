@@ -13,7 +13,6 @@ import { MusicButton } from "@/components/music-button";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ColorSchemeToggle } from "@/components/mode-toggle";
 import { cookies } from "next/headers";
-import { Sunlight } from "@/components/sunlight";
 import maskStyles from "./mask.module.css";
 
 const socials = [
@@ -82,7 +81,7 @@ export default async function (props: {
                       className="rounded-full"
                       alt="Steven Frady"
                     />
-                    <h1>SF24</h1>
+                    <h1>SF25</h1>
                   </Link>
                 </Button>
               </div>

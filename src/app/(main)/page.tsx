@@ -19,7 +19,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Thanos } from "@/components/thanos";
 
 export default async function () {
   return (
